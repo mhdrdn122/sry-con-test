@@ -16,7 +16,7 @@ import Box from "./pages/super_admin/box/Box"
 import ContractPage from "./pages/super_admin/contract/ContractPage"
 import AddReservationPage from "./pages/super_admin/add_reservation/AddReservationPage"
 import ReportPage from "./pages/super_admin/report/ReportPage"
-import EmployeesActivitiesPage from "./pages/super_admin/employees_activities/employeesActivitiesPage"
+import EmployeesActivitiesPage from './pages/super_admin/employees_activities/EmployeesActivitiesPage'
 import { useContext } from "react"
 import { widthWindow } from "./Context/WindowWidthContext"
 // import { useWindowWidth } from "./Context/WindowWidthContext"
