@@ -37,7 +37,7 @@ const SuperAdminSidebar = () => {
   return (
     <Sidebar collapsed={isCollapsed} backgroundColor={`#fff`} rootStyles={{ minHeight: '100vh' }} rtl>
       <Menu>
-        <MenuItem icon={<MenuOutlinedIcon />} onClick={() => setIsCollapsed(!isCollapsed)} style={{ 
+        <MenuItem  icon={<MenuOutlinedIcon />} onClick={() => setIsCollapsed(screenWidth <= 766 ? isCollapsed : !isCollapsed)} style={{ 
           margin: '10px 0 20px', color: '#111' }} />
         {!isCollapsed && (
           <Box mb="25px" display="flex" justifyContent="center" alignItems="center">

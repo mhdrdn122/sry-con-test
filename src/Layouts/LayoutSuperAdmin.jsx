@@ -14,7 +14,7 @@ const LayoutSuperAdmin = () => {
             <SuperAdminSidebar />
 
             </div>
-        <main className='content p-2'>
+        <main className='content p-2'> 
             <Outlet />
 
           {/* <Container >
