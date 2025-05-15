@@ -7,7 +7,7 @@ const DateFilter = ({ value, setValue, name, label }) => {
         // focused
         // size="small"
         // margin="dense"
-        sx={{ mb: "20px", mr: "22px", bgcolor: "#FFF" }}
+        sx={{ mb: "20px", mr: "22px", bgcolor: "#FFF" , width:"100%" }}
       >
         {/* <InputLabel htmlFor={name}>{label}</InputLabel> */}
         <TextField
