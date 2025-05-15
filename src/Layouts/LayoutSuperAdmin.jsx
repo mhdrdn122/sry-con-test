@@ -14,10 +14,11 @@ const LayoutSuperAdmin = () => {
             <SuperAdminSidebar />
 
             </div>
-        <main className='content'>
-          <Container>
+        <main className='content p-2'>
             <Outlet />
-          </Container>    
+
+          {/* <Container >
+          </Container>     */}
         </main>
     </div>
   )

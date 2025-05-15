@@ -135,12 +135,12 @@ const ProfileDetails = () => {
   });
 
   return (
-    <StyledPaper elevation={3}>
+    <StyledPaper elevation={3} className='m-0'>
       <Typography
-        variant="h5"
+        variant="h6"
         gutterBottom
         align="center"
-        sx={{ fontWeight: 600, color: 'primary.main', mb: 4 }}
+        sx={{ fontWeight: 600, color: 'primary.main', mb: 4 , fontSize: '1.2rem' }}
       >
         تفاصيل الملف الشخصي
       </Typography>

@@ -117,7 +117,7 @@ const ModalAddReservation = ({show,handleClose}) => {
                 m="40px 0 0 0"
                 display="grid"
                 gap="30px"
-                gridTemplateColumns="repeat(4, 1fr)" // تعديل هنا لتكون 4 أعمدة
+                gridTemplateColumns="repeat(4, 1fr)" 
                 sx={{
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                 }}

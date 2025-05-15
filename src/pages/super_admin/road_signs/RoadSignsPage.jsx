@@ -5,8 +5,10 @@ import RoadSignsContainer from "../../../components/super_admin/road_signs/RoadS
 import SearchInput from "../../../utils/super_admin/SearchInput";
 import DateFilter from "../../../utils/super_admin/DateFilter";
 import { useSelector } from "react-redux";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import FiltersBar from "../../../components/super_admin/road_signs/FiltersContainer";
+import { TiFilter } from "react-icons/ti";
+import { CiFilter } from "react-icons/ci";
 
 const breadcrumbs = [
     {
@@ -20,6 +22,10 @@ const breadcrumbs = [
   
 const RoadSignsPage = () => {
     const [refresh, setRefresh] = useState(false)
+    const [showFilters, setShowFilters] = useState(false)
+
+    
+
     const [showAddRoadSigns, setShowAddRoadSigns] = useState(false);
     const [showAddReserveRoadSigns, setShowAddReserveRoadSigns] = useState(false);
     const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
@@ -46,6 +52,9 @@ const RoadSignsPage = () => {
       const handleCloseAddReserveRoadSigns = () => {
         setShowAddReserveRoadSigns(false);
       };
+      const toggleFilters = () => {
+        setShowFilters((prev) => !prev);
+      };
       
     return (
     <div>
@@ -62,7 +71,18 @@ const RoadSignsPage = () => {
 
 {/* <FiltersBar searchWord={searchWord}  setSearchWord={setSearchWord} city={setCity} status={setStatus}  startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} /> */}
 
-      <div className="w-100 flex flex-row-reverse flex-wrap justify-end gap-2  align-baseline items-center">
+  <Button
+        variant="contained"
+        color="primary"
+        className="me-5"
+        onClick={toggleFilters}
+        sx={{ marginBottom: "1rem" }}
+      >
+        {showFilters ? <TiFilter size={25}  />:<CiFilter size={22} />}
+      </Button>
+
+{
+  showFilters && (<div className="w-100  flex flex-row-reverse justify-center gap-2  align-baseline items-center">
             <SearchInput
                 searchWord={searchWord}
                 setSearchWord={setSearchWord}
@@ -135,7 +155,9 @@ const RoadSignsPage = () => {
                 name="endDate"
                 label="End Date" 
             />
-      </div>
+      </div> )
+}
+      
 
         <RoadSignsContainer 
             show={showAddRoadSigns} handleClose={handleCloseAddRoadSigns} refresh={refresh}

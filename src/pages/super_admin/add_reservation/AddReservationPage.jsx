@@ -67,7 +67,7 @@ const AddReservationPage = () => {
 
       {/* Render the filters only if `showFilters` is true */}
       {showFilters && (
-        <div className="w-100 flex flex-row-reverse justify-around align-baseline items-center">
+        <div className="w-100 flex flex-row-reverse flex-wrap justify-around align-baseline items-center">
           <SearchInput searchWord={searchWord} setSearchWord={setSearchWord} />
           
           {/* City Filter Dropdown */}

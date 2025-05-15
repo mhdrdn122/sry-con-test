@@ -179,7 +179,7 @@ const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate,
 
   return (
     <div>
-      <div className='container p-0 text-center'>
+      <div className=' p-0 text-center'>
 {
   <RoadSignsTable roadSigns={roadSigns} isLoading={isFetching} />
 }

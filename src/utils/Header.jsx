@@ -50,7 +50,7 @@ const Header = ({
       >
         <Typography
           variant={isSmallDevice ? "h6" : "h4"}
-          sx={{ fontWeight: "700", margin: "0" }}
+          sx={{ fontWeight: "700", margin: "0"  }}
           gutterBottom
         >
           {heading}
