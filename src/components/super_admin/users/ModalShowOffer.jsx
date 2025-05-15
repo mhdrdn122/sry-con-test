@@ -96,9 +96,9 @@ const ModalShowOffer = ({show,handleClose}) => {
               handleClose();
               formik.resetForm();
             }}
+            style={{backgroundColor:"rgb(117 32 40)"}}
           >
-            تجاهل
-          </Button>
+            تجاهل </Button>
 
           <Button
             variant="contained"
@@ -117,4 +117,4 @@ const ModalShowOffer = ({show,handleClose}) => {
     </Modal>  )
 }
 
-export default ModalShowOffer
+export default ModalShowOffer 

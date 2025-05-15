@@ -232,9 +232,9 @@ const ModalEditUser = ({ show, handleClose }) => {
               handleClose();
               formik.resetForm();
             }}
+            style={{backgroundColor:"rgb(117 32 40)"}}
           >
-            تجاهل
-          </Button>
+            تجاهل </Button>
 
           {isLoadingAdd === true ? (
             <Button variant="contained" className="">

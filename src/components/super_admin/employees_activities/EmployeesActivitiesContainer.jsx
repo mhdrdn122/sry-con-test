@@ -3,12 +3,10 @@ import React, { useState } from 'react';
 import { useGetEmployeesActivitiesQuery } from '../../../redux/slice/super_admin/employees_activities/employees_activitiesApi';
 import { IconButton, Tooltip } from "@mui/material";
 import { FaEye } from 'react-icons/fa';
-import ModalShowActivities from './ModalShowActivities';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import DynamicTable from '../road_signs/DynamicTable';
 import { tableColumns } from '../../Table/tableColumns';
 import { tableActions } from '../../Table/tableActions';
-// import DynamicTable from './DynamicTable';
+import DynamicTable from '../../Table/DynamicTable';
 
 const EmployeesActivitiesContainer = ({ refresh }) => {
   const [page, setPage] = useState(1);
@@ -68,11 +66,6 @@ const EmployeesActivitiesContainer = ({ refresh }) => {
         loading={loadingData}
         error={error?.data?.message}
         dir="rtl"
-      />
-      <ModalShowActivities
-        show={showActivities}
-        handleClose={handleCloseShowActivities}
-        activity={selectedActivity}
       />
     </div>
   );

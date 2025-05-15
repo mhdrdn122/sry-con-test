@@ -12,11 +12,9 @@ import ModalDelete from '../../../utils/ModalDelete';
 import ModalAddCoding from './ModalAddCoding';
 import ModalEditCoding from './ModalEditCoding';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import DynamicTable from '../road_signs/DynamicTable';
 import { tableColumns } from '../../Table/tableColumns';
 import { tableActions } from '../../Table/tableActions';
-// import DynamicTable from './DynamicTable';
-
+import DynamicTable from '../../Table/DynamicTable';
 const CodingContainer = ({ show, handleClose, refresh }) => {
   const [page, setPage] = useState(1);
   const [showEdit, setShowEidt] = useState(false);

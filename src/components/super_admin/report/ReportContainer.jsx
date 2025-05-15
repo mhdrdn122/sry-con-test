@@ -12,10 +12,9 @@ import { useMediaQuery } from '@uidotdev/usehooks';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import SearchInput from '../../../utils/super_admin/SearchInput';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import DynamicTable from '../road_signs/DynamicTable';
 import { tableColumns } from '../../Table/tableColumns';
-import RoadSignsTable from '../road_signs/RoadSignsTable';
-// import DynamicTable from './DynamicTable';
+import DynamicTable from '../../Table/DynamicTable';
+import ModalTable from '../../Table/ModalTable';
 
 const ReportContainer = () => {
   const [page, setPage] = useState(1);
@@ -265,7 +264,7 @@ const ReportContainer = () => {
         </Button>
       </Box>
 
-      <RoadSignsTable data={reportCache.data?.coding} />
+      <ModalTable data={reportCache.data?.coding} />
 
       <div className='w-100'>
         <SearchInput

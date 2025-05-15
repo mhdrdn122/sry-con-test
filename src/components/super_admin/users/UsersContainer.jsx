@@ -22,7 +22,7 @@ import ModalShowOffer from './ModalShowOffer';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import { RiContractLine } from "react-icons/ri";
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import DynamicTable from '../road_signs/DynamicTable';
+import DynamicTable from '../../Table/DynamicTable'
 import GenericModal from '../../../utils/GenericModal';
 import ModalShow from '../../../utils/GenericModal';
 // import DynamicTable from './DynamicTable';

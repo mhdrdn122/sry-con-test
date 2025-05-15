@@ -11,16 +11,15 @@ import ModalDelete from '../../../utils/ModalDelete';
 import { useDeleteRoadSignMutation, useGetRoadSignsQuery } from '../../../redux/slice/super_admin/road_signs/roadSignsApi';
 import ModalAddRoadSign from './ModalAddRoadSign';
 import ModalEditRoadSign from './ModalEditRoadSign';
-import ModalShowRoadSign from './ModalShowRoadSign';
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { addSign, removeSign } from '../../../redux/slice/super_admin/road_signs/selectedSignsSlice';
 import ModalAddReserveRoadSign from './ModalAddReserveRoadSign';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import DynamicTable from './DynamicTable';
-import RoadSignsTable from './RoadSignsTable';
 import ModalShow from '../../../utils/GenericModal';
+import DynamicTable from '../../Table/DynamicTable';
+import ModalTable from '../../Table/ModalTable';
 
 const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate,
   showAddReserve, handleCloseAddReserve, city, status
@@ -182,7 +181,7 @@ const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate,
     <div>
       <div className=' p-0 text-center'>
 {
-  <RoadSignsTable data={roadSigns?.coding_count} isLoading={isFetching} />
+  <ModalTable data={roadSigns?.coding_count} isLoading={isFetching} />
 }
       </div>
       

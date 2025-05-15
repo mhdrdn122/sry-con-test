@@ -4,7 +4,7 @@ import { useGetBoxQuery } from '../../../redux/slice/super_admin/box/boxApi';
 import { Spinner } from 'react-bootstrap';
 import Header from '../../../utils/Header';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import DynamicTable from '../../../components/super_admin/road_signs/DynamicTable';
+import DynamicTable from '../../../components/Table/DynamicTable';
 // import DynamicTable from './DynamicTable';
 
 const Box = () => {

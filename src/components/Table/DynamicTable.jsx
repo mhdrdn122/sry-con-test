@@ -23,6 +23,7 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   background: 'linear-gradient(145deg, #ffffff, #f5f7fa)',
   margin: '0 auto',
   overflowX: 'auto',
+  borderRadius : "12px" ,
   [theme.breakpoints.down('sm')]: {
     margin: '0 8px',
   },
@@ -31,11 +32,14 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
 const StyledTable = styled(Table)(({ theme }) => ({
   minWidth: 650,
   '& .MuiTableCell-head': {
-    background: theme.palette.primary.main,
+    // background: theme.palette.primary.main,
+    background: "#dc3545",
+
     color: theme.palette.common.white,
     fontWeight: 600,
     padding: '12px 16px',
-    borderBottom: `2px solid ${theme.palette.primary.dark}`,
+    // borderBottom: `2px solid ${theme.palette.primary.dark}`,
+
   },
   '& .MuiTableCell-body': {
     padding: '12px 16px',
@@ -72,7 +76,7 @@ const ErrorMessage = styled(Typography)(({ theme }) => ({
 
 const NoDataMessage = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
-  padding: theme.spacing(4),
+  padding: theme.spacing(4), 
   color: theme.palette.text.secondary,
   fontWeight: 500,
 }));

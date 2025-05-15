@@ -10,13 +10,11 @@ import ModalDelete from '../../../utils/ModalDelete';
 import { useDeleteReservationMutation, useGetReservationsQuery } from '../../../redux/slice/super_admin/reservations/reservationsApi';
 import ModalAddReservation from './ModalAddReservation';
 import ModalEditReservation from './ModalEditReservation';
-import ModalShowReservation from './ModalShowReservation';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import DynamicTable from '../road_signs/DynamicTable';
 import { tableColumns } from '../../Table/tableColumns';
 import { tableActions } from '../../Table/tableActions';
 import ModalShow from '../../../utils/GenericModal';
-// import DynamicTable from './DynamicTable';
+import DynamicTable from '../../Table/DynamicTable';
 
 const ReservationsContainer = ({ show, handleClose, refresh, searchWord }) => {
   const [page, setPage] = useState(1);

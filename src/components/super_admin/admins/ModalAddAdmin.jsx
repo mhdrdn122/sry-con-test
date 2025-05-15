@@ -172,9 +172,9 @@ const ModalAddAdmin = ({ show, handleClose }) => {
               handleClose();
               formik.resetForm();
             }}
+            style={{backgroundColor:"rgb(117 32 40)"}}
           >
-            تجاهل
-          </Button>
+            تجاهل </Button>
 
           {isLoadingAdd === true ? (
             <Button variant="contained" className="">
@@ -185,7 +185,7 @@ const ModalAddAdmin = ({ show, handleClose }) => {
               ></Spinner>
             </Button>
           ) : (
-            <Button variant="contained" type="submit" className="">
+            <Button variant="contained" style={{backgroundColor:"#dc3545"}} type="submit" className="">
                     حفظ
               </Button>
           )}

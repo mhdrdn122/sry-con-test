@@ -1,41 +1,28 @@
 // AddReservationContainer.js
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
-  Button,
   FormControl,
   FormHelperText,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   TextField,
-  Typography,
-  useMediaQuery,
-  useTheme,
-  Tooltip,
-  IconButton
-} from "@mui/material";
-import { Spinner } from "react-bootstrap";
-import { FaEye } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+  useMediaQuery
+} from "@mui/material"; 
+import { FaEye } from "react-icons/fa"; 
 import { ToastContainer } from "react-toastify";
-import notify from "../../../utils/useNotification";
-import Pagination from "../../../utils/Pagination";
-import ModalDelete from '../../../utils/ModalDelete';
+import notify from "../../../utils/useNotification"; 
 import { useDeleteRoadSignMutation, useGetRoadSignsQuery } from '../../../redux/slice/super_admin/road_signs/roadSignsApi';
-import { removeSign, setSelectedSigns, updateSelectedSigns, updateSignValue, addSign } from "../../../redux/slice/super_admin/road_signs/selectedSignsSlice";
+import { removeSign, addSign } from "../../../redux/slice/super_admin/road_signs/selectedSignsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModalCart from "./ModalCart";
 import { useGetUsersQuery } from '../../../redux/slice/super_admin/users/usersApi';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import ModalShowRoadSign from './ModalShowRoadSign';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import DynamicTable from '../road_signs/DynamicTable';
 import ModalShow from '../../../utils/GenericModal';
-// import DynamicTable from './DynamicTable';
-
+import DynamicTable from '../../Table/DynamicTable'
 const AddReservationContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate,
   showAddReserve, handleCloseAddReserve, city, status
 }) => {

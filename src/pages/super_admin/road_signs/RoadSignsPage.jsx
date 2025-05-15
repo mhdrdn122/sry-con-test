@@ -6,72 +6,70 @@ import SearchInput from "../../../utils/super_admin/SearchInput";
 import DateFilter from "../../../utils/super_admin/DateFilter";
 import { useSelector } from "react-redux";
 import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import FiltersBar from "../../../components/super_admin/road_signs/FiltersContainer";
 import { TiFilter } from "react-icons/ti";
 import { CiFilter } from "react-icons/ci";
 
 const breadcrumbs = [
-    {
-      label: "الرئيسية",
-      to: "/super_admin",
-    },
-    {
-      label: "اللوحات الطرقية",
-    },
-  ].reverse();
-  
+  {
+    label: "الرئيسية",
+    to: "/super_admin",
+  },
+  {
+    label: "اللوحات الطرقية",
+  },
+].reverse();
+
 const RoadSignsPage = () => {
-    const [refresh, setRefresh] = useState(false)
-    const [showFilters, setShowFilters] = useState(false)
+  const [refresh, setRefresh] = useState(false)
+  const [showFilters, setShowFilters] = useState(false)
 
-    
 
-    const [showAddRoadSigns, setShowAddRoadSigns] = useState(false);
-    const [showAddReserveRoadSigns, setShowAddReserveRoadSigns] = useState(false);
-    const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
-    const isSuperAdmin = superAdminInfo?.role === "super";
 
-    const selectedSigns = useSelector((state) => state.selectedSigns.selectedSigns);
+  const [showAddRoadSigns, setShowAddRoadSigns] = useState(false);
+  const [showAddReserveRoadSigns, setShowAddReserveRoadSigns] = useState(false);
+  const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
+  const isSuperAdmin = superAdminInfo?.role === "super";
 
-    const [searchWord, setSearchWord] = useState("");
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [city, setCity] = useState('');
-    const [status, setStatus] = useState('');
+  const selectedSigns = useSelector((state) => state.selectedSigns.selectedSigns);
 
-    const handleShowAddRoadSigns = () => {
-        setShowAddRoadSigns(true);
-      };
-      const handleCloseAddRoadSigns = () => {
-        setShowAddRoadSigns(false);
-      };
+  const [searchWord, setSearchWord] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [city, setCity] = useState('');
+  const [status, setStatus] = useState('');
 
-    const handleShowAddReserveRoadSigns = () => {
-        setShowAddReserveRoadSigns(true);
-      };
-      const handleCloseAddReserveRoadSigns = () => {
-        setShowAddReserveRoadSigns(false);
-      };
-      const toggleFilters = () => {
-        setShowFilters((prev) => !prev);
-      };
-      
-    return (
+  const handleShowAddRoadSigns = () => {
+    setShowAddRoadSigns(true);
+  };
+  const handleCloseAddRoadSigns = () => {
+    setShowAddRoadSigns(false);
+  };
+
+  const handleShowAddReserveRoadSigns = () => {
+    setShowAddReserveRoadSigns(true);
+  };
+  const handleCloseAddReserveRoadSigns = () => {
+    setShowAddReserveRoadSigns(false);
+  };
+  const toggleFilters = () => {
+    setShowFilters((prev) => !prev);
+  };
+
+  return (
     <div>
-        <Breadcrumb breadcrumbs={breadcrumbs} />
-        <Header 
-          heading={"اللوحات الطرقية"}
-          buttonText={isSuperAdmin ? "إضافة" : undefined}
-          onButtonClick={handleShowAddRoadSigns}
-          // onButtonClickAddReserve={handleShowAddReserveRoadSigns}
-          setRefresh={setRefresh}
-          refresh={refresh} 
-          selectedSigns={selectedSigns}
-          />
+      <Breadcrumb breadcrumbs={breadcrumbs} />
+      <Header
+        heading={"اللوحات الطرقية"}
+        buttonText={isSuperAdmin ? "إضافة" : undefined}
+        onButtonClick={handleShowAddRoadSigns}
+        // onButtonClickAddReserve={handleShowAddReserveRoadSigns}
+        setRefresh={setRefresh}
+        refresh={refresh}
+        selectedSigns={selectedSigns}
+      />
 
-{/* <FiltersBar searchWord={searchWord}  setSearchWord={setSearchWord} city={setCity} status={setStatus}  startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} /> */}
 
-  <Button
+      <Button
         variant="contained"
         color="primary"
         className="me-2 sm:me-4"
@@ -119,7 +117,7 @@ const RoadSignsPage = () => {
               value={city}
               onChange={(e) => setCity(e.target.value)}
               label="المدينة"
-              
+
             >
               <MenuItem value="">الكل</MenuItem>
               <MenuItem value="دمشق">دمشق</MenuItem>
@@ -133,7 +131,7 @@ const RoadSignsPage = () => {
             margin="dense"
             sx={{
               minWidth: { xs: '100%', sm: 140, md: 160 },
-              width: { xs: '100%'},
+              width: { xs: '100%' },
               '& .MuiInputBase-root': {
                 height: { xs: '36px', sm: '40px' },
                 fontSize: { xs: '0.85rem', sm: '0.9rem' },
@@ -176,22 +174,22 @@ const RoadSignsPage = () => {
           />
         </div>
       )}
-      
 
-        <RoadSignsContainer 
-            show={showAddRoadSigns} handleClose={handleCloseAddRoadSigns} refresh={refresh}
-            showAddReserve={showAddReserveRoadSigns} handleCloseAddReserve={handleCloseAddReserveRoadSigns}
-            searchWord={searchWord}
-            setSearchWord={setSearchWord}
-            startDate={startDate} setStartDate={setStartDate}
-            endDate={endDate} setEndDate={setEndDate}
-            city={city}
-            status={status}
-        />
 
-        <div>
-          
-        </div>
+      <RoadSignsContainer
+        show={showAddRoadSigns} handleClose={handleCloseAddRoadSigns} refresh={refresh}
+        showAddReserve={showAddReserveRoadSigns} handleCloseAddReserve={handleCloseAddReserveRoadSigns}
+        searchWord={searchWord}
+        setSearchWord={setSearchWord}
+        startDate={startDate} setStartDate={setStartDate}
+        endDate={endDate} setEndDate={setEndDate}
+        city={city}
+        status={status}
+      />
+
+      <div>
+
+      </div>
     </div>
   )
 }

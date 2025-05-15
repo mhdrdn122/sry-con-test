@@ -22,7 +22,7 @@ import ModalShowPayment from './ModalShowPayment';
 import ModalAddCashPayment from './ModalAddCashPayment';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import DynamicTable from '../road_signs/DynamicTable';
+import DynamicTable from '../../Table/DynamicTable'
 import { tableActions } from '../../Table/tableActions';
 import { tableColumns } from '../../Table/tableColumns';
 // import DynamicTable from './DynamicTable';

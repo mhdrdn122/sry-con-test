@@ -17,14 +17,14 @@ import Pagination from "../../../utils/Pagination";
 import { useDeleteAdminMutation, useGetAdminsQuery } from "../../../redux/slice/super_admin/super_admins/superAdminsApi";
 import ModalAddAdmin from "./ModalAddAdmin";
 import ModalDelete from "../../../utils/ModalDelete";
-import ModalShowAdmin from "./ModalShowAdmin";
 import ModalEditAdmin from "./ModalEditAdmin";
 import useCacheInLocalStorage from "../../../hooks/superAdmin/useCacheInLocalStorage";
-import DynamicTable from "../road_signs/DynamicTable";
+// import DynamicTable from "../../Table/DynamicTable";
 import { tableColumns } from "../../Table/tableColumns";
 import { tableActions } from "../../Table/tableActions";
 import GenericModal from "../../../utils/GenericModal";
 import ModalShow from "../../../utils/GenericModal";
+import DynamicTable from "../../Table/DynamicTable";
 // import DynamicTable from "./DynamicTable";
 
 const AdminsContainer = ({ show, handleClose, refresh }) => {

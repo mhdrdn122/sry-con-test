@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Loading from '../../../utils/Loading';
+import Loading from '../../utils/Loading';
 import { useEffect, useState } from 'react';
 
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
@@ -61,7 +61,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const RoadSignsTable = ({ data , isLoading }) => {
+const ModalTable = ({ data , isLoading }) => {
 
     if(isLoading) {
         return <div className='flex justify-center items-center'>
@@ -97,4 +97,4 @@ console.log(data)
   );
 };
 
-export default RoadSignsTable;
+export default ModalTable;

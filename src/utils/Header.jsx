@@ -66,7 +66,7 @@ const Header = ({
                   padding: isSmallDevice ? "8px 12px" : "",
                   // background: "rgb(2 13 38 / 91%)",
                   // background: "#595959",
-                  background: "#1976d2",
+                  background: "#dc3545",
                   color:'#fff',
                   minWidth: isSmallDevice ? "unset" : "",
                 }}
