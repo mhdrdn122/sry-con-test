@@ -19,7 +19,7 @@ const SearchInput = ({ searchWord, setSearchWord , phrasePlaceHolder  }) => {
 
   return (
     <FormControl
-    sx={{ mb: "20px", mr: "22px", bgcolor: "#FFF" , width:'20%' }}
+    sx={{ mb: "20px", mr: "22px", bgcolor: "#FFF" , width:'100%' }}
     
   >
     <TextField

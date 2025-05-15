@@ -210,6 +210,11 @@ th {
   transition: transform 0.3s ease-in-out;
 }
 
+.MuiFormControl-root{
+  margin: 0 !important;
+  margin-bottom: 5px !important;
+}
+
 
 
 /* start loading style */

@@ -101,7 +101,7 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'ltr'
   const paginatedData = data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
-    <StyledTableContainer component={Paper}>
+    <StyledTableContainer style={{margin:"0" , padding: "0"}} component={Paper}>
       <StyledTable dir={dir}>
         <TableHead>
           <TableRow>

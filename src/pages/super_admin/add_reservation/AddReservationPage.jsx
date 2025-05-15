@@ -72,12 +72,13 @@ const AddReservationPage = () => {
           
           {/* City Filter Dropdown */}
           <FormControl
-            className="mb-4"
+            className="mb-1"
             variant="outlined"
             margin="dense"
             // sx={{ minWidth: 180 }}
             sx={{
-              minWidth: 150,
+              // minWidth: 150,
+              width: "100%",
               gridColumn: "span 1",
               "& .MuiInputBase-root": {
                 height: "40px", // Reduced height for the select
@@ -106,11 +107,11 @@ const AddReservationPage = () => {
 
           {/* Status Filter Dropdown */}
           <FormControl
-            className="mb-4"
+            className="mb-3"
             variant="outlined"
             margin="dense"
             sx={{
-              minWidth: 150,
+              width:"100%" ,
               gridColumn: "span 1",
               "& .MuiInputBase-root": {
                 height: "40px", // Reduced height for the select

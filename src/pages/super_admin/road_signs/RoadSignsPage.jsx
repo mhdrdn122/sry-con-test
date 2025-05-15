@@ -74,89 +74,108 @@ const RoadSignsPage = () => {
   <Button
         variant="contained"
         color="primary"
-        className="me-5"
+        className="me-2 sm:me-4"
         onClick={toggleFilters}
-        sx={{ marginBottom: "1rem" }}
+        sx={{
+          marginBottom: { xs: '0.5rem', sm: '1rem' },
+          padding: { xs: '6px 12px', sm: '8px 16px' },
+          minWidth: { xs: '40px', sm: '48px' },
+        }}
       >
-        {showFilters ? <TiFilter size={25}  />:<CiFilter size={22} />}
+        {showFilters ? <TiFilter size={20} /> : <CiFilter size={18} />}
       </Button>
 
-{
-  showFilters && (<div className="w-100  flex flex-row-reverse justify-center gap-2  align-baseline items-center">
-            <SearchInput
-                searchWord={searchWord}
-                setSearchWord={setSearchWord}
-            />
-                    {/* City Filter Dropdown */}
-        <FormControl className="mb-4" variant="outlined" margin="dense" 
-         sx={{
-          minWidth:140,
-          gridColumn: "span 1",
-          "& .MuiInputBase-root": {
-            height: "40px", // Reduced height for the select
-          },
-          "& .MuiInputLabel-root": {
-            fontSize: "0.9rem", // Smaller font size for label
-            top: "50%", // Set to the middle
-            left:'10%',
-            transform: "translateY(-50%)", // Center the label vertically
-          },
-        }}>
-          <InputLabel id="city-filter-label">المدينة</InputLabel>
-          <Select
-            labelId="city-filter-label"
-            id="city-filter"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            label="المدينة"
+      {showFilters && (
+        <div className="w-full flex flex-col sm:flex-row-reverse flex-wrap justify-center gap-2 sm:gap-4 items-center p-2">
+          <SearchInput
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
+            className="w-full sm:w-auto flex-1 min-w-[140px] m-0"
+          />
+
+          {/* City Filter Dropdown */}
+          <FormControl
+            variant="outlined"
+            margin="dense"
+            sx={{
+              minWidth: { xs: '100%', sm: 140, md: 160 },
+              width: "100%",
+              '& .MuiInputBase-root': {
+                height: { xs: '36px', sm: '40px' },
+                fontSize: { xs: '0.85rem', sm: '0.9rem' },
+              },
+              '& .MuiInputLabel-root': {
+                fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                top: '50%',
+                left: '10%',
+                transform: 'translateY(-50%)',
+              },
+            }}
           >
-            <MenuItem  value={''}>الكل</MenuItem>
-            <MenuItem value="دمشق">دمشق</MenuItem>
-            <MenuItem value="حلب">حلب</MenuItem>
-          </Select>
-        </FormControl>
+            <InputLabel id="city-filter-label">المدينة</InputLabel>
+            <Select
+              labelId="city-filter-label"
+              id="city-filter"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              label="المدينة"
+              
+            >
+              <MenuItem value="">الكل</MenuItem>
+              <MenuItem value="دمشق">دمشق</MenuItem>
+              <MenuItem value="حلب">حلب</MenuItem>
+            </Select>
+          </FormControl>
 
           {/* Status Filter Dropdown */}
-          <FormControl className="mb-4" variant="outlined" margin="dense"  sx={{
-          minWidth:140,
-          gridColumn: "span 1",
-          "& .MuiInputBase-root": {
-            height: "40px", // Reduced height for the select
-          },
-          "& .MuiInputLabel-root": {
-            fontSize: "0.9rem", // Smaller font size for label
-            top: "50%", // Set to the middle
-            left:'10%',
-            transform: "translateY(-50%)", // Center the label vertically
-          },
-        }}>
-          <InputLabel id="status-filter-label">الحالة</InputLabel>
-          <Select
-            labelId="status-filter-label"
-            id="status-filter"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            label="الحالة"
+          <FormControl
+            variant="outlined"
+            margin="dense"
+            sx={{
+              minWidth: { xs: '100%', sm: 140, md: 160 },
+              width: { xs: '100%'},
+              '& .MuiInputBase-root': {
+                height: { xs: '36px', sm: '40px' },
+                fontSize: { xs: '0.85rem', sm: '0.9rem' },
+              },
+              '& .MuiInputLabel-root': {
+                fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                top: '50%',
+                left: '10%',
+                transform: 'translateY(-50%)',
+              },
+            }}
           >
-            <MenuItem  value={''}>الكل</MenuItem>
-            <MenuItem value="متاح">متاح</MenuItem>
-            <MenuItem value="محجوز">محجوز</MenuItem>
-            {/* <MenuItem value="قيد الإنشاء">قيد الإنشاء</MenuItem> */}
-          </Select>
-        </FormControl>
-            <DateFilter
-                value={startDate}
-                setValue={setStartDate}
-                name="startDate"
-                label="Start Date"/>
-            <DateFilter
-                value={endDate}
-                setValue={setEndDate}
-                name="endDate"
-                label="End Date" 
-            />
-      </div> )
-}
+            <InputLabel id="status-filter-label">الحالة</InputLabel>
+            <Select
+              labelId="status-filter-label"
+              id="status-filter"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              label="الحالة"
+            >
+              <MenuItem value="">الكل</MenuItem>
+              <MenuItem value="متاح">متاح</MenuItem>
+              <MenuItem value="محجوز">محجوز</MenuItem>
+            </Select>
+          </FormControl>
+
+          <DateFilter
+            value={startDate}
+            setValue={setStartDate}
+            name="startDate"
+            label="Start Date"
+            className="w-full sm:w-auto w-100 flex-1 m-0 min-w-[140px]"
+          />
+          <DateFilter
+            value={endDate}
+            setValue={setEndDate}
+            name="endDate"
+            label="End Date"
+            className="w-full sm:w-auto flex-1 m-0 min-w-[140px]"
+          />
+        </div>
+      )}
       
 
         <RoadSignsContainer 

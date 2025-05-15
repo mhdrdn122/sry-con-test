@@ -22,7 +22,7 @@ const OrdersPage = () => {
   return (
     <div>
         <Breadcrumb breadcrumbs={breadcrumbs} />
-          <div className="mt-5 d-flex justify-end me-5">
+          <div className="mb-1 mt-3 w-100 d-flex justify-end me-5">
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
