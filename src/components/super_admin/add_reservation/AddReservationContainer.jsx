@@ -33,6 +33,7 @@ import * as Yup from "yup";
 import ModalShowRoadSign from './ModalShowRoadSign';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../road_signs/DynamicTable';
+import ModalShow from '../../../utils/GenericModal';
 // import DynamicTable from './DynamicTable';
 
 const AddReservationContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate,
@@ -382,7 +383,8 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
       />
 
       <ToastContainer />
-      <ModalShowRoadSign show={showSignRoad} handleClose={handleCloseShowRoadSign} />
+      {/* <ModalShowRoadSign show={showSignRoad} handleClose={handleCloseShowRoadSign} /> */}
+      <ModalShow show={showSignRoad} handleClose={handleCloseShowRoadSign} fromPage={"addReservations"} />
       <ModalCart
         inputFields={formik.values}
         show={showAddReserve}

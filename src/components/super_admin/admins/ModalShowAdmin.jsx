@@ -18,6 +18,7 @@ const ModalShowAdmin = ({ show, handleClose }) => {
               // m={"20px"}
               gap={4}
             >
+
               {/* Username and Name */}
               <Box
                 width={"100%"}
@@ -29,10 +30,12 @@ const ModalShowAdmin = ({ show, handleClose }) => {
               <Typography variant="h6">User Name: </Typography>
               <p>{show.username}</p>
             </Box>
+
             <Box display={"flex"} alignItems={"center"} gap={"10px"}>
               <Typography variant="h6">Name: </Typography>
               <p>{show.name}</p>
             </Box>
+            
             </Box>
                   {/* Phone and address */}
                   <Box

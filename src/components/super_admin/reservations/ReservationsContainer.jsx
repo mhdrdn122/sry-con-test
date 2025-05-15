@@ -15,6 +15,7 @@ import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalSto
 import DynamicTable from '../road_signs/DynamicTable';
 import { tableColumns } from '../../Table/tableColumns';
 import { tableActions } from '../../Table/tableActions';
+import ModalShow from '../../../utils/GenericModal';
 // import DynamicTable from './DynamicTable';
 
 const ReservationsContainer = ({ show, handleClose, refresh, searchWord }) => {
@@ -135,7 +136,8 @@ const ReservationsContainer = ({ show, handleClose, refresh, searchWord }) => {
         handleDelete={handleDelete}
       />
       <ModalEditReservation show={showEdit} handleClose={handleCloseEdit} />
-      <ModalShowReservation show={showReservation} handleClose={handleCloseShowReservation} />
+      {/* <ModalShowReservation show={showReservation} handleClose={handleCloseShowReservation} /> */}
+      <ModalShow show={showReservation} handleClose={handleCloseShowReservation} fromPage={"reservations"} />
       {reservationsCache?.meta?.total_pages > 1 && (
         <Pagination onPress={onPress} pageCount={reservationsCache?.meta?.total_pages} />
       )}

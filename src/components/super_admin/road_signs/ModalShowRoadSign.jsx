@@ -54,7 +54,7 @@ const ModalShowRoadSign = ({show,handleClose}) => {
               <p>{show.number_of_faces}</p>
             </Box>
             <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-              <Typography variant="h6">model & type : </Typography>
+              <Typography variant="h6">model & type :  </Typography>
               <p>{show?.coding?.model} & {show?.coding?.type}</p>
             </Box>
           </Box>

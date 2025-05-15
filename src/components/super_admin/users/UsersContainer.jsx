@@ -23,6 +23,8 @@ import { baseURLLocal } from '../../../Api/baseURLLocal';
 import { RiContractLine } from "react-icons/ri";
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../road_signs/DynamicTable';
+import GenericModal from '../../../utils/GenericModal';
+import ModalShow from '../../../utils/GenericModal';
 // import DynamicTable from './DynamicTable';
 
 const UsersContainer = ({ show, handleClose, refresh }) => {
@@ -256,7 +258,8 @@ const UsersContainer = ({ show, handleClose, refresh }) => {
         error={""}
         handleDelete={handleDelete}
       />
-      <ModalShowUser show={showUser} handleClose={handleCloseShowUser} />
+      {/* <ModalShowUser show={showUser} handleClose={handleCloseShowUser} /> */}
+      <ModalShow show={showUser} handleClose={handleCloseShowUser} fromPage={"users"} />
       <ModalEditUser show={showEdit} handleClose={handleCloseEdit} />
       <ModalShowContract show={showContract} handleClose={handleCloseShowContract} />
       <ModalShowOffer show={showOffer} handleClose={handleCloseShowOffer} />

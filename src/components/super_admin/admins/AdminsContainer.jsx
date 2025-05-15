@@ -23,6 +23,8 @@ import useCacheInLocalStorage from "../../../hooks/superAdmin/useCacheInLocalSto
 import DynamicTable from "../road_signs/DynamicTable";
 import { tableColumns } from "../../Table/tableColumns";
 import { tableActions } from "../../Table/tableActions";
+import GenericModal from "../../../utils/GenericModal";
+import ModalShow from "../../../utils/GenericModal";
 // import DynamicTable from "./DynamicTable";
 
 const AdminsContainer = ({ show, handleClose, refresh }) => {
@@ -145,7 +147,9 @@ const AdminsContainer = ({ show, handleClose, refresh }) => {
                 error={""}
                 handleDelete={handleDelete}
             />
-            <ModalShowAdmin show={showAdmin} handleClose={handleCloseShowAdmin} />
+            {/* <GenericModal show={showAdmin} handleClose={handleCloseShowAdmin} /> */}
+            {/* <ModalShowAdmin show={showAdmin} handleClose={handleCloseShowAdmin} /> */}
+            <ModalShow show ={showAdmin} handleClose={handleCloseShowAdmin} fromPage={"admins"} />
             {adminsCache?.meta?.total_pages > 1 && (
                 <Pagination onPress={onPress} pageCount={adminsCache?.meta?.total_pages} />
             )}

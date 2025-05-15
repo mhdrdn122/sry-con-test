@@ -102,7 +102,9 @@ const ModalShowRoadSign = ({show,handleClose}) => {
             </Box>
     </Box>
     </Modal.Body>
-    </Modal>  )
+    </Modal> 
+    
+  )
 }
 
 export default ModalShowRoadSign

@@ -20,6 +20,7 @@ import ModalAddReserveRoadSign from './ModalAddReserveRoadSign';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from './DynamicTable';
 import RoadSignsTable from './RoadSignsTable';
+import ModalShow from '../../../utils/GenericModal';
 
 const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate,
   showAddReserve, handleCloseAddReserve, city, status
@@ -205,7 +206,8 @@ const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate,
         error={""}
         handleDelete={handleDelete}
       />
-      <ModalShowRoadSign show={showSignRoad} handleClose={handleCloseShowRoadSign} />
+      {/* <ModalShowRoadSign show={showSignRoad} handleClose={handleCloseShowRoadSign} /> */}
+      <ModalShow show={showSignRoad} handleClose={handleCloseShowRoadSign} fromPage={"roadSing"} />
     </div>
   );
 };
