@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Loading from '../../../utils/Loading';
+import { useEffect, useState } from 'react';
 
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   maxWidth: '100%',
@@ -60,27 +61,29 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const RoadSignsTable = ({ roadSigns , isLoading }) => {
+const RoadSignsTable = ({ data , isLoading }) => {
 
     if(isLoading) {
         return <div className='flex justify-center items-center'>
             <Loading />
         </div>
     }
-    
-  return roadSigns?.coding_count?.length > 0 ? (
+
+   
+console.log(data)
+  return data?.length > 0 ? (
     <StyledTableContainer component={Paper}>
       <StyledTable>
         <TableHead>
           <TableRow>
-            {roadSigns.coding_count.map((el, index) => (
-              <TableCell key={index}>{el?.coding_name || 'غير محدد'}</TableCell>
+            {data.map((el, index) => (
+              <TableCell key={index}>{el?.coding_name || el?.model || 'غير محدد'}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
           <StyledTableRow>
-            {roadSigns.coding_count.map((el, index) => (
+            {data.map((el, index) => (
               <TableCell key={index}>{el?.count || '0'}</TableCell>
             ))}
           </StyledTableRow>

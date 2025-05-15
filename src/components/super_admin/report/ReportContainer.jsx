@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { useDeleteReportRoadSignMutation, useGetReportQuery, useTransferReportRoadSignMutation } from '../../../redux/slice/super_admin/report/ReportApi';
 import { ToastContainer } from 'react-toastify';
-import { Spinner } from 'react-bootstrap';
-import { IconButton, Tooltip } from '@mui/material';
+// import {  Spinner } from 'react-bootstrap';
+import { Box, Button, IconButton, Tooltip } from '@mui/material';
 import { FaDownload } from 'react-icons/fa';
 import ModalDelete from '../../../utils/ModalDelete';
 import notify from '../../../utils/useNotification';
@@ -192,45 +192,81 @@ const ReportContainer = () => {
 
   return (
     <div>
-      <div className='container text-center grid grid-cols-3 my-1 gap-3'>
-        {reportCache?.data?.coding?.map((el, index) => (
-          <div key={index} className='flex-row-reverse font-semibold mb-4'>
-            <p><span>/ {el?.count} /</span>
-              <span> {el?.model} </span></p>
-          </div>
-        ))}
-      </div>
-      <div style={{ textAlign: 'left', marginLeft: '5%' }}>
-        <Tooltip placement='top-start' title="تحميل الجدول ك اكسل">
-          <IconButton
-            sx={{ color: "blue" }}
-            onClick={() => handleDownload()} 
-            disabled={isFetching || isLoading}
-          >
-            <FaDownload />
-          </IconButton>
-        </Tooltip>
-      </div>
-      <div className="d-flex justify-content-center mb-3">
-        <button
-          className={`btn ${selectedReportType === 'all_data' ? 'btn-primary' : 'btn-outline-primary'} mx-2`}
+
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 1,
+          mb: 3,
+          p: 1,
+          flexWrap: 'wrap'
+        }}
+      >
+        <Box
+          sx={{
+            alignSelf: { xs: 'flex-start', sm: 'center' },
+            mr: { sm: 'auto' },
+            ml: { xs: 2, sm: 0 }
+          }}
+        >
+          <Tooltip placement="top-start" title="تحميل الجدول ك اكسل">
+            <IconButton
+              sx={{
+                color: "primary.main",
+                '&:hover': { backgroundColor: 'primary.light', color: 'white' }
+              }}
+              onClick={() => handleDownload()}
+              disabled={isFetching || isLoading}
+              size="medium"
+            >
+              <FaDownload />
+            </IconButton>
+          </Tooltip>
+        </Box>
+
+        <Button
+          variant={selectedReportType === 'all_data' ? 'contained' : 'outlined'}
           onClick={() => setSelectedReportType('all_data')}
+          sx={{
+            minWidth: { xs: '90%', sm: '120px', md: '140px' },
+            mx: { xs: 0, sm: 0.5 },
+            my: { xs: 0.5, sm: 0 }
+          }}
         >
           جميع البيانات
-        </button>
-        <button
-          className={`btn ${selectedReportType === 'unreserved_signs' ? 'btn-primary' : 'btn-outline-primary'} mx-2`}
+        </Button>
+
+        <Button
+          variant={selectedReportType === 'unreserved_signs' ? 'contained' : 'outlined'}
           onClick={() => setSelectedReportType('unreserved_signs')}
+          sx={{
+            minWidth: { xs: '90%', sm: '120px', md: '140px' },
+            mx: { xs: 0, sm: 0.5 },
+            my: { xs: 0.5, sm: 0 }
+          }}
         >
           لوحات غير محجوزة
-        </button>
-        <button
-          className={`btn ${selectedReportType === 'reservation_this_week' ? 'btn-primary' : 'btn-outline-primary'} mx-2`}
+        </Button>
+
+        <Button
+          variant={selectedReportType === 'reservation_this_week' ? 'contained' : 'outlined'}
           onClick={() => setSelectedReportType('reservation_this_week')}
+          sx={{
+            minWidth: { xs: '90%', sm: '120px', md: '140px' },
+            mx: { xs: 0, sm: 0.5 },
+            my: { xs: 0.5, sm: 0 }
+          }}
         >
           الحجز هذا الأسبوع
-        </button>
-      </div>
+        </Button>
+      </Box>
+
+      <RoadSignsTable data={reportCache.data?.coding} />
+
       <div className='w-100'>
         <SearchInput
           searchWord={searchWord}
