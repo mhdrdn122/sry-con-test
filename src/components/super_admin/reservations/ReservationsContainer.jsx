@@ -11,8 +11,7 @@ import { useDeleteReservationMutation, useGetReservationsQuery } from '../../../
 import ModalAddReservation from './ModalAddReservation';
 import ModalEditReservation from './ModalEditReservation';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import { tableColumns } from '../../Table/tableColumns';
-import { tableActions } from '../../Table/tableActions';
+
 import ModalShow from '../../../utils/GenericModal';
 import DynamicTable from '../../Table/DynamicTable';
 

@@ -20,8 +20,6 @@ import { useConfirmOneOrderMutation, useGetOrdersQuery } from '../../../redux/sl
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
-import { tableColumns } from '../../Table/tableColumns';
-import { tableActions } from '../../Table/tableActions';
 // import DynamicTable from './DynamicTable';
 
 const OrdersContainer = ({ refresh, searchWord, selectedType }) => {

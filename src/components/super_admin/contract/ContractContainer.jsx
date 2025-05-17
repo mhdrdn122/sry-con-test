@@ -17,8 +17,6 @@ import ModalRenewalContract from './ModalRenewalContract';
 import ModalEditDiscount from './ModalEditDiscount';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
-import { tableColumns } from '../../Table/tableColumns';
-import { tableActions } from '../../Table/tableActions';
 // import DynamicTable from './DynamicTable';
 
 const ContractContainer = ({ refresh }) => {

@@ -15,12 +15,16 @@ import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import Pagination from "../../../utils/Pagination";
 import { useDeleteAdminMutation, useGetAdminsQuery } from "../../../redux/slice/super_admin/super_admins/superAdminsApi";
-import ModalAddAdmin from "./ModalAddAdmin";
+// import ModalAddAdmin from "./ModalAddAdmin";
 import ModalDelete from "../../../utils/ModalDelete";
 import ModalEditAdmin from "./ModalEditAdmin";
 import useCacheInLocalStorage from "../../../hooks/superAdmin/useCacheInLocalStorage";
 import ModalShow from "../../../utils/GenericModal";
 import DynamicTable from "../../Table/DynamicTable";
+import { getColumnsAdminsContainer } from "../../Table/tableColumns";
+import { actionsAdminsContainer } from "../../Table/tableActions";
+import DynamicModal from "../../../utils/ModalAdd";
+import { ModalAddAdmin } from "../../../utils/DynamicAddModal";
 // import DynamicTable from "./DynamicTable";
 
 const AdminsContainer = ({ show, handleClose, refresh }) => {
@@ -89,52 +93,19 @@ const AdminsContainer = ({ show, handleClose, refresh }) => {
         setPage(page);
     };
 
-    // Define columns for DynamicTable
-    const columns = [
-        { key: 'name', label: 'الاسم', align: 'center' },
-        { key: 'username', label: 'اسم الأدمن', align: 'center' },
-        {
-            key: 'address',
-            label: 'العنوان',
-            align: 'center',
-            render: (row) => row.address || '...'
-        },
-        { key: 'role', label: 'roles', align: 'center' }
-    ];
 
-    // Define actions for DynamicTable
-    const actions = [
-        {
-            label: 'View',
-            icon: <FaEye />,
-            color: '#289FBF',
-            onClick: handleShowAdmin
-        },
-        {
-            label: 'Edit',
-            icon: <EditOutlinedIcon />,
-            color: 'orange',
-            onClick: handleShowEdit
-        },
-        {
-            label: 'Delete',
-            icon: <DeleteIcon />,
-            color: 'red',
-            onClick: (row) => handleShowDelete(row.id)
-        }
-    ];
     
     return (
         <div>
             <DynamicTable
-                columns={columns}
+                columns={getColumnsAdminsContainer}
                 data={adminsCache?.data || []}
-                actions={actions}
+                actions={actionsAdminsContainer(handleShowAdmin, handleShowEdit, handleShowDelete)}
                 loading={loadingData}
                 error={error?.data?.message}
                 dir="rtl"
             />
-            <ModalAddAdmin show={show} handleClose={handleClose} />
+          <ModalAddAdmin show={show} handleClose={handleClose}/> 
             <ModalEditAdmin show={showEdit} handleClose={handleCloseEdit} />
             <ModalDelete
                 show={showDelete}

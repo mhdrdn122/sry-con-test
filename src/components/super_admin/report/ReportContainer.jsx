@@ -12,7 +12,6 @@ import { useMediaQuery } from '@uidotdev/usehooks';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import SearchInput from '../../../utils/super_admin/SearchInput';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import { tableColumns } from '../../Table/tableColumns';
 import DynamicTable from '../../Table/DynamicTable';
 import ModalTable from '../../Table/ModalTable';
 

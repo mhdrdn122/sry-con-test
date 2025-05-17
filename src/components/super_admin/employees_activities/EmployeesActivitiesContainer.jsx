@@ -4,8 +4,6 @@ import { useGetEmployeesActivitiesQuery } from '../../../redux/slice/super_admin
 import { IconButton, Tooltip } from "@mui/material";
 import { FaEye } from 'react-icons/fa';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import { tableColumns } from '../../Table/tableColumns';
-import { tableActions } from '../../Table/tableActions';
 import DynamicTable from '../../Table/DynamicTable';
 
 const EmployeesActivitiesContainer = ({ refresh }) => {

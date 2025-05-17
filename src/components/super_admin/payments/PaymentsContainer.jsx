@@ -23,8 +23,6 @@ import ModalAddCashPayment from './ModalAddCashPayment';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
-import { tableActions } from '../../Table/tableActions';
-import { tableColumns } from '../../Table/tableColumns';
 // import DynamicTable from './DynamicTable';
 
 const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {

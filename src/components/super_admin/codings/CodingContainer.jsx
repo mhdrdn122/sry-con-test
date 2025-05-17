@@ -12,8 +12,6 @@ import ModalDelete from '../../../utils/ModalDelete';
 import ModalAddCoding from './ModalAddCoding';
 import ModalEditCoding from './ModalEditCoding';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import { tableColumns } from '../../Table/tableColumns';
-import { tableActions } from '../../Table/tableActions';
 import DynamicTable from '../../Table/DynamicTable';
 const CodingContainer = ({ show, handleClose, refresh }) => {
   const [page, setPage] = useState(1);
