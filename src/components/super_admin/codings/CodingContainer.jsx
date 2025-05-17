@@ -1,18 +1,16 @@
 // CodingContainer.js
-import React, { useState } from 'react';
-import { IconButton, Tooltip } from "@mui/material";
-import { Spinner } from "react-bootstrap";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteIcon from "@mui/icons-material/Delete";
+import  { useState } from 'react';
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import Pagination from "../../../utils/Pagination";
 import { useDeleteCodingMutation, useGetCodingsQuery } from '../../../redux/slice/super_admin/codings/codingsApi';
 import ModalDelete from '../../../utils/ModalDelete';
-import ModalAddCoding from './ModalAddCoding';
 import ModalEditCoding from './ModalEditCoding';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable';
+import { getColumnsCodingContainer } from '../../Table/tableColumns';
+import { actionsCodingContainer } from '../../Table/tableActions';
+import { ModalAddCoding } from '../../../utils/DynamicAddModal';
 const CodingContainer = ({ show, handleClose, refresh }) => {
   const [page, setPage] = useState(1);
   const [showEdit, setShowEidt] = useState(false);
@@ -72,44 +70,20 @@ const CodingContainer = ({ show, handleClose, refresh }) => {
     setPage(page);
   };
 
-  // Define columns for DynamicTable
-  const columns = [
-    { key: 'model', label: 'النموذج', align: 'center' },
-    { key: 'type', label: 'النوع', align: 'center' },
-    { key: 'size', label: 'الحجم', align: 'center' },
-    { key: 'price', label: 'السعر', align: 'center' },
-    { key: 'format', label: 'نوع النموذج', align: 'center' }
-  ];
-
-  // Define actions for DynamicTable
-  const actions = [
-    {
-      label: 'تعديل',
-      icon: <EditOutlinedIcon />,
-      color: 'orange',
-      onClick: handleShowEdit
-    },
-    ...(superAdminInfo?.role === 'super' ? [
-      {
-        label: 'حذف',
-        icon: <DeleteIcon />,
-        color: 'red',
-        onClick: (row) => handleShowDelete(row.id)
-      }
-    ] : [])
-  ];
 
   return (
     <div>
       <DynamicTable
-        columns={columns}
+        columns={getColumnsCodingContainer}
         data={codingsCache?.data || []}
-        actions={actions }
+        actions={actionsCodingContainer(handleShowEdit , handleShowDelete , superAdminInfo) }
         loading={loadingData}
         error={error?.data?.message}
         dir="rtl"
       />
+      
       <ModalAddCoding show={show} handleClose={handleClose} />
+
       <ModalEditCoding show={showEdit} handleClose={handleCloseEdit} />
       <ModalDelete
         show={showDelete}

@@ -1,16 +1,11 @@
 // OrdersContainer.js
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import {
   FormControl,
-  IconButton,
   InputLabel,
   MenuItem,
-  Select,
-  Tooltip
+  Select
 } from "@mui/material";
-import { Spinner } from "react-bootstrap";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { GiConfirmed } from 'react-icons/gi';
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import Pagination from "../../../utils/Pagination";
@@ -20,13 +15,13 @@ import { useConfirmOneOrderMutation, useGetOrdersQuery } from '../../../redux/sl
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
-// import DynamicTable from './DynamicTable';
+import { getColumnsOrdersContainer } from '../../Table/tableColumns';
+import { actionsOrdersContainer } from '../../Table/tableActions';
 
 const OrdersContainer = ({ refresh, searchWord, selectedType }) => {
   const [page, setPage] = useState(1);
   const [showEdit, setShowEidt] = useState(false);
   const [showConfirmed, setShowConfirmed] = useState(false);
-  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedType2, setSelectedType2] = useState("");
   const [loadingExport, setLoadingExport] = useState(false);
   const [ordersCache, setOrders] = useState([]);
@@ -135,43 +130,7 @@ const OrdersContainer = ({ refresh, searchWord, selectedType }) => {
     }
   };
 
-  // Define columns for DynamicTable
-  const columns = [
-    { key: 'region', label: 'عنوان اللوحة', align: 'center' },
-    { key: 'place', label: 'تموضع اللوحة', align: 'center' },
-    { key: 'company_name', label: 'اسم الشركة', align: 'center' },
-    {
-      key: 'type',
-      label: 'نوع الطلب',
-      align: 'center',
-      render: (row) => row.type === 'installation' ? 'تركيب' : 'فك'
-    },
-    { key: 'date', label: 'تاريخ الفك أو التركيب', align: 'center' },
-    { key: 'note', label: 'الملاحظة', align: 'center' },
-    {
-      key: 'status',
-      label: 'الحالة',
-      align: 'center',
-      render: (row) => row.status === 'done' ? '✅' : '⏳'
-    }
-  ];
-
-  // Define actions for DynamicTable
-  const actions = [
-    {
-      label: 'تعديل',
-      icon: <EditOutlinedIcon />,
-      color: 'orange',
-      onClick: (row) => handleShowEdit(row.id)
-    },
-    {
-      label: 'تأكيد',
-      icon: <GiConfirmed />,
-      color: 'green',
-      onClick: (row) => handleShowConfirmed(row.id)
-    }
-  ];
-
+  
   return (
     <div>
       <div className='d-flex mb-2'>
@@ -196,9 +155,9 @@ const OrdersContainer = ({ refresh, searchWord, selectedType }) => {
         </FormControl>
       </div>
       <DynamicTable
-        columns={columns}
+        columns={getColumnsOrdersContainer}
         data={ordersCache?.data || []}
-        actions={actions}
+        actions={actionsOrdersContainer(handleShowEdit , handleShowConfirmed)}
         loading={loadingData}
         error={error?.data?.message}
         dir="rtl"

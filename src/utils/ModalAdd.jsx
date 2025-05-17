@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -23,10 +23,11 @@ const DynamicModal = ({
   mutationHook,
   initialValues,
   selectData = {},
-  onSubmitTransform = (values) => values, // Optional transform function for FormData or custom submission
+  onSubmitTransform = (values) => values,
 }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [mutate, { isLoading, isSuccess, isError, error }] = mutationHook();
+  const [hasNotified, setHasNotified] = useState(false); // حالة لتتبع الإشعار
 
   const formik = useFormik({
     initialValues,
@@ -44,12 +45,14 @@ const DynamicModal = ({
   });
 
   useEffect(() => {
-    if (!isLoading && isSuccess) {
-      notify("Added successfully", "success"); // Assumes notify is globally available
+    if (!isLoading && isSuccess && !hasNotified) {
+      console.log("test"); 
+      notify("Added successfully", "success");
+      setHasNotified(true); 
       handleClose();
       formik.resetForm();
     }
-  }, [isSuccess, isLoading, handleClose, formik]);
+  }, [isSuccess, isLoading, handleClose, formik, hasNotified]);
 
   useEffect(() => {
     if (isError) {
@@ -57,13 +60,18 @@ const DynamicModal = ({
       if (error.status === "FETCH_ERROR") {
         notify("No Internet Connection", "error");
       } else if (error.status === 401) {
-        triggerRedirect(); // Assumes triggerRedirect is defined
+        triggerRedirect();
       } else {
         notify(error.data?.message || "An error occurred", "error");
         formik.setErrors(error.data?.errors || {});
       }
     }
   }, [isError, error, formik]);
+
+  useEffect(() => {
+    // إعادة تعيين hasNotified عند فتح/إغلاق المودال
+    return () => setHasNotified(false);
+  }, [show]);
 
   const renderField = (field) => {
     switch (field.type) {

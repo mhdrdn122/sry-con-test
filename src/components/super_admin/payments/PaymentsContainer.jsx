@@ -1,29 +1,18 @@
 // PaymentsContainer.js
 import React, { useEffect, useState } from 'react';
-import {
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
-  Tooltip
-} from "@mui/material";
-import { Spinner } from "react-bootstrap";
-import { FaDownload } from "react-icons/fa";
-import { HiOutlineInformationCircle } from "react-icons/hi2";
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import Pagination from "../../../utils/Pagination";
 import ModalDelete from '../../../utils/ModalDelete';
 import { useGetPaymentsQuery, useDeletePaymentMutation } from '../../../redux/slice/super_admin/payments/paymentsApi';
-import ModalAddPayment from './ModalAddPayment';
-import ModalEditPayment from './ModalEditPayment';
 import ModalShowPayment from './ModalShowPayment';
-import ModalAddCashPayment from './ModalAddCashPayment';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
-// import DynamicTable from './DynamicTable';
+import { getColumnsPaymentsContainer } from '../../Table/tableColumns';
+import { actionsPaymentsContainer } from '../../Table/tableActions';
+import { ModalAddCashPayment } from '../../../utils/DynamicAddModal';
+// import { ModalAddCashPayment } from '../../../utils/DynamicAddModal';
 
 const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
   const [page, setPage] = useState(1);
@@ -142,44 +131,22 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
     };
   }, [searchWord]);
 
-  // Define columns for DynamicTable
-  const columns = [
-    { key: 'company_name', label: 'اسم الشركة', align: 'center' },
-    { key: 'company_code', label: 'الكود', align: 'center' },
-    { key: 'total', label: 'المبلغ الكلي', align: 'center' },
-    { key: 'amount_paid', label: 'المبلغ المدفوع', align: 'center' },
-    { key: 'remaining_amount', label: 'المبلغ الباقي', align: 'center' }
-  ];
 
-  // Define actions for DynamicTable
-  const actions = [
-    {
-      label: 'عرض',
-      icon: <HiOutlineInformationCircle />,
-      color: 'orange',
-      onClick: handleShowPayment
-    },
-    {
-      label: 'كشف حساب',
-      icon: <FaDownload />,
-      color: 'blue',
-      onClick: handleDownload,
-      disabled: isFetching || loading
-    }
-  ];
 
   return (
     <div>
       <DynamicTable
-        columns={columns}
+        columns={getColumnsPaymentsContainer}
         data={paymentsCache?.data || []}
-        actions={actions}
+        actions={actionsPaymentsContainer(handleShowPayment , handleDownload , isFetching , loading)}
         loading={loadingData}
         error={error?.data?.message}
         dir="rtl"
       />
       <ToastContainer />
+      {/* <ModalAddCashPayment show={show} handleClose={handleClose} /> */}
       <ModalAddCashPayment show={show} handleClose={handleClose} />
+      
       <ModalShowPayment show={showPayment} handleClose={handleCloseShowPayment} />
       <ModalDelete
         show={showDelete}

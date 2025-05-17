@@ -54,3 +54,79 @@ export const  getColumnsAdminsContainer = [
         },
         { key: 'role', label: 'roles', align: 'center' }
     ];
+
+    
+export const getColumnsCodingContainer = [
+    { key: 'model', label: 'النموذج', align: 'center' },
+    { key: 'type', label: 'النوع', align: 'center' },
+    { key: 'size', label: 'الحجم', align: 'center' },
+    { key: 'price', label: 'السعر', align: 'center' },
+    { key: 'format', label: 'نوع النموذج', align: 'center' }
+  ];
+
+export  const getColumnsContractContainer = [
+    { key: 'company_name', label: 'اسم الشركة', align: 'center' },
+    {
+      key: 'start_date',
+      label: 'تاريخ البدء',
+      align: 'center',
+      render: (row) => row.start_date || row.date || '...'
+    },
+    {
+      key: 'end_date',
+      label: 'تاريخ الانتهاء',
+      align: 'center',
+      render: (row) => row.end_date || '...'
+    },
+    {
+      key: 'price',
+      label: 'السعر',
+      align: 'center',
+      render: (row) => row.price || '...'
+    },
+    {
+      key: 'discount',
+      label: 'الحسم',
+      align: 'center',
+      render: (row) => row.discount ? `${row.discount}%` : '...'
+    }
+  ];
+
+ export const getColumnsEmployeesActivitiesContainer = [
+    { key: 'description', label: 'العمل', align: 'center' },
+    { key: 'created_at', label: 'تاريخه', align: 'center' },
+    {
+      key: 'causer_name',
+      label: 'الفاعل',
+      align: 'center',
+      render: (row) => row.causer?.name || '...'
+    }
+  ];
+
+export const getColumnsOrdersContainer = [
+    { key: 'region', label: 'عنوان اللوحة', align: 'center' },
+    { key: 'place', label: 'تموضع اللوحة', align: 'center' },
+    { key: 'company_name', label: 'اسم الشركة', align: 'center' },
+    {
+      key: 'type',
+      label: 'نوع الطلب',
+      align: 'center',
+      render: (row) => row.type === 'installation' ? 'تركيب' : 'فك'
+    },
+    { key: 'date', label: 'تاريخ الفك أو التركيب', align: 'center' },
+    { key: 'note', label: 'الملاحظة', align: 'center' },
+    {
+      key: 'status',
+      label: 'الحالة',
+      align: 'center',
+      render: (row) => row.status === 'done' ? '✅' : '⏳'
+    }
+  ];
+
+ export const getColumnsPaymentsContainer = [
+    { key: 'company_name', label: 'اسم الشركة', align: 'center' },
+    { key: 'company_code', label: 'الكود', align: 'center' },
+    { key: 'total', label: 'المبلغ الكلي', align: 'center' },
+    { key: 'amount_paid', label: 'المبلغ المدفوع', align: 'center' },
+    { key: 'remaining_amount', label: 'المبلغ الباقي', align: 'center' }
+  ];

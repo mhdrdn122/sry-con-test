@@ -1,10 +1,10 @@
 // EmployeesActivitiesContainer.js
 import React, { useState } from 'react';
 import { useGetEmployeesActivitiesQuery } from '../../../redux/slice/super_admin/employees_activities/employees_activitiesApi';
-import { IconButton, Tooltip } from "@mui/material";
-import { FaEye } from 'react-icons/fa';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable';
+import { getColumnsEmployeesActivitiesContainer } from '../../Table/tableColumns';
+import { actionsEmployeesActivitiesContainer } from '../../Table/tableActions';
 
 const EmployeesActivitiesContainer = ({ refresh }) => {
   const [page, setPage] = useState(1);
@@ -33,34 +33,13 @@ const EmployeesActivitiesContainer = ({ refresh }) => {
     setSelectedActivity(null);
   };
 
-  // Define columns for DynamicTable
-  const columns = [
-    { key: 'description', label: 'العمل', align: 'center' },
-    { key: 'created_at', label: 'تاريخه', align: 'center' },
-    {
-      key: 'causer_name',
-      label: 'الفاعل',
-      align: 'center',
-      render: (row) => row.causer?.name || '...'
-    }
-  ];
-
-  // Define actions for DynamicTable
-  const actions = [
-    {
-      label: 'عرض',
-      icon: <FaEye />,
-      color: '#289FBF',
-      onClick: handleShowActivities
-    }
-  ];
 
   return (
     <div>
       <DynamicTable
-        columns={columns}
+        columns={getColumnsEmployeesActivitiesContainer}
         data={activitiesCache?.data?.data || []}
-        actions={actions}
+        actions={actionsEmployeesActivitiesContainer(handleShowActivities)}
         loading={loadingData}
         error={error?.data?.message}
         dir="rtl"
