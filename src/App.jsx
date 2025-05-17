@@ -20,7 +20,7 @@ import EmployeesActivitiesPage from './pages/super_admin/employees_activities/Em
 import { useContext } from "react"
 import { widthWindow } from "./Context/WindowWidthContext"
 // import { useWindowWidth } from "./Context/WindowWidthContext"
-function App() {
+function App({toggleMode}) {
   const width = useContext(widthWindow)
  
   console.log(width)
@@ -30,7 +30,7 @@ function App() {
       <Routes>
       {/* <Route path="/" element={<Login />} /> */}
       <Route path="/super_admin/login" element={<Login />} />
-        <Route path="/super_admin" element={<LayoutSuperAdmin />}>
+        <Route path="/super_admin" element={<LayoutSuperAdmin toggleMode={toggleMode} />}>
 
         <Route index element={<ProfilePage />} /> 
 

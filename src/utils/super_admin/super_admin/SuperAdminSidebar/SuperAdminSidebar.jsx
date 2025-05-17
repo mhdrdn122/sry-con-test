@@ -1,16 +1,18 @@
 import React, { useState, useMemo, useContext, useEffect } from 'react';
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, AppBar, Toolbar, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
+import BedtimeIcon from '@mui/icons-material/Bedtime';
 import { menuItemsConfig } from './menuItemsConfig';
 import useLogout from './useLogout';
 import adv_syrian from '../../../../assets/adv_syrian.png';
 import { useNavigate } from 'react-router-dom';
-import { widthWindow } from '../../../../Context/WindowWidthContext';
 
-const SuperAdminSidebar = () => {
+const SuperAdminSidebar = ({ toggleMode }) => {
   const superAdminInfo = JSON.parse(localStorage.getItem('superAdminInfo'));
   const isLargeScreen = useMediaQuery('(min-width:769px)');
   const [open, setOpen] = useState(isLargeScreen);
+  const [buttonMode, setButtonMode] = useState(localStorage.getItem('mode') || 'light');
   const navigate = useNavigate();
   const logout = useLogout();
   const theme = useTheme()
@@ -39,16 +41,15 @@ const SuperAdminSidebar = () => {
       setOpen(false); // Close drawer on item click for small screens
     }
   };
-
   const DrawerContent = (
-    <Box sx={{ 
-      width: 250, 
-      bgcolor: theme.palette.background.default, 
-      height: '100%', 
-      direction: 'rtl', 
+    <Box sx={{
+      width: 250,
+      bgcolor: theme.palette.background.default,
+      height: '100%',
+      direction: 'rtl',
       overflowX: 'hidden' // Remove horizontal scroll
     }}>
-      <Box mb="25px" display="flex" style={{backgroundColor:"#333"}}  justifyContent="center" alignItems="center" pt="20px">
+      <Box mb="25px" display="flex" style={{ backgroundColor: buttonMode === 'light' ? "#fff" : "#333" }} justifyContent="center" alignItems="center" pt="20px">
         <img
           src={adv_syrian}
           alt="profile"
@@ -73,22 +74,51 @@ const SuperAdminSidebar = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       {/* Top AppBar */}
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: theme.palette.background.default , color: theme.palette.text.primary }}>
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: theme.palette.background.default, color: theme.palette.text.primary }}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography variant="h6" sx={{color:theme.palette.text.primary}} noWrap component="div">
+          <Typography variant="h6" sx={{ color: theme.palette.text.primary }} noWrap component="div">
             لوحة الإدارة
           </Typography>
-          {!isLargeScreen && (
+
+          <div>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={toggleDrawer}
+              onClick={() => {
+                toggleMode()
+                setButtonMode(buttonMode === 'light' ? 'dark' : 'light')
+              }}
               edge="end"
-              sx={{ ml: 2 }}
-            >
-              <MenuOutlinedIcon />
+              color='primary'
+              sx={{ ml: 2, }}>
+              {
+                buttonMode === 'light' ?
+                  <BrightnessHighIcon />
+
+                  :
+                  <BedtimeIcon />
+
+              }
+
             </IconButton>
-          )}
+            {!isLargeScreen && (
+              <>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={toggleDrawer}
+                  edge="end"
+                  sx={{ ml: 2 }}
+                >
+                  <MenuOutlinedIcon />
+                </IconButton>
+
+              </>
+            )}
+
+
+          </div>
+
         </Toolbar>
       </AppBar>
 

@@ -12,9 +12,11 @@ import { ThemeProvider, CssBaseline } from '@mui/material';
 import theme from '../theme.jsx';
 
 function AppWrapper() {
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState(localStorage.getItem('mode') || 'light');
   const themeApp = useMemo(() => theme(mode), [mode]);
-// toggleMode={() => setMode(prev => prev === "light" ? "dark" : "light")}
+const toggleMode=() => {
+  localStorage.setItem('mode', mode === "light" ? "dark" : "light")
+  setMode(prev => prev === "light" ? "dark" : "light")}
   return (
     <StrictMode>
       <BrowserRouter>
@@ -22,7 +24,7 @@ function AppWrapper() {
           <WidthWindowProvider>
             <ThemeProvider theme={themeApp}>
               <CssBaseline />
-              <App  />
+              <App  toggleMode={toggleMode} />
             </ThemeProvider>
           </WidthWindowProvider>
         </Provider>
