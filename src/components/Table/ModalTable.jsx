@@ -16,7 +16,7 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   maxWidth: '100%',
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.shadows[2],
-  background: 'linear-gradient(145deg, #e3f2fd, #f5faff)',
+  background: theme.palette.background.paper,
   margin: '8px 0',
   overflowX: 'auto',
   [theme.breakpoints.down('sm')]: {
@@ -26,13 +26,14 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
 
 const StyledTable = styled(Table)(({ theme }) => ({
   width: '100%',
+  backgroundColor: theme.palette.background.paper,
   tableLayout: 'auto',
   '& .MuiTableCell-head': {
-    background: theme.palette.blue?.main || '#1976d2',
-    color: theme.palette.common.white,
+    background: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
     fontWeight: 600,
     padding: '8px 12px',
-    borderBottom: `2px solid ${theme.palette.blue?.dark || '#1565c0'}`,
+    borderBottom: `2px solid ${theme.palette.mode === 'light' ? theme.palette.primary.dark : theme.palette.primary.light}`,
     fontSize: '0.9rem',
     whiteSpace: 'nowrap',
     textAlign: 'center',
@@ -54,23 +55,22 @@ const StyledTable = styled(Table)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(even)': {
-    backgroundColor: theme.palette.blue?.[50] || '#e3f2fd',
+    backgroundColor: theme.palette.mode === 'light' ? theme.palette.action.hover : theme.palette.grey[800],
   },
   '&:hover': {
-    backgroundColor: theme.palette.blue?.[100] || '#bbdefb',
+    backgroundColor: theme.palette.mode === 'light' ? theme.palette.action.selected : theme.palette.grey[700],
   },
 }));
 
-const ModalTable = ({ data , isLoading }) => {
+const ModalTable = ({ data, isLoading }) => {
+  if (isLoading) {
+    return (
+      <div className='flex justify-center items-center'>
+        <Loading />
+      </div>
+    );
+  }
 
-    if(isLoading) {
-        return <div className='flex justify-center items-center'>
-            <Loading />
-        </div>
-    }
-
-   
-console.log(data)
   return data?.length > 0 ? (
     <StyledTableContainer component={Paper}>
       <StyledTable>

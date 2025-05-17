@@ -185,12 +185,11 @@ const ModalEditCoding = ({ show, handleClose }) => {
         <Modal.Footer>
           <Button
             variant="contained"
-            className="mx-2"
+            className="mx-2 primary"
             onClick={() => {
               handleClose();
               formik.resetForm();
             }}
-            style={{backgroundColor:"rgb(117 32 40)"}}
           >
             تجاهل </Button>
 

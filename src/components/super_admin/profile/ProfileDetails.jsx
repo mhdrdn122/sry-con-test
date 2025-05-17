@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -20,7 +20,10 @@ import { useGetProfileQuery, useUpdateProfileMutation } from '../../../redux/sli
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   borderRadius: theme.shape.borderRadius * 2,
-  background: 'linear-gradient(145deg, #e3f2fd, #f5faff)',
+  background:
+    theme.palette.mode === 'dark'
+      ? theme.palette.background.paper
+      : `linear-gradient(145deg, ${theme.palette.primary.light}, ${theme.palette.background.default})`,
   boxShadow: theme.shadows[4],
   maxWidth: 800,
   margin: 'auto',
@@ -34,10 +37,13 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& .MuiInputBase-root': {
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.common.white,
+    backgroundColor:
+      theme.palette.mode === 'dark'
+        ? theme.palette.background.default
+        : theme.palette.common.white,
     transition: 'all 0.2s ease',
     '&:hover': {
-      backgroundColor: theme.palette.grey[50],
+      backgroundColor: theme.palette.action.hover,
     },
   },
   '& .MuiInputLabel-root': {
@@ -48,7 +54,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     },
   },
   '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: theme.palette.grey[300],
+    borderColor: theme.palette.divider,
   },
   [theme.breakpoints.down('sm')]: {
     '& .MuiInputBase-root': {
@@ -64,20 +70,33 @@ const StyledButton = styled(Button)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   padding: theme.spacing(1, 3),
   fontWeight: 600,
+  color: theme.palette.getContrastText(theme.palette.primary.main),
   transition: 'all 0.3s ease',
-  '&:hover': {
-    transform: 'translateY(-2px)',
-    boxShadow: theme.shadows[3],
+  '&.MuiButton-containedPrimary': {
+    backgroundColor: theme.palette.primary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.dark,
+      transform: 'translateY(-2px)',
+      boxShadow: theme.shadows[3],
+    },
+  },
+  '&.MuiButton-outlinedSecondary': {
+    borderColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+      transform: 'translateY(-2px)',
+      boxShadow: theme.shadows[3],
+    },
   },
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(0.8, 2),
     fontSize: '0.9rem',
   },
-  
 }));
 
 const ProfileDetails = () => {
-  const dispatch = useDispatch();
+  const theme = useTheme()
   const navigate = useNavigate();
 
   const superAdminInfo = JSON.parse(localStorage.getItem('superAdminInfo'));
@@ -102,10 +121,9 @@ const ProfileDetails = () => {
         navigate('/login');
       } else {
         notify(errorAdd.data.message, 'error');
-        formik.setErrors(errorAdd.data?.errors || {});
       }
     }
-  }, [isErrorUpdate, errorAdd]);
+  }, [isErrorUpdate, errorAdd, navigate]);
 
   useEffect(() => {
     if (!isLoadingUpdate && isSuccess) {
@@ -135,12 +153,12 @@ const ProfileDetails = () => {
   });
 
   return (
-    <StyledPaper elevation={3} className='m-0'>
+    <StyledPaper elevation={3} className="m-0">
       <Typography
         variant="h6"
         gutterBottom
         align="center"
-        sx={{ fontWeight: 600, color: 'primary.main', mb: 4 , fontSize: '1.2rem' }}
+        sx={{ fontWeight: 600, color: 'primary.main', mb: 4, fontSize: '1.2rem' }}
       >
         تفاصيل الملف الشخصي
       </Typography>
@@ -219,11 +237,7 @@ const ProfileDetails = () => {
           </Grid>
         </Grid>
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center', gap: 2 }}>
-          <StyledButton
-            variant="outlined"
-            color="secondary"
-            onClick={() => navigate(-1)}
-          >
+          <StyledButton variant="outlined" color="primary"  style={{color:theme.palette.text.primary}} onClick={() => navigate(-1)}>
             تجاهل
           </StyledButton>
           <StyledButton

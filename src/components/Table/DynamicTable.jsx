@@ -20,10 +20,11 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   maxWidth: '100%',
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.shadows[4],
-  background: 'linear-gradient(145deg, #ffffff, #f5f7fa)',
+  background: theme.palette.mode === 'light'
+    ? `linear-gradient(145deg, ${theme.palette.background.paper}, ${theme.palette.background.default})`
+    : `linear-gradient(145deg, ${theme.palette.background.paper}, ${theme.palette.background.default})`,
   margin: '0 auto',
   overflowX: 'auto',
-  borderRadius : "12px" ,
   [theme.breakpoints.down('sm')]: {
     margin: '0 8px',
   },
@@ -32,14 +33,10 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
 const StyledTable = styled(Table)(({ theme }) => ({
   minWidth: 650,
   '& .MuiTableCell-head': {
-    // background: theme.palette.primary.main,
-    background: "#dc3545",
-
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
     fontWeight: 600,
     padding: '12px 16px',
-    // borderBottom: `2px solid ${theme.palette.primary.dark}`,
-
   },
   '& .MuiTableCell-body': {
     padding: '12px 16px',
@@ -60,7 +57,10 @@ const StyledTable = styled(Table)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(even)': {
-    backgroundColor: theme.palette.grey[50],
+    backgroundColor:
+      theme.palette.mode === 'light'
+        ? theme.palette.action.selected
+        : theme.palette.action.selected,
   },
   '&:hover': {
     backgroundColor: theme.palette.action.selected,
@@ -76,7 +76,7 @@ const ErrorMessage = styled(Typography)(({ theme }) => ({
 
 const NoDataMessage = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
-  padding: theme.spacing(4), 
+  padding: theme.spacing(4),
   color: theme.palette.text.secondary,
   fontWeight: 500,
 }));
@@ -105,7 +105,7 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'ltr'
   const paginatedData = data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
-    <StyledTableContainer style={{margin:"0" , padding: "0"}} component={Paper}>
+    <StyledTableContainer component={Paper} style={{ margin: 0, padding: 0 }}>
       <StyledTable dir={dir}>
         <TableHead>
           <TableRow>
@@ -114,9 +114,7 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'ltr'
                 {column.label}
               </TableCell>
             ))}
-            {actions.length > 0 && (
-              <TableCell align="center">الحدث</TableCell>
-            )}
+            {actions.length > 0 && <TableCell align="center">الحدث</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -140,7 +138,7 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'ltr'
               <StyledTableRow key={index}>
                 {columns.map((column) => (
                   <TableCell key={column.key} align={column.align || 'center'}>
-                                     {column.render ? column.render(row) : column.key == "coding.model" ? row['coding'].model : row[column.key] || 0 }
+                    {column.render ? column.render(row) : column.key === 'coding.model' ? row['coding'].model : row[column.key] || 0}
                   </TableCell>
                 ))}
                 {actions.length > 0 && (
@@ -151,7 +149,7 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'ltr'
                           <Tooltip key={idx} title={action.label} placement="top">
                             <span>
                               <IconButton
-                                sx={{ color: action.color }}
+                                sx={{ color: action.color || theme.palette.text.primary }}
                                 onClick={() => action.onClick(row)}
                                 disabled={action.disabled}
                               >

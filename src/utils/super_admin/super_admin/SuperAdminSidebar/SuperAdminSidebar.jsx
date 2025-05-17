@@ -1,62 +1,120 @@
 import React, { useState, useMemo, useContext, useEffect } from 'react';
-import { Box, useMediaQuery } from '@mui/material';
-import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
+import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, AppBar, Toolbar, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import SidebarItem from './SidebarItem';
 import { menuItemsConfig } from './menuItemsConfig';
 import useLogout from './useLogout';
 import adv_syrian from '../../../../assets/adv_syrian.png';
 import { useNavigate } from 'react-router-dom';
 import { widthWindow } from '../../../../Context/WindowWidthContext';
-// import { widthWindow } from '../../contexts/WidthWindowProvider';
 
 const SuperAdminSidebar = () => {
   const superAdminInfo = JSON.parse(localStorage.getItem('superAdminInfo'));
-  const screenWidth = useContext(widthWindow);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState('الحساب الشخصي');
+  const isLargeScreen = useMediaQuery('(min-width:769px)');
+  const [open, setOpen] = useState(isLargeScreen);
   const navigate = useNavigate();
-
   const logout = useLogout();
+  const theme = useTheme()
 
+  console.log(theme)
   const filteredItems = useMemo(() =>
     menuItemsConfig.filter((item) => item.roles.includes(superAdminInfo?.role)), [superAdminInfo]);
 
   useEffect(() => {
-    if (screenWidth <= 768) setIsCollapsed(true);
-    else setIsCollapsed(false);
-  }, [screenWidth]);
+    setOpen(isLargeScreen); // Automatically open on large/medium screens, close on small
+  }, [isLargeScreen]);
+
+  const toggleDrawer = () => {
+    if (!isLargeScreen) {
+      setOpen(!open); // Toggle drawer only on small screens
+    }
+  };
 
   const handleItemClick = (item) => {
-    setSelected(item.title);
-    if (item.logout) logout();
-    else navigate(item.to);
+    if (item.logout) {
+      logout();
+    } else {
+      navigate(item.to);
+    }
+    if (!isLargeScreen) {
+      setOpen(false); // Close drawer on item click for small screens
+    }
   };
-  console.log(isCollapsed)
+
+  const DrawerContent = (
+    <Box sx={{ 
+      width: 250, 
+      bgcolor: theme.palette.background.default, 
+      height: '100%', 
+      direction: 'rtl', 
+      overflowX: 'hidden' // Remove horizontal scroll
+    }}>
+      <Box mb="25px" display="flex" style={{backgroundColor:"#333"}}  justifyContent="center" alignItems="center" pt="20px">
+        <img
+          src={adv_syrian}
+          alt="profile"
+          width="170"
+          height="170"
+          style={{ borderRadius: '50%', objectFit: 'cover', cursor: 'pointer' }}
+        />
+      </Box>
+      <List>
+        {filteredItems.map((item) => (
+          <ListItem key={item.title} disablePadding>
+            <ListItemButton onClick={() => handleItemClick(item)}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.title} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   return (
-    <Sidebar collapsed={isCollapsed} backgroundColor={`#fff`} rootStyles={{ minHeight: '100vh' }} rtl>
-      <Menu>
-        <MenuItem  icon={<MenuOutlinedIcon />} onClick={() => setIsCollapsed(screenWidth <= 766 ? isCollapsed : !isCollapsed)} style={{ 
-          margin: '10px 0 20px', color: '#111' }} />
-        {!isCollapsed && (
-          <Box mb="25px" display="flex" justifyContent="center" alignItems="center">
-            <img
-              src={adv_syrian}
-              alt="profile"
-              width="170"
-              height="170"
-              style={{ borderRadius: '50%', objectFit: 'cover', cursor: 'pointer' }}
-            />
-          </Box>
-        )}
-        <Box>
-          {filteredItems.map((item) => (
-            <SidebarItem key={item.title} item={item} selected={selected} onClick={handleItemClick} />
-          ))}
-        </Box>
-      </Menu>
-    </Sidebar>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      {/* Top AppBar */}
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: theme.palette.background.default , color: theme.palette.text.primary }}>
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <Typography variant="h6" sx={{color:theme.palette.text.primary}} noWrap component="div">
+            لوحة الإدارة
+          </Typography>
+          {!isLargeScreen && (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
+              edge="end"
+              sx={{ ml: 2 }}
+            >
+              <MenuOutlinedIcon />
+            </IconButton>
+          )}
+        </Toolbar>
+      </AppBar>
+
+      {/* Drawer */}
+      <Box sx={{ display: 'flex', flexGrow: 1 }}>
+        <Drawer
+          variant={isLargeScreen ? 'permanent' : 'temporary'}
+          open={open}
+          onClose={toggleDrawer}
+          anchor="right" // Drawer opens from the right
+          sx={{
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: 250,
+              backgroundColor: theme.palette.background.default,
+              top: '50px', // Start below AppBar
+              height: 'calc(100% - 64px)', // Adjust height to fit below AppBar
+              overflowX: 'hidden', // Ensure no horizontal scroll
+              ...(isLargeScreen && { position: 'relative' }),
+            },
+          }}
+        >
+          {DrawerContent}
+        </Drawer>
+      </Box>
+    </Box>
   );
 };
 

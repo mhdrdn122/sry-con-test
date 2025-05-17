@@ -1,30 +1,74 @@
-import { Box, Card, CardContent, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { Modal } from "react-bootstrap";
-import { Person, LocationOn, Phone, Email, Business, CalendarToday, FormatListNumbered } from "@mui/icons-material";
+import {
+  Person,
+  LocationOn,
+  Phone,
+  Email,
+  Business,
+  CalendarToday,
+  FormatListNumbered,
+} from "@mui/icons-material";
 
 // Reusable component for rendering key-value pairs with icons
 const InfoField = ({ label, value, icon }) => (
-  <Box display="flex" alignItems="center" gap="12px" sx={{ transition: "transform 0.2s", "&:hover": { transform: "translateX(-4px)" } }}>
+  <Box
+    display="flex"
+    alignItems="center"
+    gap="12px"
+    sx={{
+      transition: "transform 0.2s",
+      "&:hover": { transform: "translateX(-4px)" },
+    }}
+  >
     {icon}
-    <Typography variant="body1" fontWeight="bold" color="text.primary">{label}</Typography>
-    <Typography variant="body1" color="text.secondary">{value}</Typography>
+    <Typography variant="body1" fontWeight="bold" color="text.primary">
+      {label}
+    </Typography>
+    <Typography variant="body1" color="text.secondary">
+      {value}
+    </Typography>
   </Box>
 );
 
 // Reusable component for rendering reservations
 const ReservationsList = ({ reservations }) => (
-  <Card sx={{ width: "100%", bgcolor: "grey.50", boxShadow: 2 }}>
+  <Card sx={{ width: "100%", bgcolor: "background.paper", boxShadow: 2 }}>
     <CardContent>
       <Box display="flex" alignItems="center" gap="8px" mb={2}>
         <CalendarToday color="primary" />
-        <Typography variant="h6" fontWeight="bold" color="text.primary">الحجوزات:</Typography>
+        <Typography variant="h6" fontWeight="bold" color="text.primary">
+          الحجوزات:
+        </Typography>
       </Box>
       {reservations.map((reservation, index) => (
-        <Box key={index} display="flex" justifyContent="space-between" alignItems="center" gap="8px" mb={1}>
-          <Typography variant="body2">تاريخ البداية: {reservation.start_date}</Typography>
-          <Typography variant="body2">تاريخ النهاية: {reservation.end_date}</Typography>
-          <Typography variant="body2" fontWeight="bold">بواسطة:</Typography>
-          <Typography variant="body2">{reservation.company_name || reservation.name || "غير متوفر"}</Typography>
+        <Box
+          key={index}
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          gap="8px"
+          mb={1}
+        >
+          <Typography variant="body2">
+            تاريخ البداية: {reservation.start_date}
+          </Typography>
+          <Typography variant="body2">
+            تاريخ النهاية: {reservation.end_date}
+          </Typography>
+          <Typography variant="body2" fontWeight="bold">
+            بواسطة:
+          </Typography>
+          <Typography variant="body2">
+            {reservation.company_name || reservation.name || "غير متوفر"}
+          </Typography>
         </Box>
       ))}
     </CardContent>
@@ -46,9 +90,17 @@ const modalConfig = {
       { label: "المنطقة:", key: "region", icon: <LocationOn /> },
       { label: "الموقع:", key: "place", icon: <LocationOn /> },
       { label: "عدد الوجوه:", key: "number_of_faces", icon: <FormatListNumbered /> },
-      { label: "الطراز والنوع:", value: (data) => `${data?.coding?.model || "غير متوفر"} & ${data?.coding?.type || "غير متوفر"}`, icon: <Business /> },
+      {
+        label: "الطراز والنوع:",
+        value: (data) =>
+          `${data?.coding?.model || "غير متوفر"} & ${data?.coding?.type || "غير متوفر"}`,
+        icon: <Business />,
+      },
     ],
-    extra: (data) => data?.reservations?.length > 0 && <ReservationsList reservations={data.reservations} />,
+    extra: (data) =>
+      data?.reservations?.length > 0 && (
+        <ReservationsList reservations={data.reservations} />
+      ),
   },
   reservations: {
     fields: [
@@ -60,7 +112,11 @@ const modalConfig = {
       { label: "إلى:", key: "end_date", icon: <CalendarToday /> },
       { label: "عدد الوجوه:", key: "number_of_faces", icon: <FormatListNumbered /> },
       { label: "عدد اللوحات:", key: "signs_number", icon: <FormatListNumbered /> },
-      { label: "مع الطباعة:", value: (data) => (data.with_print == 0 ? "لا" : "نعم"), icon: <Business /> },
+      {
+        label: "مع الطباعة:",
+        value: (data) => (data.with_print == 0 ? "لا" : "نعم"),
+        icon: <Business />,
+      },
     ],
   },
   addReservations: {
@@ -68,9 +124,17 @@ const modalConfig = {
       { label: "المنطقة:", key: "region", icon: <LocationOn /> },
       { label: "الموقع:", key: "place", icon: <LocationOn /> },
       { label: "عدد الوجوه:", key: "number_of_faces", icon: <FormatListNumbered /> },
-      { label: "الطراز والنوع:", value: (data) => `${data?.coding?.model || "غير متوفر"} & ${data?.coding?.type || "غير متوفر"}`, icon: <Business /> },
+      {
+        label: "الطراز والنوع:",
+        value: (data) =>
+          `${data?.coding?.model || "غير متوفر"} & ${data?.coding?.type || "غير متوفر"}`,
+        icon: <Business />,
+      },
     ],
-    extra: (data) => data?.reservations?.length > 0 && <ReservationsList reservations={data.reservations} />,
+    extra: (data) =>
+      data?.reservations?.length > 0 && (
+        <ReservationsList reservations={data.reservations} />
+      ),
   },
   users: {
     fields: [
@@ -92,7 +156,7 @@ const ModalShow = ({ show, handleClose, fromPage }) => {
 
   if (!config || !show) return null;
 
-  // Group fields into rows (2 fields per row on desktop, 1 on mobile)
+  // Group fields into rows
   const groupedFields = config.fields.reduce((acc, field, index) => {
     if (index % (isMobile ? 1 : 2) === 0) acc.push([]);
     acc[acc.length - 1].push(field);
@@ -112,14 +176,14 @@ const ModalShow = ({ show, handleClose, fromPage }) => {
         closeButton
         className="d-flex justify-content-center"
         style={{
-          background: "linear-gradient(90deg, #1976d2, #42a5f5)",
-          color: "#fff",
+          background: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
           borderBottom: "none",
         }}
       >
         <Modal.Title id="modal-title">التفاصيل</Modal.Title>
       </Modal.Header>
-      <Modal.Body sx={{ bgcolor: "grey.100" }}>
+      <Modal.Body style={{ backgroundColor: theme.palette.background.default }}>
         <Box
           display="flex"
           flexDirection="column"
@@ -133,7 +197,7 @@ const ModalShow = ({ show, handleClose, fromPage }) => {
               sx={{
                 width: "100%",
                 boxShadow: 3,
-                bgcolor: "white",
+                bgcolor: "background.paper",
                 transition: "box-shadow 0.3s",
                 "&:hover": { boxShadow: 6 },
               }}
@@ -150,7 +214,11 @@ const ModalShow = ({ show, handleClose, fromPage }) => {
                     <InfoField
                       key={fieldIndex}
                       label={field.label}
-                      value={field.value ? field.value(show) : show[field.key] || field.default || "غير متوفر"}
+                      value={
+                        field.value
+                          ? field.value(show)
+                          : show[field.key] || field.default || "غير متوفر"
+                      }
                       icon={field.icon}
                     />
                   ))}
