@@ -1,30 +1,23 @@
 // ReservationsContainer.js
-import React, { useEffect, useState } from 'react';
-import { FormControl, IconButton, InputLabel, MenuItem, Select, Tooltip } from "@mui/material";
-import { Spinner } from "react-bootstrap";
-import { FaEye } from "react-icons/fa";
+import  { useEffect, useState } from 'react';
 import { ToastContainer } from "react-toastify";
-import notify from "../../../utils/useNotification";
-import Pagination from "../../../utils/Pagination";
-import ModalDelete from '../../../utils/ModalDelete';
-import { useDeleteReservationMutation, useGetReservationsQuery } from '../../../redux/slice/super_admin/reservations/reservationsApi';
-import ModalAddReservation from './ModalAddReservation';
-import ModalEditReservation from './ModalEditReservation';
+import {  useGetReservationsQuery } from '../../../redux/slice/super_admin/reservations/reservationsApi';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 
 import ModalShow from '../../../utils/GenericModal';
 import DynamicTable from '../../Table/DynamicTable';
+import { getColumnsReservationsContainer } from '../../Table/tableColumns';
+import { actionsReservationsContainer } from '../../Table/tableActions';
 
-const ReservationsContainer = ({ show, handleClose, refresh, searchWord }) => {
+const ReservationsContainer = ({  refresh, searchWord }) => {
   const [page, setPage] = useState(1);
   const [showReservation, setShowReservation] = useState(false);
-  const [showEdit, setShowEidt] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [reservationsCache, setReservations] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
 
   useEffect(() => {
+    console.log(searchWord)
     const handler = setTimeout(() => {
       setDebouncedSearch(searchWord);
       setPage(1);
@@ -46,98 +39,26 @@ const ReservationsContainer = ({ show, handleClose, refresh, searchWord }) => {
 
   useCacheInLocalStorage(reservations, "reservations", setReservations, setLoadingData);
 
-  const [
-    deleteReservation,
-    { isLoading, isSuccess, isError: isErrDelete, error: errorDel },
-  ] = useDeleteReservationMutation();
-
   const handleShowReservation = (data) => {
     setShowReservation(data);
   };
   const handleCloseShowReservation = () => {
     setShowReservation(false);
   };
-
-  const handleShowEdit = (id) => {
-    setShowEidt(id);
-  };
-  const handleCloseEdit = () => {
-    setShowEidt(false);
-  };
-  const handleShowDelete = (id) => {
-    setShowDelete(id);
-  };
-  const handleCloseDelete = () => {
-    setShowDelete(false);
-  };
-
-  const handleDelete = async () => {
-    try {
-      const result = await deleteReservation(showDelete).unwrap();
-      if (result.status === true) {
-        notify(result.msg, "success");
-        handleCloseDelete();
-      } else {
-        notify(result.msg, "error");
-      }
-    } catch (error) {
-      if (error?.status === 401) {
-        triggerRedirect();
-      } else {
-        console.error("Failed:", error);
-        notify(error?.data?.message, "error");
-      }
-    }
-  };
-
-  const onPress = async (page) => {
-    setPage(page);
-  };
-
-  // Define columns for DynamicTable
-  const columns = [
-    { key: 'road_sign_region', label: 'عنوان اللوحة', align: 'center' },
-    { key: 'road_sign_place', label: 'تموضع اللوحة', align: 'center' },
-    { key: 'start_date', label: 'من', align: 'center' },
-    { key: 'end_date', label: 'إلى', align: 'center' },
-    { key: 'company_name', label: 'اسم الشركة', align: 'center' }
-  ];
-
-  // Define actions for DynamicTable
-  const actions = [
-    {
-      label: 'عرض',
-      icon: <FaEye />,
-      color: '#289FBF',
-      onClick: handleShowReservation
-    }
-  ];
-
+ 
   return (
     <div>
       <DynamicTable
-        columns={columns}
-        data={reservationsCache?.data || []}
-        actions={actions}
+        columns={getColumnsReservationsContainer}
+        data={reservations?.data || []}
+        actions={actionsReservationsContainer(handleShowReservation)}
         loading={loadingData}
         error={error?.data?.message}
         dir="rtl"
       />
       <ToastContainer />
-      <ModalAddReservation show={show} handleClose={handleClose} />
-      <ModalDelete
-        show={showDelete}
-        handleClose={handleCloseDelete}
-        loading={isLoading}
-        error={""}
-        handleDelete={handleDelete}
-      />
-      <ModalEditReservation show={showEdit} handleClose={handleCloseEdit} />
-      {/* <ModalShowReservation show={showReservation} handleClose={handleCloseShowReservation} /> */}
       <ModalShow show={showReservation} handleClose={handleCloseShowReservation} fromPage={"reservations"} />
-      {reservationsCache?.meta?.total_pages > 1 && (
-        <Pagination onPress={onPress} pageCount={reservationsCache?.meta?.total_pages} />
-      )}
+
     </div>
   );
 };

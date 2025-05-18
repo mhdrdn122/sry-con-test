@@ -1,3 +1,4 @@
+// src/utils/ModalShow.js
 import {
   Box,
   Card,
@@ -147,6 +148,30 @@ const modalConfig = {
       { label: "النوع:", key: "format", default: "غير متوفر", icon: <Business /> },
     ],
   },
+  activities: {
+    extra: (data) =>
+      data?.subject ? (
+        <Card sx={{ width: "100%", bgcolor: "background.paper", boxShadow: 2 }}>
+          <CardContent>
+            <Box display="flex" alignItems="center" gap="8px" mb={2}>
+              <CalendarToday color="primary" />
+              <Typography variant="h6" fontWeight="bold" color="text.primary">
+                بيانات الموضوع:
+              </Typography>
+            </Box>
+            <ul className="list-group">
+              {Object.entries(data.subject).map(([key, value]) => (
+                <li key={key} className="list-group-item">
+                  <strong>{key}: </strong> {value.toString()}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      ) : (
+        <Typography>لا توجد بيانات متاحة</Typography>
+      ),
+  },
 };
 
 const ModalShow = ({ show, handleClose, fromPage }) => {
@@ -157,11 +182,13 @@ const ModalShow = ({ show, handleClose, fromPage }) => {
   if (!config || !show) return null;
 
   // Group fields into rows
-  const groupedFields = config.fields.reduce((acc, field, index) => {
-    if (index % (isMobile ? 1 : 2) === 0) acc.push([]);
-    acc[acc.length - 1].push(field);
-    return acc;
-  }, []);
+  const groupedFields = config.fields
+    ? config.fields.reduce((acc, field, index) => {
+        if (index % (isMobile ? 1 : 2) === 0) acc.push([]);
+        acc[acc.length - 1].push(field);
+        return acc;
+      }, [])
+    : [];
 
   return (
     <Modal

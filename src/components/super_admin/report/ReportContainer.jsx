@@ -1,26 +1,21 @@
 // ReportContainer.js
 import React, { useState } from 'react';
-import { useDeleteReportRoadSignMutation, useGetReportQuery, useTransferReportRoadSignMutation } from '../../../redux/slice/super_admin/report/ReportApi';
+import { useGetReportQuery } from '../../../redux/slice/super_admin/report/ReportApi';
 import { ToastContainer } from 'react-toastify';
-// import {  Spinner } from 'react-bootstrap';
 import { Box, Button, IconButton, Tooltip } from '@mui/material';
 import { FaDownload } from 'react-icons/fa';
-import ModalDelete from '../../../utils/ModalDelete';
 import notify from '../../../utils/useNotification';
-import ModalConfirmed from '../orders/ModalConfirmed';
 import { useMediaQuery } from '@uidotdev/usehooks';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import SearchInput from '../../../utils/super_admin/SearchInput';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable';
 import ModalTable from '../../Table/ModalTable';
+import { getColumnsReportContainer } from '../../Table/tableColumns';
 
 const ReportContainer = () => {
   const [page, setPage] = useState(1);
   const [selectedReportType, setSelectedReportType] = useState('all_data');
-  const [showDelete, setShowDelete] = useState(false);
-  const [showTransfer, setShowTransfer] = useState(false);
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
   const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
   const [searchWord, setSearchWord] = useState("");
   const [reportCache, setReportCache] = useState([]);
@@ -36,55 +31,9 @@ const ReportContainer = () => {
 
   useCacheInLocalStorage(report, "report", setReportCache, setLoadingData);
 
-  const [
-    deleteReportRoadSign,
-    { isLoading: isLoadingDelete, isSuccess, isError: isErrDelete, error: errorDel },
-  ] = useDeleteReportRoadSignMutation();
-
-  const [
-    transferReportRoadSign,
-    { isLoading: isLoadingTransfer, isSuccess: isSuccessTransfer, isError: isErrTransfer, error: errorTransfer },
-  ] = useTransferReportRoadSignMutation();
 
   const selectedData = reportCache?.data?.[selectedReportType] || [];
 
-  const handleDelete = async () => {
-    try {
-      const result = await deleteReportRoadSign(showDelete).unwrap();
-      if (result.status === true) {
-        notify("تم الحذف بنجاح", "success");
-        handleCloseDelete();
-      } else {
-        notify(result.message, "error");
-      }
-    } catch (error) {
-      if (error?.status === 401) {
-        notify("401 error", "error");
-      } else {
-        console.error("Failed:", error);
-        notify(error?.data?.message, "error");
-      }
-    }
-  };
-
-  const handleTransfer = async () => {
-    try {
-      const result = await transferReportRoadSign(showTransfer).unwrap();
-      if (result.status === true) {
-        notify("تم النقل بنجاح", "success");
-        handleCloseTransfer();
-      } else {
-        notify(result.message, "error");
-      }
-    } catch (error) {
-      if (error?.status === 401) {
-        notify("401 error", "error");
-      } else {
-        console.error("Failed:", error);
-        notify(error?.data?.message, "error");
-      }
-    }
-  };
 
   const handleDownload = async () => {
     try {
@@ -130,45 +79,6 @@ const ReportContainer = () => {
     }
   };
 
-  const handleShowTransfer = (id) => {
-    setShowTransfer(id);
-  };
-
-  const handleCloseTransfer = () => {
-    setShowTransfer(false);
-  };
-
-  const handleShowDelete = (id) => {
-    setShowDelete(id);
-  };
-
-  const handleCloseDelete = () => {
-    setShowDelete(false);
-  };
-
-  // Define columns dynamically based on selectedReportType
-  const columns = [
-    ...(selectedReportType === 'reservation_this_week' ? [{
-      key: 'company_name',
-      label: 'اسم الشركة',
-      align: 'center'
-    }] : []),
-    { key: 'road_sign_region', label: 'المنطقة', align: 'center' },
-    { key: 'road_sign_place', label: 'الموقع', align: 'center' },
-    { key: 'model', label: 'النموذج', align: 'center' },
-    { key: 'signs_number', label: 'عدد اللوحات', align: 'center' },
-    { key: 'number_of_faces', label: 'عدد الوجوه', align: 'center' },
-    {
-      key: 'meters_number',
-      label: 'عدد الأمتار',
-      align: 'center',
-      render: (row) => row.meters_number || 'غير معرف'
-    },
-    ...(selectedReportType === 'all_data' ? [
-      { key: 'signs_number_reservation', label: 'عدد اللوحات المحجوزة', align: 'center' },
-      { key: 'number_of_faces_reservation', label: 'عدد الوجوه المحجوزة', align: 'center' }
-    ] : []),
-  ];
 
   // Define footer for reservation_this_week
   const footer = selectedReportType === 'reservation_this_week' ? (
@@ -226,41 +136,26 @@ const ReportContainer = () => {
           </Tooltip>
         </Box>
 
-        <Button
-          variant={selectedReportType === 'all_data' ? 'contained' : 'outlined'}
-          onClick={() => setSelectedReportType('all_data')}
-          sx={{
-            minWidth: { xs: '90%', sm: '120px', md: '140px' },
-            mx: { xs: 0, sm: 0.5 },
-            my: { xs: 0.5, sm: 0 }
-          }}
-        >
-          جميع البيانات
-        </Button>
 
-        <Button
-          variant={selectedReportType === 'unreserved_signs' ? 'contained' : 'outlined'}
-          onClick={() => setSelectedReportType('unreserved_signs')}
-          sx={{
-            minWidth: { xs: '90%', sm: '120px', md: '140px' },
-            mx: { xs: 0, sm: 0.5 },
-            my: { xs: 0.5, sm: 0 }
-          }}
-        >
-          لوحات غير محجوزة
-        </Button>
 
-        <Button
-          variant={selectedReportType === 'reservation_this_week' ? 'contained' : 'outlined'}
-          onClick={() => setSelectedReportType('reservation_this_week')}
-          sx={{
-            minWidth: { xs: '90%', sm: '120px', md: '140px' },
-            mx: { xs: 0, sm: 0.5 },
-            my: { xs: 0.5, sm: 0 }
-          }}
-        >
-          الحجز هذا الأسبوع
-        </Button>
+        {[
+          { id: 'all_data', label: 'جميع البيانات' },
+          { id: 'unreserved_signs', label: 'لوحات غير محجوزة' },
+          { id: 'reservation_this_week', label: 'الحجز هذا الأسبوع' }
+        ].map((type) => (
+          <Button
+            key={type.id}
+            variant={selectedReportType === type.id ? 'contained' : 'outlined'}
+            onClick={() => setSelectedReportType(type.id)}
+            sx={{
+              minWidth: { xs: '90%', sm: '120px', md: '140px' },
+              mx: { xs: 0, sm: 0.5 },
+              my: { xs: 0.5, sm: 0 }
+            }}
+          >
+            {type.label}
+          </Button>
+        ))}
       </Box>
 
       <ModalTable data={reportCache.data?.coding} />
@@ -273,7 +168,7 @@ const ReportContainer = () => {
         />
       </div>
       <DynamicTable
-        columns={columns}
+        columns={getColumnsReportContainer(selectedReportType)}
         data={selectedData}
         actions={[]}
         loading={loadingData}
@@ -281,20 +176,7 @@ const ReportContainer = () => {
         dir="rtl"
         footer={footer}
       />
-      <ModalDelete
-        show={showDelete}
-        handleClose={handleCloseDelete}
-        loading={isLoadingDelete}
-        error={""}
-        handleDelete={handleDelete}
-      />
-      <ModalConfirmed
-        show={showTransfer}
-        handleClose={handleCloseTransfer}
-        loading={isLoadingTransfer}
-        error={""}
-        handleConfirmed={handleTransfer}
-      />
+
       <ToastContainer />
     </div>
   );

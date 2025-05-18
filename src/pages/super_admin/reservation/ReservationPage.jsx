@@ -21,11 +21,6 @@ const ReservationPage = () => {
     const handleShowAddReservation = () => {
         setShowAddReservation(true);
       };
-      const handleCloseAddReservation = () => {
-        setShowAddReservation(false);
-      };
-
-  
   return (
     <div>
         <Breadcrumb breadcrumbs={breadcrumbs} />
@@ -40,7 +35,7 @@ const ReservationPage = () => {
                 setSearchWord={setSearchWord}
             />
         <ReservationsContainer 
-            show={showAddReservation} handleClose={handleCloseAddReservation} 
+            show={showAddReservation} 
             refresh={refresh}
             searchWord={searchWord}
         />

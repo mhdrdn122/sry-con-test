@@ -6,7 +6,7 @@ import { CiCircleRemove } from "react-icons/ci";
 import { GiConfirmed } from "react-icons/gi";
 import { HiOutlineInformationCircle } from "react-icons/hi2";
 
-export const actionsAddReservationContainer = (handleShowRoadSign) =>  ([
+export const actionsAddReservationContainer = (handleShowRoadSign) => ([
   {
     label: 'عرض',
     icon: <FaEye />,
@@ -16,50 +16,50 @@ export const actionsAddReservationContainer = (handleShowRoadSign) =>  ([
 ]);
 
 
-export const actionsAdminsContainer = (handleShowAdmin , handleShowEdit , handleShowDelete) => (
+export const actionsAdminsContainer = (handleShowAdmin, handleShowEdit, handleShowDelete) => (
   [
-        {
-            label: 'View',
-            icon: <FaEye />,
-            color: '#289FBF',
-            onClick: handleShowAdmin
-        },
-        {
-            label: 'Edit',
-            icon: <EditOutlinedIcon />,
-            color: 'orange',
-            onClick: handleShowEdit
-        },
-        {
-            label: 'Delete',
-            icon: <DeleteIcon />,
-            color: 'red',
-            onClick: (row) => handleShowDelete(row.id)
-        }
-    ]
- )
-
-
- export const actionsCodingContainer =  (handleShowEdit , handleShowDelete , superAdminInfo) => ( [
     {
-      label: 'تعديل',
+      label: 'View',
+      icon: <FaEye />,
+      color: '#289FBF',
+      onClick: handleShowAdmin
+    },
+    {
+      label: 'Edit',
       icon: <EditOutlinedIcon />,
       color: 'orange',
       onClick: handleShowEdit
     },
-    ...(superAdminInfo?.role === 'super' ? [
-      {
-        label: 'حذف',
-        icon: <DeleteIcon />,
-        color: 'red',
-        onClick: (row) => handleShowDelete(row.id)
-      }
-    ] : [])
-  ]);
+    {
+      label: 'Delete',
+      icon: <DeleteIcon />,
+      color: 'red',
+      onClick: (row) => handleShowDelete(row.id)
+    }
+  ]
+)
 
 
-  export const actionsContractContainer = (handleDownload , handleRenewalContract, handleEdit , handleDelete , isFetching , loading , superAdminInfo) => (
-    [
+export const actionsCodingContainer = (handleShowEdit, handleShowDelete, superAdminInfo) => ([
+  {
+    label: 'تعديل',
+    icon: <EditOutlinedIcon />,
+    color: 'orange',
+    onClick: handleShowEdit
+  },
+  ...(superAdminInfo?.role === 'super' ? [
+    {
+      label: 'حذف',
+      icon: <DeleteIcon />,
+      color: 'red',
+      onClick: (row) => handleShowDelete(row.id)
+    }
+  ] : [])
+]);
+
+
+export const actionsContractContainer = (handleDownload, handleRenewalContract, handleEdit, handleDelete, isFetching, loading, superAdminInfo) => (
+  [
     {
       label: 'تحميل',
       icon: <FaDownload />,
@@ -91,45 +91,101 @@ export const actionsAdminsContainer = (handleShowAdmin , handleShowEdit , handle
       condition: () => superAdminInfo?.role === 'super'
     }
   ]
-  );
+);
 
-  export const actionsEmployeesActivitiesContainer = (handleShowActivities) => ([
-      {
-        label: 'عرض',
-        icon: <FaEye />,
-        color: '#289FBF',
-        onClick: handleShowActivities
-      }
-    ]);
+export const actionsEmployeesActivitiesContainer = (handleShowActivities) => ([
+  {
+    label: 'عرض',
+    icon: <FaEye />,
+    color: '#289FBF',
+    onClick: handleShowActivities
+  }
+]);
 
 
- export const actionsOrdersContainer = ( handleShowEdit , handleShowConfirmed ) =>  ([
+export const actionsOrdersContainer = (handleShowEdit, handleShowConfirmed) => ([
+  {
+    label: 'تعديل',
+    icon: <EditOutlinedIcon />,
+    color: 'orange',
+    onClick: (row) => handleShowEdit(row.id)
+  },
+  {
+    label: 'تأكيد',
+    icon: <GiConfirmed />,
+    color: 'green',
+    onClick: (row) => handleShowConfirmed(row.id)
+  }
+])
+
+export const actionsPaymentsContainer = (handleShowPayment, handleDownload, isFetching, loading) => [
+  {
+    label: 'عرض',
+    icon: <HiOutlineInformationCircle />,
+    color: 'orange',
+    onClick: handleShowPayment
+  },
+  {
+    label: 'كشف حساب',
+    icon: <FaDownload />,
+    color: 'blue',
+    onClick: handleDownload,
+    disabled: isFetching || loading
+  }
+];
+
+export const actionsReservationsContainer = (handleShowReservation) => ([
+  {
+    label: 'عرض',
+    icon: <FaEye />,
+    color: '#289FBF',
+    onClick: handleShowReservation
+  }
+]);
+
+
+export const actionsRoadSignsContainer = (handleShowRoadSign, handleShowEdit, handleShowDelete, isSuperAdmin) => ([
+  {
+    label: 'View',
+    icon: <FaEye />,
+    color: '#289FBF',
+    onClick: handleShowRoadSign
+  },
+  ...(isSuperAdmin ? [
+    {
+      label: 'Edit',
+      icon: <EditOutlinedIcon />,
+      color: 'orange',
+      onClick: handleShowEdit
+    },
+    {
+      label: 'Delete',
+      icon: <DeleteIcon />,
+      color: 'red',
+      onClick: (row) => handleShowDelete(row.id)
+    }
+  ] : [])
+]);
+
+export const actionsUsersContainer = (handleShowUser, handleShowEdit, handleShowDelete, superAdminInfo) => ([
+    {
+      label: 'عرض',
+      icon: <FaEye />,
+      color: '#289FBF',
+      onClick: handleShowUser
+    },
     {
       label: 'تعديل',
       icon: <EditOutlinedIcon />,
       color: 'orange',
-      onClick: (row) => handleShowEdit(row.id)
+      onClick: handleShowEdit
     },
-    {
-      label: 'تأكيد',
-      icon: <GiConfirmed />,
-      color: 'green',
-      onClick: (row) => handleShowConfirmed(row.id)
-    }
-  ])
-
- export const actionsPaymentsContainer = (handleShowPayment , handleDownload , isFetching , loading) => [
-    {
-      label: 'عرض',
-      icon: <HiOutlineInformationCircle />,
-      color: 'orange',
-      onClick: handleShowPayment
-    },
-    {
-      label: 'كشف حساب',
-      icon: <FaDownload />,
-      color: 'blue',
-      onClick: handleDownload,
-      disabled: isFetching || loading
-    }
-  ];
+    ...(superAdminInfo?.role === 'super' ? [
+      {
+        label: 'حذف',
+        icon: <DeleteIcon />,
+        color: 'red',
+        onClick: (row) => handleShowDelete(row.id)
+      }
+    ] : [])
+  ]);

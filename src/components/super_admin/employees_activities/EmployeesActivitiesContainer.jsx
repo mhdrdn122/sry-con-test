@@ -1,10 +1,12 @@
-// EmployeesActivitiesContainer.js
+// src/components/EmployeesActivitiesContainer.js
 import React, { useState } from 'react';
 import { useGetEmployeesActivitiesQuery } from '../../../redux/slice/super_admin/employees_activities/employees_activitiesApi';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsEmployeesActivitiesContainer } from '../../Table/tableColumns';
 import { actionsEmployeesActivitiesContainer } from '../../Table/tableActions';
+import ModalShow from '../../../utils/GenericModal';
+// import ModalShow from '../../../utils/ModalShow';
 
 const EmployeesActivitiesContainer = ({ refresh }) => {
   const [page, setPage] = useState(1);
@@ -18,21 +20,21 @@ const EmployeesActivitiesContainer = ({ refresh }) => {
     isError,
     error,
     isLoading: loading,
-    isFetching
+    isFetching,
   } = useGetEmployeesActivitiesQuery({ page, refresh }, { refetchOnMountOrArgChange: true });
 
   useCacheInLocalStorage(activities, "activities", setActivitiesCache, setLoadingData);
 
   const handleShowActivities = (data) => {
-    setSelectedActivity(data);
     setShowActivities(true);
+    setSelectedActivity(data);
+    console.log('Activity Data:', data); // للتحقق من البيانات
   };
 
   const handleCloseShowActivities = () => {
     setShowActivities(false);
     setSelectedActivity(null);
   };
-
 
   return (
     <div>
@@ -43,6 +45,11 @@ const EmployeesActivitiesContainer = ({ refresh }) => {
         loading={loadingData}
         error={error?.data?.message}
         dir="rtl"
+      />
+      <ModalShow
+        show={selectedActivity}
+        handleClose={handleCloseShowActivities}
+        fromPage="activities"
       />
     </div>
   );

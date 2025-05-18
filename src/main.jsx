@@ -7,7 +7,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store/store.jsx';
 import "bootstrap/dist/css/bootstrap.min.css";
-import WidthWindowProvider from './Context/WindowWidthContext.jsx';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import theme from '../theme.jsx';
 
@@ -21,12 +20,10 @@ const toggleMode=() => {
     <StrictMode>
       <BrowserRouter>
         <Provider store={store}>
-          <WidthWindowProvider>
             <ThemeProvider theme={themeApp}>
               <CssBaseline />
               <App  toggleMode={toggleMode} />
             </ThemeProvider>
-          </WidthWindowProvider>
         </Provider>
       </BrowserRouter>
     </StrictMode>

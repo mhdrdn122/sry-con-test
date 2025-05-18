@@ -8,7 +8,6 @@ const useInsertDataSuperAdmin = async (url, params ) => {
       },
     };
     const res = await baseURL.post(url, params, config);
-    console.log(res);
     return res;
   };
   export {

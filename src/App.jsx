@@ -18,12 +18,10 @@ import AddReservationPage from "./pages/super_admin/add_reservation/AddReservati
 import ReportPage from "./pages/super_admin/report/ReportPage"
 import EmployeesActivitiesPage from './pages/super_admin/employees_activities/EmployeesActivitiesPage'
 import { useContext } from "react"
-import { widthWindow } from "./Context/WindowWidthContext"
-// import { useWindowWidth } from "./Context/WindowWidthContext"
-function App({toggleMode}) {
-  const width = useContext(widthWindow)
+import PageAddReserveRoadSign from "./components/super_admin/add_reservation/PageAddReserveCart"
+function App({toggleMode}) { 
  
-  console.log(width)
+
   const navigate =useNavigate();
   return (
     <div>
@@ -85,6 +83,12 @@ function App({toggleMode}) {
             path="add_reservation"
             element={
               <AddReservationPage />
+            }
+          />
+           <Route 
+            path="add_reservation/cart"
+            element={
+              <PageAddReserveRoadSign />
             }
           />
             <Route 

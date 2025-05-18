@@ -10,7 +10,6 @@ import { useGetRoadSignsQuery, useDeleteRoadSignMutation } from '../../../redux/
 import { useGetUsersQuery } from '../../../redux/slice/super_admin/users/usersApi';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import ModalShow from '../../../utils/GenericModal';
-import ModalCart from './ModalCart';
 import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsAddReservationContainer } from '../../Table/tableColumns';
 import { actionsAddReservationContainer } from '../../Table/tableActions';
@@ -190,7 +189,6 @@ const AddReservationContainer = ({
 
       <ToastContainer />
       <ModalShow show={showSignRoad} handleClose={handleCloseShowRoadSign} fromPage="addReservations" />
-      <ModalCart inputFields={formik.values} show={showAddReserve} handleClose={handleCloseAddReserve} />
     </div>
   );
 };

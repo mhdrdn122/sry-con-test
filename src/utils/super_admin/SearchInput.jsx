@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { FormControl, InputAdornment, TextField } from "@mui/material";
+import { FormControl, InputAdornment, TextField, useTheme } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 
 const SearchInput = ({ searchWord, setSearchWord , phrasePlaceHolder  }) => {
 
   const [showClearIcon, setShowClearIcon] = useState("none");
+  const theme = useTheme()
 
   const handleChange = (event) => {
     setSearchWord(event.target.value);
@@ -19,7 +20,7 @@ const SearchInput = ({ searchWord, setSearchWord , phrasePlaceHolder  }) => {
 
   return (
     <FormControl
-    sx={{ mb: "20px", mr: "22px", bgcolor: "#FFF" , width:'100%' }}
+    sx={{ mb: "20px", mr: "22px", bgcolor: "#FFF" , width:'100%' , bgcolor: theme.palette.background.default }}
     
   >
     <TextField
@@ -27,6 +28,12 @@ const SearchInput = ({ searchWord, setSearchWord , phrasePlaceHolder  }) => {
       variant="outlined"
       value={searchWord}
       onChange={handleChange}
+      sx={{
+        width: "100%",
+        bgcolor: theme.palette.background.default,
+       border: "none",
+       outline: "none",
+      }}
       className='rounded'
       placeholder={phrasePlaceHolder || "Search..."}
       InputProps={{

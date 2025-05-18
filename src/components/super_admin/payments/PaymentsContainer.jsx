@@ -12,7 +12,6 @@ import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsPaymentsContainer } from '../../Table/tableColumns';
 import { actionsPaymentsContainer } from '../../Table/tableActions';
 import { ModalAddCashPayment } from '../../../utils/DynamicAddModal';
-// import { ModalAddCashPayment } from '../../../utils/DynamicAddModal';
 
 const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
   const [page, setPage] = useState(1);
@@ -144,7 +143,6 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
         dir="rtl"
       />
       <ToastContainer />
-      {/* <ModalAddCashPayment show={show} handleClose={handleClose} /> */}
       <ModalAddCashPayment show={show} handleClose={handleClose} />
       
       <ModalShowPayment show={showPayment} handleClose={handleCloseShowPayment} />

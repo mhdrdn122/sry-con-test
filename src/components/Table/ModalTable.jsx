@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Loading from '../../utils/Loading';
-import { useEffect, useState } from 'react';
 
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   maxWidth: '100%',
