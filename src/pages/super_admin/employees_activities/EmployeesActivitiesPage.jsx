@@ -1,27 +1,17 @@
 import React, { useState } from 'react'
-import Breadcrumb from '../../../utils/Breadcrumb';
+import Breadcrumb from '../../../utils/Breadcrumbs/Breadcrumb';
 import Header from '../../../utils/Header';
 import EmployeesActivitiesContainer from '../../../components/super_admin/employees_activities/EmployeesActivitiesContainer';
+import { breadcrumbsEmployeesActivitiesPage } from '../../../utils/Breadcrumbs/breadcrumbs';
 
-const breadcrumbs = [
-    {
-      label: "الرئيسية",
-      to: "/super_admin",
-    },
-    {
-      label: "نشاطات الموظفين",
-    },
-  ].reverse();
+
 const EmployeesActivitiesPage = () => {
         const [refresh, setRefresh] = useState(false)
   return (
     <div>
-        <Breadcrumb breadcrumbs={breadcrumbs} />
+        <Breadcrumb breadcrumbs={breadcrumbsEmployeesActivitiesPage} />
         <Header
               heading={"نشاطات الموظفين"}
-            //   buttonText={"إضافة "}
-            //   onButtonClick={handleShowAddDuration}
-            //   requiredPermission={SuperPermissionsEnum.SUPER_ADMIN_ADD}
               setRefresh={setRefresh}
               refresh={refresh}
         />

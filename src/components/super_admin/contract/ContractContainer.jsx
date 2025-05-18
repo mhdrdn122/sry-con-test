@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
-import Pagination from "../../../utils/Pagination";
 import { useDeleteContractMutation, useGetContractsQuery } from '../../../redux/slice/super_admin/contracts/contractsApi';
 import ModalRenewalContract from './ModalRenewalContract';
 import ModalEditDiscount from './ModalEditDiscount';

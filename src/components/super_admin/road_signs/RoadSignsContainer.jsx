@@ -2,16 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
-import ModalDelete from '../../../utils/ModalDelete';
+import ModalDelete from '../../../utils/Modals/DeleteModal/ModalDelete';
 import { useDeleteRoadSignMutation, useGetRoadSignsQuery } from '../../../redux/slice/super_admin/road_signs/roadSignsApi';
 import ModalEditRoadSign from './ModalEditRoadSign';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import ModalShow from '../../../utils/GenericModal';
+import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 import DynamicTable from '../../Table/DynamicTable';
 import ModalTable from '../../Table/ModalTable';
 import { getColumnsRoadSignContainer } from '../../Table/tableColumns';
 import { actionsRoadSignsContainer } from '../../Table/tableActions';
-import { ModalAddRoadSign } from '../../../utils/DynamicAddModal';
+import { ModalAddRoadSign } from '../../../utils/Modals/AddModal/DynamicAddModal';
 
 const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate, city, status
 }) => {

@@ -4,11 +4,11 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Select
+  Select,
+  useTheme
 } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
-import Pagination from "../../../utils/Pagination";
 import ModalEditOrder from './ModalEditOrder';
 import ModalConfirmed from './ModalConfirmed';
 import { useConfirmOneOrderMutation, useGetOrdersQuery } from '../../../redux/slice/super_admin/orders/ordersApi';
@@ -17,8 +17,9 @@ import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalSto
 import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsOrdersContainer } from '../../Table/tableColumns';
 import { actionsOrdersContainer } from '../../Table/tableActions';
+import SelectOptionOrders from './SelectOptionOrders';
 
-const OrdersContainer = ({ refresh, searchWord, selectedType }) => {
+const OrdersContainer = ({ refresh, searchWord }) => {
   const [page, setPage] = useState(1);
   const [showEdit, setShowEidt] = useState(false);
   const [showConfirmed, setShowConfirmed] = useState(false);
@@ -26,6 +27,9 @@ const OrdersContainer = ({ refresh, searchWord, selectedType }) => {
   const [loadingExport, setLoadingExport] = useState(false);
   const [ordersCache, setOrders] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
+  const [selectedType, setSelectedType] = useState(""); 
+  const theme = useTheme();
+
 
   const [debouncedType, setDebouncedType] = useState("");
 
@@ -130,30 +134,10 @@ const OrdersContainer = ({ refresh, searchWord, selectedType }) => {
     }
   };
 
-  
+  console.log(selectedType)
   return (
     <div>
-      <div className='d-flex mb-2'>
-        <FormControl margin='dense' className='m-auto' sx={{ width: 200, marginBottom: 2, borderRadius: 2, boxShadow: 1 }}>
-          <InputLabel id="order-type-label">نوع الطلب</InputLabel>
-          <Select
-            labelId="order-type-label"
-            id="order-type"
-            value={selectedType2}
-            onChange={handleTypeChange}
-            sx={{
-              backgroundColor: "#f9f9f9",
-              borderRadius: 2,
-              "&:hover": { backgroundColor: "#f0f0f0" },
-            }}
-          >
-            <MenuItem value="">اختر نوع الطلب</MenuItem>
-            <MenuItem value="all">📋 تحميل الفك و التركيب</MenuItem>
-            <MenuItem value="installation">🔧 تحميل تركيب</MenuItem>
-            <MenuItem value="uninstallation">❌ تحميل فك</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
+  <SelectOptionOrders selectedType={selectedType} setSelectedType={setSelectedType} handleTypeChange={handleTypeChange} />
       <DynamicTable
         columns={getColumnsOrdersContainer}
         data={ordersCache?.data || []}

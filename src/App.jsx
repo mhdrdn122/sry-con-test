@@ -11,7 +11,6 @@ import ReservationPage from "./pages/super_admin/reservation/ReservationPage"
 import OrdersPage from "./pages/super_admin/orders/OrdersPage"
 import PaymentsPage from "./pages/super_admin/payments/PaymentsPage"
 import ProfilePage from "./pages/super_admin/profile/ProfilePage"
-import UserContracts from "./pages/super_admin/user_contracts/UserContracts"
 import Box from "./pages/super_admin/box/Box"
 import ContractPage from "./pages/super_admin/contract/ContractPage"
 import AddReservationPage from "./pages/super_admin/add_reservation/AddReservationPage"
@@ -55,12 +54,7 @@ function App({toggleMode}) {
               <AllUsersPage />
             }/>
 
-            <Route 
-              path="users/:id"
-              element={
-                <UserContracts />
-              }
-            />
+          
            <Route 
             path="coding"
             element={

@@ -1,7 +1,7 @@
 // Custom hook to handle logout logic
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { resetAuthState } from '../../../../redux/slice/super_admin/auth/authSlice';
+import { resetAuthState } from '../../redux/slice/super_admin/auth/authSlice';
 
 const useLogout = () => {
   const dispatch = useDispatch();

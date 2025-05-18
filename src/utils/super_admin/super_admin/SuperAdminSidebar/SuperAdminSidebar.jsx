@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useContext, useEffect } from 'react';
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, AppBar, Toolbar, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { menuItemsConfig } from './menuItemsConfig';
-import useLogout from './useLogout';
+import useLogout from '../../../../hooks/GlobalHooks/useLogout';
 import adv_syrian from '../../../../assets/adv_syrian.png';
 import { useNavigate } from 'react-router-dom';
 import TopBar from '../TopBar';
@@ -10,7 +10,7 @@ const SuperAdminSidebar = ({ toggleMode }) => {
   const superAdminInfo = JSON.parse(localStorage.getItem('superAdminInfo'));
   const isLargeScreen = useMediaQuery('(min-width:769px)');
   const [open, setOpen] = useState(isLargeScreen);
-      const [buttonMode, setButtonMode] = useState(localStorage.getItem('mode') || 'light');
+  const [buttonMode, setButtonMode] = useState(localStorage.getItem('mode') || 'light');
   
   const navigate = useNavigate();
   const logout = useLogout();
@@ -48,7 +48,7 @@ const SuperAdminSidebar = ({ toggleMode }) => {
       direction: 'rtl',
       overflowX: 'hidden' 
     }}>
-      <Box mb="25px" display="flex" style={{ backgroundColor: buttonMode === 'light' ? "#fff" : "#333" }} justifyContent="center" alignItems="center" pt="20px">
+      <Box mb="25px" display="flex" style={{ backgroundColor: theme.palette.mode === 'light' ? "#fff" : "#333" }} justifyContent="center" alignItems="center" pt="20px">
         <img
           src={adv_syrian}
           alt="profile"

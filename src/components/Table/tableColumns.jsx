@@ -277,3 +277,25 @@ export  const getColumnsUsersContainer = ( handleShowContract , handleShowOffer 
       )
     }
   ]);
+
+
+  export  const getColumnsBoxContainer = [
+    {
+      key: 'amount_received',
+      label: 'المبلغ المقبوض',
+      align: 'center',
+      render: (row) => row.amount_received || '....'
+    },
+    {
+      key: 'remaining_amount',
+      label: 'المبلغ المتبقي',
+      align: 'center',
+      render: (row) => row.remaining_amount || '....'
+    },
+    {
+      key: 'total',
+      label: 'المجموع',
+      align: 'center',
+      render: (row) => row.total || '....'
+    }
+  ];

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Breadcrumb from "../../../utils/Breadcrumb";
+import Breadcrumb from "../../../utils/Breadcrumbs/Breadcrumb";
 import Header from "../../../utils/Header";
 import DurationContainer from "../../../components/super_admin/durations/DurationContainer";
 

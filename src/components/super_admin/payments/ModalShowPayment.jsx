@@ -23,7 +23,7 @@ import notify from "../../../utils/useNotification";
 import { GiReceiveMoney } from "react-icons/gi";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDeletePaymentMutation, useReceivedPaymentMutation, useShowOneHistoryPaymentQuery } from '../../../redux/slice/super_admin/payments/paymentsApi';
-import ModalDelete from "../../../utils/ModalDelete";
+import ModalDelete from "../../../utils/Modals/DeleteModal/ModalDelete";
 import { AiFillPicture } from "react-icons/ai";
 
 

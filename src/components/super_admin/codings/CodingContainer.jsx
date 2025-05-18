@@ -2,15 +2,14 @@
 import  { useState } from 'react';
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
-import Pagination from "../../../utils/Pagination";
 import { useDeleteCodingMutation, useGetCodingsQuery } from '../../../redux/slice/super_admin/codings/codingsApi';
-import ModalDelete from '../../../utils/ModalDelete';
+import ModalDelete from '../../../utils/Modals/DeleteModal/ModalDelete';
 import ModalEditCoding from './ModalEditCoding';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsCodingContainer } from '../../Table/tableColumns';
 import { actionsCodingContainer } from '../../Table/tableActions';
-import { ModalAddCoding } from '../../../utils/DynamicAddModal';
+import { ModalAddCoding } from '../../../utils/Modals/AddModal/DynamicAddModal';
 const CodingContainer = ({ show, handleClose, refresh }) => {
   const [page, setPage] = useState(1);
   const [showEdit, setShowEidt] = useState(false);

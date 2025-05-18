@@ -2,18 +2,18 @@
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
-import ModalDelete from "../../../utils/ModalDelete";
+import ModalDelete from "../../../utils/Modals/DeleteModal/ModalDelete";
 import { useDeleteUserMutation, useGetUsersQuery } from '../../../redux/slice/super_admin/users/usersApi';
 import ModalEditUser from './ModalEditUser';
 import ModalShowContract from './ModalShowContract';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
-import ModalShow from '../../../utils/GenericModal';
+import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 import { getColumnsUsersContainer } from '../../Table/tableColumns';
 import { actionsUsersContainer } from '../../Table/tableActions';
 import ModalShowOffer from './ModalShowOffer';
-import { ModalAddUser } from '../../../utils/DynamicAddModal';
+import { ModalAddUser } from '../../../utils/Modals/AddModal/DynamicAddModal';
 import { useState } from "react";
 
 const UsersContainer = ({ show, handleClose, refresh }) => {

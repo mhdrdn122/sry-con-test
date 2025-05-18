@@ -1,18 +1,11 @@
 import React, { useState } from 'react'
-import Breadcrumb from "../../../utils/Breadcrumb";
+import Breadcrumb from "../../../utils/Breadcrumbs/Breadcrumb";
 import Header from "../../../utils/Header";
 import ReservationsContainer from '../../../components/super_admin/reservations/ReservationsContainer';
 import SearchInput from '../../../utils/super_admin/SearchInput';
+import { breadcrumbsReservation } from '../../../utils/Breadcrumbs/breadcrumbs';
 
-const breadcrumbs = [
-    {
-      label: "الرئيسية",
-      to: "/super_admin",
-    },
-    {
-      label: "الحجوزات",
-    },
-  ].reverse();
+
 const ReservationPage = () => {
     const [refresh, setRefresh] = useState(false)
     const [showAddReservation, setShowAddReservation] = useState(false);
@@ -23,7 +16,7 @@ const ReservationPage = () => {
       };
   return (
     <div>
-        <Breadcrumb breadcrumbs={breadcrumbs} />
+        <Breadcrumb breadcrumbs={breadcrumbsReservation} />
         <Header 
               heading={"الحجوزات"}
               onButtonClick={handleShowAddReservation}

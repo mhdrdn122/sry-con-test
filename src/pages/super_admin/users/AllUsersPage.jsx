@@ -1,18 +1,9 @@
 import React, { useState } from 'react'
-import Breadcrumb from "../../../utils/Breadcrumb";
+import Breadcrumb from "../../../utils/Breadcrumbs/Breadcrumb";
 import Header from "../../../utils/Header";
-import AdminsContainer from "../../../components/super_admin/admins/AdminsContainer";
 import UsersContainer from '../../../components/super_admin/users/UsersContainer';
+import { breadcrumbsUsers } from '../../../utils/Breadcrumbs/breadcrumbs';
 
-const breadcrumbs = [
-    {
-      label: "الرئيسية",
-      to: "/super_admin",
-    },
-    {
-      label: "المستخدمين",
-    },
-  ].reverse();
 
 const AllUsersPage = () => {
       const [refresh, setRefresh] = useState(false)
@@ -27,7 +18,7 @@ const AllUsersPage = () => {
 
   return (
     <div>
-        <Breadcrumb breadcrumbs={breadcrumbs} />
+        <Breadcrumb breadcrumbs={breadcrumbsUsers} />
         <Header 
               heading={"الزبائن"}
               buttonText={"إضافة"}

@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
-import Pagination from "../../../utils/Pagination";
-import ModalDelete from '../../../utils/ModalDelete';
+import ModalDelete from '../../../utils/Modals/DeleteModal/ModalDelete';
 import { useGetPaymentsQuery, useDeletePaymentMutation } from '../../../redux/slice/super_admin/payments/paymentsApi';
 import ModalShowPayment from './ModalShowPayment';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
@@ -11,7 +10,7 @@ import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalSto
 import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsPaymentsContainer } from '../../Table/tableColumns';
 import { actionsPaymentsContainer } from '../../Table/tableActions';
-import { ModalAddCashPayment } from '../../../utils/DynamicAddModal';
+import { ModalAddCashPayment } from '../../../utils/Modals/AddModal/DynamicAddModal';
 
 const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
   const [page, setPage] = useState(1);

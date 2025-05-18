@@ -5,7 +5,7 @@ import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalSto
 import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsEmployeesActivitiesContainer } from '../../Table/tableColumns';
 import { actionsEmployeesActivitiesContainer } from '../../Table/tableActions';
-import ModalShow from '../../../utils/GenericModal';
+import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 // import ModalShow from '../../../utils/ModalShow';
 
 const EmployeesActivitiesContainer = ({ refresh }) => {

@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Loading from '../../utils/Loading';
+import Loading from '../../utils/Loading/Loading';
 
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   maxWidth: '100%',

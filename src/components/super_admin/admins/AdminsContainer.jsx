@@ -2,16 +2,15 @@
 import {  useState } from "react";
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
-import Pagination from "../../../utils/Pagination";
 import { useDeleteAdminMutation, useGetAdminsQuery } from "../../../redux/slice/super_admin/super_admins/superAdminsApi";
-import ModalDelete from "../../../utils/ModalDelete";
+import ModalDelete from "../../../utils/Modals/DeleteModal/ModalDelete";
 import ModalEditAdmin from "./ModalEditAdmin";
 import useCacheInLocalStorage from "../../../hooks/superAdmin/useCacheInLocalStorage";
-import ModalShow from "../../../utils/GenericModal";
+import ModalShow from "../../../utils/Modals/ShowModal/GenericModal";
 import DynamicTable from "../../Table/DynamicTable";
 import { getColumnsAdminsContainer } from "../../Table/tableColumns";
 import { actionsAdminsContainer } from "../../Table/tableActions";
-import { ModalAddAdmin } from "../../../utils/DynamicAddModal";
+import { ModalAddAdmin } from "../../../utils/Modals/AddModal/DynamicAddModal";
 
 const AdminsContainer = ({ show, handleClose, refresh }) => {
     const [page, setPage] = useState(1);

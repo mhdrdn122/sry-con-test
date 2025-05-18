@@ -38,8 +38,7 @@ const Header = ({
       <Box
         component="section"
         sx={{
-          py: isSmallDevice ? 2 : 4,
-          px: isSmallDevice ? 2 : 4,
+          py: isSmallDevice ? 1 : 2,
           width: "100%",
           marginLeft: "auto",
         }}

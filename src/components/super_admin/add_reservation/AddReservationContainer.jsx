@@ -9,7 +9,7 @@ import { removeSign, addSign } from '../../../redux/slice/super_admin/road_signs
 import { useGetRoadSignsQuery, useDeleteRoadSignMutation } from '../../../redux/slice/super_admin/road_signs/roadSignsApi';
 import { useGetUsersQuery } from '../../../redux/slice/super_admin/users/usersApi';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import ModalShow from '../../../utils/GenericModal';
+import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsAddReservationContainer } from '../../Table/tableColumns';
 import { actionsAddReservationContainer } from '../../Table/tableActions';

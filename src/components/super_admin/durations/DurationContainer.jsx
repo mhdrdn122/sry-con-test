@@ -1,23 +1,14 @@
 import React, { useState } from 'react'
 import {
-    FormControl,
     IconButton,
-    InputLabel,
-    MenuItem,
-    Select,
 } from "@mui/material";
 import { Spinner } from "react-bootstrap";
-import { FaEye } from "react-icons/fa";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
-import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
-import { CgUnblock } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
-import Pagination from "../../../utils/Pagination";
 import { useDeleteDurationMutation,useGetDurationsQuery } from '../../../redux/slice/super_admin/durations/durationsApi';
-import ModalDelete from '../../../utils/ModalDelete';
+import ModalDelete from '../../../utils/Modals/DeleteModal/ModalDelete';
 import ModalAddDuration from './ModalAddDuration';
 import ModalEditDuration from './ModalEditDuration';
 

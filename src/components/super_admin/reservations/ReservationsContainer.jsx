@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import {  useGetReservationsQuery } from '../../../redux/slice/super_admin/reservations/reservationsApi';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 
-import ModalShow from '../../../utils/GenericModal';
+import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsReservationsContainer } from '../../Table/tableColumns';
 import { actionsReservationsContainer } from '../../Table/tableActions';

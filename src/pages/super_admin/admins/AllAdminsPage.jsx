@@ -1,17 +1,10 @@
 import { useState } from "react";
-import Breadcrumb from "../../../utils/Breadcrumb";
+import Breadcrumb from "../../../utils/Breadcrumbs/Breadcrumb";
 import Header from "../../../utils/Header";
 import AdminsContainer from "../../../components/super_admin/admins/AdminsContainer";
+import { breadcrumbsAdmins } from "../../../utils/Breadcrumbs/breadcrumbs";
 
-const breadcrumbs = [
-    {
-      label: "الرئيسية",
-      to: "/super_admin",
-    },
-    {
-      label: "المشرفين",
-    },
-  ].reverse();
+
   const AllAdminsPage = () => {
     const [refresh, setRefresh] = useState(false)
     const [showAddAdmin, setShowAddAdmin] = useState(false);
@@ -21,14 +14,14 @@ const breadcrumbs = [
       const handleCloseAddAdmin = () => {
         setShowAddAdmin(false);
       };
+      
       return (
         <div>
-          <Breadcrumb breadcrumbs={breadcrumbs} />
+          <Breadcrumb breadcrumbs={breadcrumbsAdmins} />
         <Header 
               heading={"الموظفين"}
               buttonText={"إضافة "}
               onButtonClick={handleShowAddAdmin}
-            //   requiredPermission={SuperPermissionsEnum.SUPER_ADMIN_ADD}
               setRefresh={setRefresh}
               refresh={refresh}
         />

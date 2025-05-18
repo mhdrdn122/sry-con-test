@@ -1,20 +1,11 @@
 import React, { useState } from 'react'
-import Breadcrumb from '../../../utils/Breadcrumb'
+import Breadcrumb from '../../../utils/Breadcrumbs/Breadcrumb'
 import ProfileDetails from '../../../components/super_admin/profile/ProfileDetails'
 import Header from '../../../utils/Header'
 import ModalEditSuperAdminInfo from '../../../components/super_admin/profile/ModalEditSuperAdminInfo';
-import { Button } from 'react-bootstrap';
 import { ManageAccounts } from '@mui/icons-material';
+import { breadcrumbsProfile } from '../../../utils/Breadcrumbs/breadcrumbs';
 
-const breadcrumbs = [
-  {
-    label: "الرئيسية",
-    to: "/admin",
-  },
-  {
-    label: "الملف الشخصي",
-  },
-].reverse();
 
 const ProfilePage = () => {
   const [show, setShow] = useState(false)
@@ -26,12 +17,11 @@ const ProfilePage = () => {
   }
 
   const role = superAdminInfo.role
-  let showButton = false
- 
+
 
   return (
     <div>
-      <Breadcrumb breadcrumbs={breadcrumbs} />
+      <Breadcrumb breadcrumbs={breadcrumbsProfile} />
         <Header 
         heading={"تعديل الملف الشخصي"}
         buttonText={role == "super" ? "تعديل معلومات التسجيل" : ''}  

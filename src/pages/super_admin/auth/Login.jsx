@@ -83,24 +83,7 @@ const Login = () => {
           password,
         })
       );
-    console.log('user name : ',user_name)
-    console.log('password : ',password)
-    setIsPress(false);
-
-    // try {
-    //   const response = await axios.post(`http://192.168.1.40:8000/api/login`, {
-    //     username: user_name,
-    //     password,
-    //   });
-    //   console.log('Response:', response.data);
-    // } catch (error) {
-    //   console.log('Error fff:', error);
-    //   console.log('Error details ff:', error.response?.data?.message);
-    //   notify(error.response?.data?.message,"error")
-    // }finally{
-    //   setIsPress(false);
-    // }
-    
+    setIsPress(false);  
     
 };
 

@@ -1,16 +1,8 @@
 import { useState } from "react";
-import Breadcrumb from "../../../utils/Breadcrumb";
+import Breadcrumb from "../../../utils/Breadcrumbs/Breadcrumb";
 import Header from "../../../utils/Header";
 import CodingContainer from "../../../components/super_admin/codings/CodingContainer";
-const breadcrumbs = [
-    {
-      label: "الرئيسية",
-      to: "/super_admin",
-    },
-    {
-      label: "النموذج",
-    },
-  ].reverse();
+import { breadcrumbsCoding } from "../../../utils/Breadcrumbs/breadcrumbs";
 
   const CodingPage = () => {
     const [refresh, setRefresh] = useState(false)
@@ -24,12 +16,11 @@ const breadcrumbs = [
 
    return(
     <div>
-        <Breadcrumb breadcrumbs={breadcrumbs} />
+        <Breadcrumb breadcrumbs={breadcrumbsCoding} />
         <Header 
               heading={"النماذج"}
               buttonText={"إضافة "}
               onButtonClick={handleShowAddCoding}
-            //   requiredPermission={SuperPermissionsEnum.SUPER_ADMIN_ADD}
               setRefresh={setRefresh}
               refresh={refresh}
         />

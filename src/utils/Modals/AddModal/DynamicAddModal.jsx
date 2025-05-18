@@ -1,16 +1,10 @@
-import React from "react";
 import * as Yup from "yup";
-// import { useAddNewAdminMutation } from "../../../redux/slice/super_admin/super_admins/superAdminsApi";
-// import { useAddNewCodingMutation } from "../../../redux/slice/super_admin/codings/codingsApi";
-// import { useAddNewCashPaymentMutation, useGetCodingsQuery } from "../../../redux/slice/super_admin/payments/paymentsApi";
-// import { useAddNewRoadSignMutation, useGetRoadCodingsQuery } from "../../../redux/slice/super_admin/road_signs/roadSignsApi";
-// import { useAddNewUserMutation } from "../../../redux/slice/super_admin/users/usersApi";
 import DynamicModal from "./ModalAdd";
-import { useAddNewAdminMutation } from "../redux/slice/super_admin/super_admins/superAdminsApi";
-import { useAddNewCodingMutation, useGetRoadCodingsQuery } from "../redux/slice/super_admin/codings/codingsApi";
-import { useAddNewCashPaymentMutation, useGetCodingsQuery } from "../redux/slice/super_admin/payments/paymentsApi";
-import { useAddNewRoadSignMutation } from "../redux/slice/super_admin/road_signs/roadSignsApi";
-import { useAddNewUserMutation } from "../redux/slice/super_admin/users/usersApi";
+import { useAddNewAdminMutation } from "../../../redux/slice/super_admin/super_admins/superAdminsApi";
+import { useAddNewCodingMutation, useGetRoadCodingsQuery } from "../../../redux/slice/super_admin/codings/codingsApi";
+import { useAddNewCashPaymentMutation, useGetCodingsQuery } from "../../../redux/slice/super_admin/payments/paymentsApi";
+import { useAddNewRoadSignMutation } from "../../../redux/slice/super_admin/road_signs/roadSignsApi";
+import { useAddNewUserMutation } from "../../../redux/slice/super_admin/users/usersApi";
 
 // Admin Modal Configuration
 const adminFields = [
