@@ -45,7 +45,6 @@ const PageAddReserveRoadSign = ({ inputFields }) => {
     useAddNewReservationMutation();
   const [calculateReservation, { data: calcData, isLoading: isCalcLoading, isSuccess: isCalcSuccess, isError: isCalcError, error: calcError }] =
     useCalculateReservationMutation();
-    console.log("selectedSigns : ", selectedSigns)
 
   const [fieldErrors, setFieldErrors] = useState({});
 
@@ -62,8 +61,12 @@ const PageAddReserveRoadSign = ({ inputFields }) => {
     enableReinitialize: true,
     validationSchema: Yup.object({}),
     onSubmit: async (values) => {
+      console.log("test")
+      console.log(values)
       if (!validateFields()) return;
       values.data = selectedSigns;
+      
+
       await addNewReservation(values).unwrap();
     },
   });

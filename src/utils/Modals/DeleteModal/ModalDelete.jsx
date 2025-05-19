@@ -1,40 +1,105 @@
 import { Modal, Button } from "react-bootstrap";
-const ModalDelete = ({ show, handleClose, loading, error, handleDelete ,isLoading}) => {
-    return (
-        <Modal
+import { useTheme } from "@mui/material/styles";
+
+const ModalDelete = ({ show, handleClose, loading, error, handleDelete }) => {
+  const theme = useTheme();
+
+  // CSS مخصّص للـ backdrop ليظهر فوق كل شيء مع blur
+  // const backdropStyle = `
+  //   .modal-backdrop.show {
+  //     z-index: ${theme.zIndex.modal + 1000} !important;
+  //     background-color: ${
+  //       theme.palette.mode === "dark"
+  //         ? "rgba(18, 18, 18, 0.4)"
+  //         : "rgba(255, 255, 255, 0.4)"
+  //     };
+  //     backdrop-filter: blur(6px);
+  //   }
+  // `;
+
+  const contentStyle = {
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    borderRadius: 10,
+    padding: 20,
+    boxShadow:
+      theme.palette.mode === "dark"
+        ? "0 0 20px rgba(255,255,255,0.1)"
+        : "0 0 20px rgba(0,0,0,0.1)",
+    zIndex: theme.zIndex.modal + 1001, // أعلى من backdrop
+    position: "relative",
+  };
+
+  return (
+    <>
+      {/* <style>{backdropStyle}</style> */}
+
+      <Modal
         show={show}
         onHide={handleClose}
-        centered      
-        style={{ direction: "rtl" }}
+        centered
+        backdrop="static"
+        keyboard={false}
+        // style={{ zIndex: theme.zIndex.modal + 1001 }}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>تأكيد عملية الحذف</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        {error && (
-          <div className="alert alert-danger" role="alert">
-            {error}
+        <div style={{ ...contentStyle, direction: "rtl" }}>
+          <h5 style={{ marginBottom: 16, textAlign: "center" }}>
+            تأكيد عملية الحذف
+          </h5>
+
+          {error && (
+            <div
+              style={{
+                backgroundColor: theme.palette.error.main,
+                color: theme.palette.error.contrastText,
+                padding: 8,
+                borderRadius: 4,
+                marginBottom: 12,
+              }}
+            >
+              {error}
+            </div>
+          )}
+
+          <p>هل أنت متأكد من حذف هذا العنصر؟</p>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              gap: 10,
+              marginTop: 20,
+            }}
+          >
+            <Button
+              variant="secondary"
+              onClick={handleClose}
+              style={{
+                backgroundColor: theme.palette.secondary.main,
+                border: "none",
+                zIndex: theme.zIndex.modal + 1002,
+              }}
+            >
+              تجاهل
+            </Button>
+
+            <Button
+              variant="danger"
+              onClick={handleDelete}
+              disabled={loading}
+              style={{
+                backgroundColor: theme.palette.error.main,
+                border: "none",
+                zIndex: theme.zIndex.modal + 1002,
+              }}
+            >
+              {loading ? "جاري الحذف..." : "حذف"}
+            </Button>
           </div>
-        )}
-        هل انت متاكد من حذف هذا العنصر ؟
-      </Modal.Body>
+        </div>
+      </Modal>
+    </>
+  );
+};
 
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          تجاهل
-        </Button>
-        {loading ? (
-          <Button variant="danger" onClick={handleDelete} disabled>
-            حفظ
-          </Button>
-        ) : (
-          <Button variant="danger" onClick={handleDelete}>
-            حفظ
-          </Button>
-        )}
-      </Modal.Footer>
-
-        </Modal>
-        )
-}  
 export default ModalDelete;

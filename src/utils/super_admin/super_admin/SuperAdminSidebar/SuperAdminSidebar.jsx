@@ -16,7 +16,6 @@ const SuperAdminSidebar = ({ toggleMode }) => {
   const logout = useLogout();
   const theme = useTheme()
 
-  console.log(theme)
   const filteredItems = useMemo(() =>
     menuItemsConfig.filter((item) => item.roles.includes(superAdminInfo?.role)), [superAdminInfo]);
 

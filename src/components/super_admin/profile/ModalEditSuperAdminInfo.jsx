@@ -92,7 +92,7 @@ const ModalEditSuperAdminInfo = ({ show, handleClose }) => {
                  style={{ backgroundColor: theme.palette.background.default , boxShadow: 'none' }}
               type={showPassword ? 'text' : 'password'}
               value={formik.values.password}
-              onChange={formik.handleChange}
+              onChange={formik.handleChange} 
               onBlur={formik.handleBlur}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}

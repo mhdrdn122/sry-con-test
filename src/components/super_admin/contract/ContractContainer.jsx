@@ -4,12 +4,11 @@ import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import { useDeleteContractMutation, useGetContractsQuery } from '../../../redux/slice/super_admin/contracts/contractsApi';
 import ModalRenewalContract from './ModalRenewalContract';
-import ModalEditDiscount from './ModalEditDiscount';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsContractContainer } from '../../Table/tableColumns';
 import { actionsContractContainer } from '../../Table/tableActions';
-// import DynamicTable from './DynamicTable';
+import { ModalEditDiscount } from '../../../utils/Modals/EditModal/EditModalConfigs';
 
 const ContractContainer = ({ refresh }) => {
   const [page, setPage] = useState(1);
@@ -93,10 +92,9 @@ const ContractContainer = ({ refresh }) => {
         show={contractRenewal}
         handleClose={handleCloseContractRenewal}
       />
-      <ModalEditDiscount
-        show={showEdit}
-        handleClose={handleCloseEdit}
-      />
+ 
+      <ModalEditDiscount  show={showEdit}
+        handleClose={handleCloseEdit}  />
     </div>
   );
 };

@@ -202,7 +202,7 @@ const ModalEditAdmin = ({ show, handleClose }) => {
           {isLoadingAdd === true ? (
             <Button variant="contained" className="">
               <Spinner
-                className="m-auto"
+                className="m-auto" 
                 animation="border"
                 role="status"
               ></Spinner>

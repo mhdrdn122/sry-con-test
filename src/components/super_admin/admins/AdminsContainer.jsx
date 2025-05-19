@@ -4,13 +4,14 @@ import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import { useDeleteAdminMutation, useGetAdminsQuery } from "../../../redux/slice/super_admin/super_admins/superAdminsApi";
 import ModalDelete from "../../../utils/Modals/DeleteModal/ModalDelete";
-import ModalEditAdmin from "./ModalEditAdmin";
+// import ModalEditAdmin from "./ModalEditAdmin";
 import useCacheInLocalStorage from "../../../hooks/superAdmin/useCacheInLocalStorage";
 import ModalShow from "../../../utils/Modals/ShowModal/GenericModal";
 import DynamicTable from "../../Table/DynamicTable";
 import { getColumnsAdminsContainer } from "../../Table/tableColumns";
 import { actionsAdminsContainer } from "../../Table/tableActions";
 import { ModalAddAdmin } from "../../../utils/Modals/AddModal/DynamicAddModal";
+import { ModalEditAdmin } from "../../../utils/Modals/EditModal/EditModalConfigs";
 
 const AdminsContainer = ({ show, handleClose, refresh }) => {
     const [page, setPage] = useState(1);
@@ -91,7 +92,8 @@ const AdminsContainer = ({ show, handleClose, refresh }) => {
                 dir="rtl"
             />
           <ModalAddAdmin show={show} handleClose={handleClose}/> 
-            <ModalEditAdmin show={showEdit} handleClose={handleCloseEdit} />
+            {/* <ModalEditAdmin show={showEdit} handleClose={handleCloseEdit} /> */}
+            <ModalEditAdmin show={showEdit} handleClose={handleCloseEdit}  />
             <ModalDelete
                 show={showDelete}
                 handleClose={handleCloseDelete}

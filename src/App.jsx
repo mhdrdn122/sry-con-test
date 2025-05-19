@@ -18,6 +18,7 @@ import ReportPage from "./pages/super_admin/report/ReportPage"
 import EmployeesActivitiesPage from './pages/super_admin/employees_activities/EmployeesActivitiesPage'
 import { useContext } from "react"
 import PageAddReserveRoadSign from "./components/super_admin/add_reservation/PageAddReserveCart"
+import UserContracts from "./pages/super_admin/user_contracts/UserContracts"
 function App({toggleMode}) { 
  
 
@@ -53,7 +54,12 @@ function App({toggleMode}) {
             element={
               <AllUsersPage />
             }/>
-
+<Route 
+              path="users/:id"
+              element={
+                <UserContracts />
+              }
+            />
           
            <Route 
             path="coding"

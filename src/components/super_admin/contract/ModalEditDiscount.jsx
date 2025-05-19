@@ -16,7 +16,7 @@ import {
   import { useFormik } from "formik";
   import * as Yup from "yup";
 import { baseURLLocal } from "../../../Api/baseURLLocal";
-import notify from "../../../utils/useNotification";
+import notify from "../../../utils/useNotification"; 
 import { useUpdateDiscountMutation } from "../../../redux/slice/super_admin/contracts/contractsApi";
 const ModalEditDiscount = ({ show, handleClose }) => {
       const isNonMobile = useMediaQuery("(min-width:600px)");

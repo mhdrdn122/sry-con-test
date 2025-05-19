@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import ModalDelete from '../../../utils/Modals/DeleteModal/ModalDelete';
 import { useDeleteRoadSignMutation, useGetRoadSignsQuery } from '../../../redux/slice/super_admin/road_signs/roadSignsApi';
-import ModalEditRoadSign from './ModalEditRoadSign';
+// import ModalEditRoadSign from './ModalEditRoadSign';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 import DynamicTable from '../../Table/DynamicTable';
@@ -12,6 +12,7 @@ import ModalTable from '../../Table/ModalTable';
 import { getColumnsRoadSignContainer } from '../../Table/tableColumns';
 import { actionsRoadSignsContainer } from '../../Table/tableActions';
 import { ModalAddRoadSign } from '../../../utils/Modals/AddModal/DynamicAddModal';
+import { ModalEditRoadSign } from '../../../utils/Modals/EditModal/EditModalConfigs';
 
 const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate, city, status
 }) => {
@@ -113,7 +114,8 @@ const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate,
 
       <ToastContainer />
       <ModalAddRoadSign show={show} handleClose={handleClose} />
-      <ModalEditRoadSign show={showEdit} handleClose={handleCloseEdit} />
+      {/* <ModalEditRoadSign show={showEdit} handleClose={handleCloseEdit} /> */}
+      <ModalEditRoadSign show={showEdit} handleClose={handleCloseEdit}  />
       <ModalDelete
         show={showDelete}
         handleClose={handleCloseDelete}

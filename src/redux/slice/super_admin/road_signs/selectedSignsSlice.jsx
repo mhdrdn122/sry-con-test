@@ -25,6 +25,7 @@ const initialState = {
         }
       },
       updateSelectedSigns: (state, action) => {
+        console.log(action.payload)
          state.selectedSigns= action.payload; // Updates the selectedSigns array
     }
   

@@ -4,12 +4,13 @@ import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import { useDeleteCodingMutation, useGetCodingsQuery } from '../../../redux/slice/super_admin/codings/codingsApi';
 import ModalDelete from '../../../utils/Modals/DeleteModal/ModalDelete';
-import ModalEditCoding from './ModalEditCoding';
+// import ModalEditCoding from './ModalEditCoding';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsCodingContainer } from '../../Table/tableColumns';
 import { actionsCodingContainer } from '../../Table/tableActions';
 import { ModalAddCoding } from '../../../utils/Modals/AddModal/DynamicAddModal';
+import { ModalEditCoding } from '../../../utils/Modals/EditModal/EditModalConfigs';
 const CodingContainer = ({ show, handleClose, refresh }) => {
   const [page, setPage] = useState(1);
   const [showEdit, setShowEidt] = useState(false);
@@ -83,6 +84,7 @@ const CodingContainer = ({ show, handleClose, refresh }) => {
       
       <ModalAddCoding show={show} handleClose={handleClose} />
 
+      {/* <ModalEditCoding show={showEdit} handleClose={handleCloseEdit} /> */}
       <ModalEditCoding show={showEdit} handleClose={handleCloseEdit} />
       <ModalDelete
         show={showDelete}

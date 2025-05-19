@@ -86,9 +86,7 @@ const RoadSignsPage = () => {
             backgroundColor: theme.palette.background.paper,
             boxShadow: theme.shadows[1],
             direction: 'rtl',
-            position: "absolute",
-            zIndex: 1000,
-            left: "10%"
+           
           }}
         >
           <div

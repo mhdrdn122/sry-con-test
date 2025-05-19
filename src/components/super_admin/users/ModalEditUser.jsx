@@ -222,7 +222,7 @@ const ModalEditUser = ({ show, handleClose }) => {
                 <FormHelperText>{formik.errors.format}</FormHelperText>
             )}
                 </FormControl>
-                </Box>
+                </Box> 
           </Modal.Body>
           <Modal.Footer>
           <Button

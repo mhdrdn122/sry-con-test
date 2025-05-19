@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Box,
-  Button,
+  Button as MuiButton,
   FormControl,
   InputLabel,
   Select,
@@ -29,7 +29,7 @@ const DynamicModal = ({
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [mutate, { isLoading, isSuccess, isError, error }] = mutationHook();
-  const [hasNotified, setHasNotified] = useState(false);
+  const hasNotifiedRef = useRef(false);
 
   const formik = useFormik({
     initialValues,
@@ -37,40 +37,36 @@ const DynamicModal = ({
     enableReinitialize: true,
     onSubmit: async (values) => {
       try {
-        const transformedValues = onSubmitTransform(values);
-        const result = await mutate(transformedValues).unwrap();
-        console.log(result);
+        const transformed = onSubmitTransform(values);
+        await mutate(transformed).unwrap();
       } catch (err) {
-        console.error("Mutation error:", err);
+        console.error(err);
       }
     },
   });
 
   useEffect(() => {
-    if (!isLoading && isSuccess && !hasNotified) {
+    if (!isLoading && isSuccess && !hasNotifiedRef.current) {
       notify("Added successfully", "success");
-      setHasNotified(true);
+      hasNotifiedRef.current = true;
       handleClose();
       formik.resetForm();
     }
-  }, [isSuccess, isLoading, handleClose, formik, hasNotified]);
+  }, [isLoading, isSuccess]);
 
   useEffect(() => {
     if (isError) {
-      console.error("Failed to add:", error);
       if (error.status === "FETCH_ERROR") {
         notify("No Internet Connection", "error");
-      } else if (error.status === 401) {
-        // redirect logic
       } else {
         notify(error.data?.message || "An error occurred", "error");
         formik.setErrors(error.data?.errors || {});
       }
     }
-  }, [isError, error, formik]);
+  }, [isError, error]);
 
   useEffect(() => {
-    return () => setHasNotified(false);
+    hasNotifiedRef.current = false;
   }, [show]);
 
   const renderField = (field) => {
@@ -92,20 +88,24 @@ const DynamicModal = ({
               value={formik.values[field.name] || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              MenuProps={{
+                disablePortal: true, // منع إنشاء بوابة منفصلة للقائمة
+                PaperProps: {
+                  style: {
+                    zIndex: 3000000000, // أعلى من المودال ومحتوياته
+                  },
+                },
+              }}
+              sx={{ zIndex: 2500000000 }}
             >
-              {field.options
-                ? field.options.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))
-                : selectData[field.dataKey]?.data?.map((item) => (
-                    <MenuItem key={item.id} value={item[field.valueKey]}>
-                      {field.displayKey
-                        ? item[field.displayKey]
-                        : item[field.valueKey]}
-                    </MenuItem>
-                  ))}
+              {(field.options || selectData[field.dataKey]?.data || []).map((opt) => (
+                <MenuItem
+                  key={opt.value ?? opt.id}
+                  value={opt.value ?? opt[field.valueKey]}
+                >
+                  {opt.label ?? opt[field.displayKey ?? field.valueKey]}
+                </MenuItem>
+              ))}
             </Select>
             {formik.touched[field.name] && formik.errors[field.name] && (
               <FormHelperText>{formik.errors[field.name]}</FormHelperText>
@@ -127,10 +127,9 @@ const DynamicModal = ({
               id={field.name}
               name={field.name}
               type="file"
-              onChange={(e) => {
-                const file = e.currentTarget.files[0];
-                formik.setFieldValue(field.name, file);
-              }}
+              onChange={(e) =>
+                formik.setFieldValue(field.name, e.currentTarget.files[0])
+              }
               onBlur={formik.handleBlur}
               inputProps={{ accept: field.accept || "image/*" }}
             />
@@ -162,49 +161,94 @@ const DynamicModal = ({
   };
 
   return (
-    <Modal style={{position:"absolute" , zIndex:"10000000"}}  show={show} onHide={handleClose} centered>
-      <form style={{ backgroundColor: theme.palette.background.paper  }} onSubmit={formik.handleSubmit} autoComplete="off">
-        <Modal.Header className="d-flex justify-content-center">
-          <Modal.Title>{title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ backgroundColor: theme.palette.background.paper }}>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: isNonMobile ? "repeat(2, 1fr)" : "1fr",
-              gap: "20px",
-              bgcolor: theme.palette.background.default,
-              color: theme.palette.text.primary,
-              padding: "10px",
-              borderRadius: "8px",
-            }}
-          >
-            {fields.map(renderField)}
-          </Box>
-        </Modal.Body>
-        <Modal.Footer style={{ backgroundColor: theme.palette.background.paper }}>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => {
-              handleClose();
-              formik.resetForm();
-            }}
-          >
-            تجاهل
-          </Button>
-          {isLoading ? (
-            <Button variant="contained">
-              <Spinner animation="border" size="sm" />
-            </Button>
-          ) : (
-            <Button variant="contained" color="error" type="submit">
-              حفظ
-            </Button>
-          )}
-        </Modal.Footer>
-      </form>
-    </Modal>
+    <>
+      <style>{`
+        .modal-backdrop {
+          z-index: 2000000000 !important;
+        }
+        .modal {
+          z-index: 2000000001 !important;
+        }
+      `}</style>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        centered
+        backdrop="static"
+        keyboard={false}
+        style={{ zIndex: 2000000001 }}
+        dialogClassName="modal-dialog"
+        backdropClassName="modal-backdrop"
+      >
+        <div
+          style={{
+            background: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+            padding: 24,
+            borderRadius: 8,
+            position: "relative",
+            zIndex: 2000000002,
+            minWidth: isNonMobile ? 500 : "90%",
+          }}
+        >
+          <h5 style={{ textAlign: "center", marginBottom: 16, zIndex: 2000000003 }}>{title}</h5>
+
+          <form onSubmit={formik.handleSubmit} autoComplete="off">
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: isNonMobile ? "1fr 1fr" : "1fr",
+                gap: 2,
+                bgcolor: theme.palette.background.default,
+                color: theme.palette.text.primary,
+                p: 2,
+                borderRadius: 1,
+                position: "relative",
+                zIndex: 2000000003,
+              }}
+            >
+              {fields.map(renderField)}
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: 1,
+                mt: 3,
+                position: "relative",
+                zIndex: 2000000003,
+              }}
+            >
+              <MuiButton
+                variant="outlined"
+                color="secondary"
+                onClick={() => {
+                  handleClose();
+                  formik.resetForm();
+                }}
+                sx={{
+                  position: "relative",
+                  zIndex: 2000000003,
+                }}
+              >
+                تجاهل
+              </MuiButton>
+
+              {isLoading ? (
+                <MuiButton variant="contained" sx={{ zIndex: 2000000003 }}>
+                  <Spinner animation="border" size="sm" />
+                </MuiButton>
+              ) : (
+                <MuiButton variant="contained" color="error" type="submit" sx={{ zIndex: 2000000003 }}>
+                  حفظ
+                </MuiButton>
+              )}
+            </Box>
+          </form>
+        </div>
+      </Modal>
+    </>
   );
 };
 

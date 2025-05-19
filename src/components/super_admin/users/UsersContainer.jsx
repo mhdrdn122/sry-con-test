@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import ModalDelete from "../../../utils/Modals/DeleteModal/ModalDelete";
 import { useDeleteUserMutation, useGetUsersQuery } from '../../../redux/slice/super_admin/users/usersApi';
-import ModalEditUser from './ModalEditUser';
+// import ModalEditUser from './ModalEditUser';
 import ModalShowContract from './ModalShowContract';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
@@ -15,6 +15,7 @@ import { actionsUsersContainer } from '../../Table/tableActions';
 import ModalShowOffer from './ModalShowOffer';
 import { ModalAddUser } from '../../../utils/Modals/AddModal/DynamicAddModal';
 import { useState } from "react";
+import { ModalEditUser } from "../../../utils/Modals/EditModal/EditModalConfigs";
 
 const UsersContainer = ({ show, handleClose, refresh }) => {
   const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
@@ -148,7 +149,8 @@ const UsersContainer = ({ show, handleClose, refresh }) => {
         handleDelete={handleDelete}
       />
       <ModalShow show={showUser} handleClose={handleCloseShowUser} fromPage={"users"} />
-      <ModalEditUser show={showEdit} handleClose={handleCloseEdit} />
+      {/* <ModalEditUser show={showEdit} handleClose={handleCloseEdit} /> */}
+      <ModalEditUser   show={showEdit} handleClose={handleCloseEdit} />
       <ModalShowContract show={showContract} handleClose={handleCloseShowContract} />
       <ModalShowOffer show={showOffer} handleClose={handleCloseShowOffer} />
      

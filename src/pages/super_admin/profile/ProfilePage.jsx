@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import Breadcrumb from '../../../utils/Breadcrumbs/Breadcrumb'
 import ProfileDetails from '../../../components/super_admin/profile/ProfileDetails'
 import Header from '../../../utils/Header'
-import ModalEditSuperAdminInfo from '../../../components/super_admin/profile/ModalEditSuperAdminInfo';
+// import ModalEditSuperAdminInfo from '../../../components/super_admin/profile/ModalEditSuperAdminInfo';
 import { ManageAccounts } from '@mui/icons-material';
 import { breadcrumbsProfile } from '../../../utils/Breadcrumbs/breadcrumbs';
+import { ModalEditSuperAdminInfo } from '../../../utils/Modals/EditModal/EditModalConfigs';
 
 
 const ProfilePage = () => {
