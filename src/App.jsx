@@ -17,7 +17,6 @@ import AddReservationPage from "./pages/super_admin/add_reservation/AddReservati
 import ReportPage from "./pages/super_admin/report/ReportPage"
 import EmployeesActivitiesPage from './pages/super_admin/employees_activities/EmployeesActivitiesPage'
 import { useContext } from "react"
-import PageAddReserveRoadSign from "./components/super_admin/add_reservation/PageAddReserveCart"
 import UserContracts from "./pages/super_admin/user_contracts/UserContracts"
 function App({toggleMode}) { 
  
@@ -85,12 +84,7 @@ function App({toggleMode}) {
               <AddReservationPage />
             }
           />
-           <Route 
-            path="add_reservation/cart"
-            element={
-              <PageAddReserveRoadSign />
-            }
-          />
+          
             <Route 
             path="reservations"
             element={
