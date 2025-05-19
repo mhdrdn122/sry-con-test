@@ -93,9 +93,7 @@ const CodingContainer = ({ show, handleClose, refresh }) => {
         error={""}
         handleDelete={handleDelete}
       />
-      {codingsCache?.meta?.total_pages > 1 && (
-        <Pagination onPress={onPress} pageCount={codingsCache?.meta?.total_pages} />
-      )}
+    
       <ToastContainer />
     </div>
   );

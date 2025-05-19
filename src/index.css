@@ -86,7 +86,7 @@ a {
     height: 20px;
   }
   .table_container th {
-    background-color: #918e8e !important;
+    /* background-color: #918e8e !important; */
     color: white !important;
   }
 

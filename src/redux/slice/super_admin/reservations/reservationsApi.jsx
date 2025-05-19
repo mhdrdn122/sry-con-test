@@ -46,6 +46,7 @@ const baseQuery = fetchBaseQuery({
       }),
       calculateReservation: builder.mutation({
         query: (data) => {
+          console.log(data)
           return {
             url: "price-calculate",
             method: "POST",

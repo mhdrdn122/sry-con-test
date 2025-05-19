@@ -102,9 +102,7 @@ const AdminsContainer = ({ show, handleClose, refresh }) => {
                 handleDelete={handleDelete}
             />
             <ModalShow show ={showAdmin} handleClose={handleCloseShowAdmin} fromPage={"admins"} />
-            {adminsCache?.meta?.total_pages > 1 && (
-                <Pagination onPress={onPress} pageCount={adminsCache?.meta?.total_pages} />
-            )}
+           
             <ToastContainer />
         </div>
     );

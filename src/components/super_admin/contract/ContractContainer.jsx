@@ -84,9 +84,7 @@ const ContractContainer = ({ refresh }) => {
         error={error?.data?.message}
         dir="rtl"
       />
-      {contractsCache?.meta?.total_pages > 1 && (
-        <Pagination onPress={onPress} pageCount={contractsCache?.meta?.total_pages} />
-      )}
+     
       <ToastContainer />
       <ModalRenewalContract
         show={contractRenewal}

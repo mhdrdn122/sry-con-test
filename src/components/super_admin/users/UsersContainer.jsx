@@ -5,7 +5,7 @@ import notify from "../../../utils/useNotification";
 import ModalDelete from "../../../utils/Modals/DeleteModal/ModalDelete";
 import { useDeleteUserMutation, useGetUsersQuery } from '../../../redux/slice/super_admin/users/usersApi';
 // import ModalEditUser from './ModalEditUser';
-import ModalShowContract from './ModalShowContract';
+// import ModalShowContract from './ModalShowContract';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
@@ -149,9 +149,7 @@ const UsersContainer = ({ show, handleClose, refresh }) => {
         handleDelete={handleDelete}
       />
       <ModalShow show={showUser} handleClose={handleCloseShowUser} fromPage={"users"} />
-      {/* <ModalEditUser show={showEdit} handleClose={handleCloseEdit} /> */}
       <ModalEditUser   show={showEdit} handleClose={handleCloseEdit} />
-      <ModalShowContract show={showContract} handleClose={handleCloseShowContract} />
       <ModalShowOffer show={showOffer} handleClose={handleCloseShowOffer} />
      
       <ToastContainer />

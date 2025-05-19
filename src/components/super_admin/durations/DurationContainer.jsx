@@ -158,9 +158,7 @@ const DurationContainer = ({ show, handleClose, refresh }) => {
     error={""}
     handleDelete={handleDelete}
   />
-{durations?.meta?.total_pages > 1 && (
-        <Pagination onPress={onPress} pageCount={durations?.meta?.total_pages} />
-      )}
+
   <ToastContainer />
 </div>
 

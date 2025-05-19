@@ -1,47 +1,33 @@
 // AddReservationContainer.js
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import {
   Box,
-  Button,
   FormControl,
   FormHelperText,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   TextField,
-  Typography,
   useMediaQuery,
-  useTheme,
-  Tooltip,
-  IconButton
 } from "@mui/material";
-import { Spinner } from "react-bootstrap";
-import { FaEye } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import notify from "../../../utils/useNotification";
-// import Pagination from "../../../utils/Pagination";
-// import ModalDelete from '../../../utils/ModalDelete';
-import { useDeleteRoadSignMutation, useGetRoadSignsQuery } from '../../../redux/slice/super_admin/road_signs/roadSignsApi';
-import { removeSign, setSelectedSigns, updateSelectedSigns, updateSignValue, addSign } from "../../../redux/slice/super_admin/road_signs/selectedSignsSlice";
+import {  useGetRoadSignsQuery } from '../../../redux/slice/super_admin/road_signs/roadSignsApi';
+import { removeSign,  addSign } from "../../../redux/slice/super_admin/road_signs/selectedSignsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModalCart from "./ModalCart";
 import { useGetUsersQuery } from '../../../redux/slice/super_admin/users/usersApi';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-// import ModalShowRoadSign from './ModalShowRoadSign';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-// import DynamicTable from '../road_signs/DynamicTable';
-import DynamicTable from '../../Table/DynamicTable';
+import DynamicTable from '../../Table/DynamicTable'; 
+import { getColumnsAddReservationContainer } from '../../Table/tableColumns';
+import { actionsAddReservationContainer } from '../../Table/tableActions';
+import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 
 const AddReservationContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate,
   showAddReserve, handleCloseAddReserve, city, status
 }) => {
-  const [page, setPage] = useState(1);
   const [showSignRoad, setShowSignRoad] = useState(false);
-  const [showEdit, setShowEidt] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [roadSignsCache, setRoadSignsCache] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
@@ -49,12 +35,10 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const dispatch = useDispatch();
   const selectedSigns = useSelector((state) => state.selectedSigns.selectedSigns);
-  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(searchWord);
-      setPage(1);
     }, 1000);
 
     return () => {
@@ -62,26 +46,26 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
     };
   }, [searchWord]);
 
-  const formikInputs = useFormik({
-    initialValues: {
-      data: selectedSigns,
-      type: "",
-      start_date: "",
-      end_date: "",
-      with_print: "",
-      user_id: "",
-      format: ""
-    },
-    onSubmit: async (values) => {
-      if (!validateFields()) {
-        return;
-      }
-      values.data = selectedSigns;
-      console.log("values : ", values);
-      const result = await addNewReservation(values).unwrap();
-    },
-    validationSchema: Yup.object({}),
-  });
+  // const formikInputs = useFormik({
+  //   initialValues: {
+  //     data: selectedSigns,
+  //     type: "",
+  //     start_date: "",
+  //     end_date: "",
+  //     with_print: "",
+  //     user_id: "",
+  //     format: ""
+  //   },
+  //   onSubmit: async (values) => {
+  //     if (!validateFields()) {
+  //       return;
+  //     }
+  //     values.data = selectedSigns;
+  //     console.log("values : ", values);
+  //     const result = await addNewReservation(values).unwrap();
+  //   },
+  //   validationSchema: Yup.object({}),
+  // });
 
   const {
     data: roadSigns,
@@ -94,11 +78,6 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
 
   useCacheInLocalStorage(roadSigns, "roadSigns", setRoadSignsCache, setLoadingData);
 
-  const [
-    deleteRoadSign,
-    { isLoading, isSuccess, isError: isErrDelete, error: errorDel },
-  ] = useDeleteRoadSignMutation();
-
   const handleShowRoadSign = (data) => {
     setShowSignRoad(data);
   };
@@ -106,41 +85,7 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
     setShowSignRoad(false);
   };
 
-  const handleShowEdit = (id) => {
-    setShowEidt(id);
-  };
-  const handleCloseEdit = () => {
-    setShowEidt(false);
-  };
-  const handleShowDelete = (id) => {
-    setShowDelete(id);
-  };
-  const handleCloseDelete = () => {
-    setShowDelete(false);
-  };
-
-  const handleDelete = async () => {
-    try {
-      const result = await deleteRoadSign(showDelete).unwrap();
-      if (result.status === true) {
-        notify(result.msg, "success");
-        handleCloseDelete();
-      } else {
-        notify(result.msg, "error");
-      }
-    } catch (error) {
-      if (error?.status === 401) {
-        triggerRedirect();
-      } else {
-        console.error("Failed:", error);
-        notify(error?.data?.message, "error");
-      }
-    }
-  };
-
-  const onPress = async (page) => {
-    setPage(page);
-  };
+ 
 
   const handleStatusClick = (roadSign) => {
     if (selectedSigns.find((sign) => sign.id === roadSign.id)) {
@@ -177,60 +122,7 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
     validationSchema: Yup.object({}),
   });
 
-  // Define columns for DynamicTable
-  const columns = [
-    { key: 'coding.model', label: 'نموذج', align: 'center' },
-    { key: 'signs_number', label: 'عدد اللوحات', align: 'center' },
-    { key: 'number_of_faces', label: 'عدد الأوجه', align: 'center' },
-    { key: 'meters_number', label: 'عدد الأمتار', align: 'center' },
-    {
-      key: 'coding.size',
-      label: 'القياس',
-      align: 'center',
-      render: (row) => `${row.coding.size} / ${row.coding.type}`
-    },
-    { key: 'region', label: 'المنطقة', align: 'center' },
-    { key: 'place', label: 'مكان التموضع', align: 'center' },
-    { key: 'direction', label: 'الاتجاه', align: 'center' },
-    {
-      key: 'status',
-      label: 'الحالة',
-      align: 'center',
-      render: (row) => (
-        <td className="d-flex justify-center items-center text-white" style={{ gap: "5px" }}>
-          <p
-            style={{
-              backgroundColor: selectedSigns.find((sign) => sign.id === row.id) ? "gray" : "green",
-              padding: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              opacity: selectedSigns.find((sign) => sign.id === row.id) ? 0.6 : 1,
-            }}
-            onClick={() => handleStatusClick(row)}
-          >
-            {selectedSigns.find((sign) => sign.id === row.id) ? (
-              <span className='d-flex'>✅ مضاف</span>
-            ) : (
-              `متاح/${row.total_faces_available}`
-            )}
-          </p>
-          <p style={{ backgroundColor: "red", padding: "10px", borderRadius: "10px" }}>
-            محجوز/{row.total_faces_in_reservations}
-          </p>
-        </td>
-      )
-    }
-  ];
 
-  // Define actions for DynamicTable
-  const actions = [
-    {
-      label: 'عرض',
-      icon: <FaEye />,
-      color: '#289FBF',
-      onClick: handleShowRoadSign
-    }
-  ];
 
   return (
     <div>
@@ -373,20 +265,23 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
       </Box>
 
       <DynamicTable
-        columns={columns}
+        columns={getColumnsAddReservationContainer(selectedSigns, handleStatusClick)}
         data={roadSignsCache?.data || []}
-        actions={actions}
+        actions={actionsAddReservationContainer(handleShowRoadSign)}
         loading={loadingData}
         error={error?.data?.message}
         dir="rtl"
       />
 
-      <ToastContainer />
+      <ModalShow show={showSignRoad} handleClose={handleCloseShowRoadSign} fromPage="addReservations" />
+     
       <ModalCart
         inputFields={formik.values}
         show={showAddReserve}
         handleClose={handleCloseAddReserve}
       />
+      <ToastContainer />
+
     </div>
   );
 };

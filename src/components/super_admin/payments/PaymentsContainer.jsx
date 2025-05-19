@@ -13,7 +13,7 @@ import { actionsPaymentsContainer } from '../../Table/tableActions';
 import { ModalAddCashPayment } from '../../../utils/Modals/AddModal/DynamicAddModal';
 
 const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); 
   const [showPayment, setShowPayment] = useState(false);
   const [showAddCashPayment, setShowAddCashPayment] = useState(false);
   const [showEdit, setShowEidt] = useState(false);
@@ -142,9 +142,8 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
         dir="rtl"
       />
       <ToastContainer />
-      <ModalAddCashPayment show={show} handleClose={handleClose} />
-      
       <ModalShowPayment show={showPayment} handleClose={handleCloseShowPayment} />
+      
       <ModalDelete
         show={showDelete}
         handleClose={handleCloseDelete}
@@ -152,9 +151,7 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
         error={""}
         handleDelete={handleDelete}
       />
-      {paymentsCache?.meta?.total_pages > 1 && (
-        <Pagination onPress={onPress} pageCount={paymentsCache?.meta?.total_pages} />
-      )}
+  
     </div>
   );
 };

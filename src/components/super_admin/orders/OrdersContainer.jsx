@@ -146,9 +146,7 @@ const OrdersContainer = ({ refresh, searchWord }) => {
         error={error?.data?.message}
         dir="rtl"
       />
-      {ordersCache?.meta?.total_pages > 1 && (
-        <Pagination onPress={onPress} pageCount={ordersCache?.meta?.total_pages} />
-      )}
+    
       <ToastContainer />
       <ModalEditOrder show={showEdit} handleClose={handleCloseEdit} />
       <ModalConfirmed

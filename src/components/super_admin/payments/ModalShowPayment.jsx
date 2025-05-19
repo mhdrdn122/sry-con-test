@@ -104,23 +104,7 @@ const ModalShowPayment = ({show,handleClose}) => {
               }
             };        
 
-            // useEffect(() => {
-            //   if (isErrReceived) {
-            //     console.error("Failed to add admin:", errorReceived);
-            //     if (errorReceived.status === "FETCH_ERROR") {
-            //       notify("No Internet Connection", "error");
-            //     } else if (errorReceived.status === 401) {
-            //       triggerRedirect();
-            //     } else {
-            //       notify(errorReceived.data.message, "error");
-            //       // formik.setErrors(errorReceived.data?.errors || {});
-            //     }
-            //   }
-            // }, [ errorReceived]);     
-
-            const onPress = async (page) => {
-              setPage(page);
-            };
+     
 
   return (
     <>

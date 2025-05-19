@@ -75,7 +75,7 @@ const ModalShowOffer = ({show,handleClose}) => {
               id="discount"
               name="discount"
               label="الخصم"
-              type="text"
+              type="text" 
               fullWidth
               sx={{ gridColumn: "span 2" }}
               variant="outlined"
