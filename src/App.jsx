@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom"
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
 import "./index.css"
 import Login from "./pages/super_admin/auth/Login"
 import LayoutSuperAdmin from "./Layouts/LayoutSuperAdmin"
@@ -27,7 +27,7 @@ function App({toggleMode}) {
     <div>
       <Routes>
       {/* <Route path="/super_admin/login" element={<Login />} /> */}
-      <Route path="/super_admin/login" element={<SingIn />} />
+      <Route path="/" element={<SingIn />} />
 
         <Route path="/super_admin" element={<LayoutSuperAdmin toggleMode={toggleMode} />}>
 
@@ -125,7 +125,7 @@ function App({toggleMode}) {
           <Route path="*" element={
               <>
               <button
-                onClick={()=>navigate('/super_admin/login')}
+                onClick={()=>navigate('/')}
                 style={{
                   backgroundColor:'#595959'
                 }}

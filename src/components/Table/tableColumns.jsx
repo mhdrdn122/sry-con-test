@@ -252,7 +252,7 @@ export const getColumnsUsersContainer = (handleShowContract, handleShowOffer, do
         <Tooltip placement='top-start' title="عرض مالي">
           <IconButton
             sx={{ color: "#F35A5B" }}
-            onClick={() => handleShowOffer(row)}
+            onClick={() =>{console.log(row) ;  handleShowOffer(true)}}
           >
             <LiaFileContractSolid />
           </IconButton>

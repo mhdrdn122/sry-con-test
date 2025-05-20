@@ -10,6 +10,10 @@ a {
   tr {
     vertical-align: middle !important;
   }
+input , form * , label{
+  direction: rtl !important;
+}
+
   
 .content {
     /* min-height: calc(100vh) !important; */

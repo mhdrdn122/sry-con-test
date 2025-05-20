@@ -65,9 +65,6 @@ const ContractContainer = ({ refresh }) => {
     setShowEdit(false);
   };
 
-  const onPress = async (page) => {
-    setPage(page);
-  };
 
 
   return (
@@ -75,20 +72,20 @@ const ContractContainer = ({ refresh }) => {
       <DynamicTable
         columns={getColumnsContractContainer}
         data={contracts?.data || []}
-        actions={actionsContractContainer(handleDownload , handleRenewalContract , handleEdit , handleDelete , isFetching , loading , superAdminInfo)}
+        actions={actionsContractContainer(handleDownload, handleRenewalContract, handleEdit, handleDelete, isFetching, loading, superAdminInfo)}
         loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />
-     
+
       <ToastContainer />
       <ModalRenewalContract
         show={contractRenewal}
         handleClose={handleCloseContractRenewal}
       />
- 
-      <ModalEditDiscount  show={showEdit}
-        handleClose={handleCloseEdit}  />
+
+      <ModalEditDiscount show={showEdit}
+        handleClose={handleCloseEdit} />
     </div>
   );
 };

@@ -1,43 +1,41 @@
-import { useState } from 'react';
 import {
   Table,
   TableBody,
   TableCell,
-  TableContainer,
   TableHead,
   TableRow,
-  Paper,
   TablePagination,
   CircularProgress,
   IconButton,
   Tooltip,
-  Typography,
   Box,
+  Typography,
 } from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
+import {
+  StyledTableContainer,
+  StyledTable,
+  StyledTableRow,
+  ErrorMessage,
+  NoDataMessage,
+  LoadingContainer,
+} from './StyledComponents';
 
-import {StyledTableContainer , StyledTable  , StyledTableRow , ErrorMessage , NoDataMessage , LoadingContainer}  from './styledTable'
-
-
-
-const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'rtl', footer = null }) => {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const theme = useTheme()
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
+const DynamicTablePayment = ({
+  columns,
+  data,
+  actions = [],
+  loading,
+  error,
+  dir = 'rtl',
+  page,
+  rowsPerPage,
+  handleChangePage,
+  handleChangeRowsPerPage,
+}) => {
   const paginatedData = data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
-    <StyledTableContainer component={Paper} style={{ margin: 0, padding: 0 }}>
+    <StyledTableContainer component="div">
       <StyledTable dir={dir}>
         <TableHead>
           <TableRow>
@@ -62,35 +60,32 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'rtl'
           ) : error ? (
             <TableRow>
               <TableCell colSpan={columns.length + (actions.length > 0 ? 1 : 0)}>
-                <ErrorMessage>{error}</ErrorMessage>
+                <ErrorMessage>{error || 'خطأ في جلب البيانات'}</ErrorMessage>
               </TableCell>
             </TableRow>
-          ) : paginatedData.length > 0 ? (
-            paginatedData.map((row, index) => (
-              <StyledTableRow key={index}>
+          ) : paginatedData?.length > 0 ? (
+            paginatedData.map((row) => (
+              <StyledTableRow key={row.id}>
                 {columns.map((column) => (
-
                   <TableCell key={column.key} align={column.align || 'center'}>
-                    {column.render ? column.render(row) : column.key === 'coding.model' ? row['coding'].model : row[column.key] || 0}
+                    {row[column.key] || '-'}
                   </TableCell>
                 ))}
                 {actions.length > 0 && (
                   <TableCell align="center">
                     <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
                       {actions.map((action, idx) => (
-                        (!action.condition || action.condition(row)) && (
-                          <Tooltip key={idx} title={action.label} placement="top">
-                            <span>
-                              <IconButton
-                                sx={{ color: action.color || theme.palette.text.primary }}
-                                onClick={() => action.onClick(row)}
-                                disabled={action.disabled}
-                              >
-                                {action.icon}
-                              </IconButton>
-                            </span>
-                          </Tooltip>
-                        )
+                        <Tooltip key={idx} title={action.label} placement="top">
+                          <span>
+                            <IconButton
+                              sx={{ color: action.color }}
+                              onClick={() => action.onClick(row)}
+                              disabled={action.disabled}
+                            >
+                              {action.icon}
+                            </IconButton>
+                          </span>
+                        </Tooltip>
                       ))}
                     </Box>
                   </TableCell>
@@ -105,12 +100,11 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'rtl'
             </TableRow>
           )}
         </TableBody>
-        {footer && <tfoot>{footer}</tfoot>}
       </StyledTable>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 50]}
         component="div"
-        count={data?.length}
+        count={data?.length || 0}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -128,4 +122,4 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'rtl'
   );
 };
 
-export default DynamicTable;
+export default DynamicTablePayment;

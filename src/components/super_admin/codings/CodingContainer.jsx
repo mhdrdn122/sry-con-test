@@ -1,5 +1,5 @@
 // CodingContainer.js
-import  { useState } from 'react';
+import { useState } from 'react';
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import { useDeleteCodingMutation, useGetCodingsQuery } from '../../../redux/slice/super_admin/codings/codingsApi';
@@ -61,22 +61,18 @@ const CodingContainer = ({ show, handleClose, refresh }) => {
     }
   };
 
-  const onPress = async (page) => {
-    setPage(page);
-  };
-
 
   return (
     <div>
       <DynamicTable
         columns={getColumnsCodingContainer}
         data={codings?.data || []}
-        actions={actionsCodingContainer(handleShowEdit , handleShowDelete , superAdminInfo) }
+        actions={actionsCodingContainer(handleShowEdit, handleShowDelete, superAdminInfo)}
         loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />
-      
+
       <ModalAddCoding show={show} handleClose={handleClose} />
 
       <ModalEditCoding show={showEdit} handleClose={handleCloseEdit} />
@@ -87,7 +83,7 @@ const CodingContainer = ({ show, handleClose, refresh }) => {
         error={""}
         handleDelete={handleDelete}
       />
-    
+
       <ToastContainer />
     </div>
   );

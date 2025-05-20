@@ -1,5 +1,5 @@
 // AddReservationContainer.js
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   FormControl,
@@ -11,27 +11,42 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { ToastContainer } from "react-toastify";
-import {  useGetRoadSignsQuery } from '../../../redux/slice/super_admin/road_signs/roadSignsApi';
-import { removeSign,  addSign } from "../../../redux/slice/super_admin/road_signs/selectedSignsSlice";
+import { useGetRoadSignsQuery } from '../../../redux/slice/super_admin/road_signs/roadSignsApi';
+import { removeSign, addSign } from "../../../redux/slice/super_admin/road_signs/selectedSignsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ModalCart from "./ModalCart";
 import { useGetUsersQuery } from '../../../redux/slice/super_admin/users/usersApi';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import DynamicTable from '../../Table/DynamicTable'; 
+import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsAddReservationContainer } from '../../Table/tableColumns';
 import { actionsAddReservationContainer } from '../../Table/tableActions';
 import ModalShow from '../../../utils/Modals/ModalShow/ModalShow';
-
-const AddReservationContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate,
+const AddReservationContainer = ({ refresh, searchWord, startDate, endDate,
   showAddReserve, handleCloseAddReserve, city, status
 }) => {
   const [showSignRoad, setShowSignRoad] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState("");
-
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const dispatch = useDispatch();
   const selectedSigns = useSelector((state) => state.selectedSigns.selectedSigns);
+
+  const dispatch = useDispatch();
+
+  const handleShowRoadSign = (data) => {
+    setShowSignRoad(data);
+  };
+  const handleCloseShowRoadSign = () => {
+    setShowSignRoad(false);
+  };
+
+
+  const handleStatusClick = (roadSign) => {
+    if (selectedSigns.find((sign) => sign.id === roadSign.id)) {
+      dispatch(removeSign(roadSign));
+    } else {
+      dispatch(addSign(roadSign));
+    }
+  };
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -43,26 +58,6 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
     };
   }, [searchWord]);
 
-  // const formikInputs = useFormik({
-  //   initialValues: {
-  //     data: selectedSigns,
-  //     type: "",
-  //     start_date: "",
-  //     end_date: "",
-  //     with_print: "",
-  //     user_id: "",
-  //     format: ""
-  //   },
-  //   onSubmit: async (values) => {
-  //     if (!validateFields()) {
-  //       return;
-  //     }
-  //     values.data = selectedSigns;
-  //     console.log("values : ", values);
-  //     const result = await addNewReservation(values).unwrap();
-  //   },
-  //   validationSchema: Yup.object({}),
-  // });
 
   const {
     data: roadSigns,
@@ -72,24 +67,6 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
     isFetching
   } = useGetRoadSignsQuery({ refresh, searchWord, startDate, endDate, city, status },
     { refetchOnMountOrArgChange: true });
-
-
-  const handleShowRoadSign = (data) => {
-    setShowSignRoad(data);
-  };
-  const handleCloseShowRoadSign = () => {
-    setShowSignRoad(false);
-  };
-
- 
-
-  const handleStatusClick = (roadSign) => {
-    if (selectedSigns.find((sign) => sign.id === roadSign.id)) {
-      dispatch(removeSign(roadSign));
-    } else {
-      dispatch(addSign(roadSign));
-    }
-  };
 
   const {
     data: users,
@@ -268,16 +245,12 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
         error={error?.data?.message}
         dir="rtl"
       />
-      
-     <ModalShow show={showSignRoad} handleClose={handleCloseShowRoadSign} fromPage="addReservations" />
-     
- 
- 
-      <ModalCart
-        inputFields={formik.values}
-        show={showAddReserve}
-        handleClose={handleCloseAddReserve}
-      />
+
+      <ModalShow show={showSignRoad} handleClose={handleCloseShowRoadSign} fromPage="addReservations" />
+
+
+
+      <ModalCart inputFields={formik.values} show={showAddReserve} handleClose={handleCloseAddReserve} />
       <ToastContainer />
 
     </div>

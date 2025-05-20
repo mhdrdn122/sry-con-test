@@ -176,7 +176,7 @@ const DynamicModal = ({
         centered
         backdrop="static"
         keyboard={false}
-        style={{ zIndex: 2000000001 }}
+        style={{ zIndex: 2000000001 , direction:"rtl" }}
         dialogClassName="modal-dialog"
         backdropClassName="modal-backdrop"
       >
@@ -222,7 +222,7 @@ const DynamicModal = ({
             >
               <MuiButton
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 onClick={() => {
                   handleClose();
                   formik.resetForm();
@@ -240,7 +240,7 @@ const DynamicModal = ({
                   <Spinner animation="border" size="sm" />
                 </MuiButton>
               ) : (
-                <MuiButton variant="contained" color="error" type="submit" sx={{ zIndex: 2000000003 }}>
+                <MuiButton variant="contained" color="primary" type="submit" sx={{ zIndex: 2000000003 }}>
                   حفظ
                 </MuiButton>
               )}

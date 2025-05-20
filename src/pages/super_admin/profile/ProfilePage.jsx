@@ -29,7 +29,7 @@ const ProfilePage = () => {
         onButtonClick={handleClose}
         icon={<ManageAccounts/>} 
         />
-      <div className="profile-forms">
+      <div style={{display:"flex" , justifyContent:"center"}} className="profile-forms">
         <ProfileDetails />
       </div>
 

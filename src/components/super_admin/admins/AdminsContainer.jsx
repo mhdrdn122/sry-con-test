@@ -1,5 +1,5 @@
 // AdminsContainer.js
-import {  useState } from "react";
+import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import { useDeleteAdminMutation, useGetAdminsQuery } from "../../../redux/slice/super_admin/super_admins/superAdminsApi";
@@ -24,7 +24,6 @@ const AdminsContainer = ({ show, handleClose, refresh }) => {
         isLoading: loading,
         isFetching
     } = useGetAdminsQuery({ page, refresh }, { refetchOnMountOrArgChange: true });
-
 
     const [
         deleteAdmin,
@@ -69,12 +68,9 @@ const AdminsContainer = ({ show, handleClose, refresh }) => {
         }
     };
 
-    const onPress = async (page) => {
-        setPage(page);
-    };
 
 
-    
+
     return (
         <div>
             <DynamicTable
@@ -85,8 +81,8 @@ const AdminsContainer = ({ show, handleClose, refresh }) => {
                 error={error?.data?.message}
                 dir="rtl"
             />
-          <ModalAddAdmin show={show} handleClose={handleClose}/> 
-            <ModalEditAdmin show={showEdit} handleClose={handleCloseEdit}  />
+            <ModalAddAdmin show={show} handleClose={handleClose} />
+            <ModalEditAdmin show={showEdit} handleClose={handleCloseEdit} />
             <ModalDelete
                 show={showDelete}
                 handleClose={handleCloseDelete}
@@ -94,9 +90,9 @@ const AdminsContainer = ({ show, handleClose, refresh }) => {
                 error={""}
                 handleDelete={handleDelete}
             />
-            <ModalShow show ={showAdmin} handleClose={handleCloseShowAdmin} fromPage={"admins"} />
+            <ModalShow show={showAdmin} handleClose={handleCloseShowAdmin} fromPage={"admins"} />
 
-           
+
             <ToastContainer />
         </div>
     );

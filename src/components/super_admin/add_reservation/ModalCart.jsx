@@ -60,7 +60,6 @@ const NumericInput = ({ value, onChange, max, error }) => {
   );
 };
 
-// ** Component: صف جدول فردي لعرض بيانات اللوحة **
 const SignRow = ({ item, onDelete, onUpdate, errors }) => {
   const theme = useTheme();
   return (
@@ -121,7 +120,6 @@ const SignRow = ({ item, onDelete, onUpdate, errors }) => {
   );
 };
 
-// ** Component: نموذج إضافة حجز لوحات إعلانية **
 const ModalAddReserveRoadSign = ({ show, handleClose, inputFields }) => {
   const theme = useTheme();
   const isNonMobile = useMediaQuery(theme.breakpoints.up('sm'));

@@ -22,7 +22,7 @@ const EmployeesActivitiesContainer = ({ refresh }) => {
   const handleShowActivities = (data) => {
     setShowActivities(true);
     setSelectedActivity(data);
-    console.log('Activity Data:', data); 
+    console.log('Activity Data:', data);
   };
 
   const handleCloseShowActivities = () => {
@@ -41,7 +41,7 @@ const EmployeesActivitiesContainer = ({ refresh }) => {
         dir="rtl"
       />
 
-       <ModalShow
+      <ModalShow
         show={selectedActivity}
         handleClose={handleCloseShowActivities}
         fromPage="activities"

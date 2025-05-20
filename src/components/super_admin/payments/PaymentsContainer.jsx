@@ -11,7 +11,7 @@ import { getColumnsPaymentsContainer } from '../../Table/tableColumns';
 import { actionsPaymentsContainer } from '../../Table/tableActions';
 
 const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
-  const [page, setPage] = useState(1); 
+  const [page, setPage] = useState(1);
   const [showPayment, setShowPayment] = useState(false);
   const [showAddCashPayment, setShowAddCashPayment] = useState(false);
   const [showEdit, setShowEidt] = useState(false);
@@ -40,21 +40,8 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
   const handleCloseShowPayment = () => {
     setShowPayment(false);
   };
-  const handleShowAddCashPayment = (payment) => {
-    setShowAddCashPayment(payment);
-  };
-  const handleCloseAddCashPayment = () => {
-    setShowAddCashPayment(false);
-  };
-  const handleShowEdit = (id) => {
-    setShowEidt(id);
-  };
-  const handleCloseEdit = () => {
-    setShowEidt(false);
-  };
-  const handleShowDelete = (id) => {
-    setShowDelete(id);
-  };
+
+
   const handleCloseDelete = () => {
     setShowDelete(false);
   };
@@ -127,14 +114,14 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
       <DynamicTable
         columns={getColumnsPaymentsContainer}
         data={payments?.data || []}
-        actions={actionsPaymentsContainer(handleShowPayment , handleDownload , isFetching , loading)}
+        actions={actionsPaymentsContainer(handleShowPayment, handleDownload, isFetching, loading)}
         loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />
       <ToastContainer />
       <ModalShowPayment show={showPayment} handleClose={handleCloseShowPayment} />
-      
+
       <ModalDelete
         show={showDelete}
         handleClose={handleCloseDelete}
@@ -142,7 +129,7 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
         error={""}
         handleDelete={handleDelete}
       />
-  
+
     </div>
   );
 };

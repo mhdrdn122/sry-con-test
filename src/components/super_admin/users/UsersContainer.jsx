@@ -13,6 +13,9 @@ import { ModalAddUser } from '../../../utils/Modals/AddModal/DynamicAddModal';
 import { useState } from "react";
 import { ModalEditUser } from "../../../utils/Modals/EditModal/EditModalConfigs";
 import ModalShow from "../../../utils/Modals/ModalShow/ModalShow";
+import { CoPresentOutlined } from "@mui/icons-material";
+import ModalShowPayment from "../payments/ModalShowPayment/ModalShowPayment";
+// import ModalShowContract from "./ModalShowContract";
 
 const UsersContainer = ({ show, handleClose, refresh }) => {
   const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
@@ -63,6 +66,7 @@ const UsersContainer = ({ show, handleClose, refresh }) => {
     setShowContract(false);
   };
   const handleShowOffer = (user) => {
+    console.log("test")
     setShowOffer(user);
   };
   const handleCloseShowOffer = () => {
@@ -122,6 +126,7 @@ const UsersContainer = ({ show, handleClose, refresh }) => {
   };
 
 
+  console.log(showOffer)
 
   return (
     <div>
@@ -146,6 +151,8 @@ const UsersContainer = ({ show, handleClose, refresh }) => {
 
       <ModalEditUser   show={showEdit} handleClose={handleCloseEdit} />
       <ModalShowOffer show={showOffer} handleClose={handleCloseShowOffer} />
+      <ModalShowPayment show={showContract} handleClose={handleCloseShowContract} />
+      {/* <ModalShowContract show={showContract} handleClose={handleCloseShowContract } /> */}
      
       <ToastContainer />
     </div>

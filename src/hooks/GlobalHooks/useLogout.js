@@ -10,7 +10,7 @@ const useLogout = () => {
   const handleLogout = async () => {
     await dispatch(resetAuthState());
     localStorage.clear();
-    navigate('/super_admin/login');
+    navigate('/');
   };
 
   return handleLogout;

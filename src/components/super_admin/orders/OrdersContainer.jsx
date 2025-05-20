@@ -1,5 +1,5 @@
 // OrdersContainer.js
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -24,7 +24,7 @@ const OrdersContainer = ({ refresh, searchWord }) => {
   const [showConfirmed, setShowConfirmed] = useState(false);
   const [selectedType2, setSelectedType2] = useState("");
   const [loadingExport, setLoadingExport] = useState(false);
-  const [selectedType, setSelectedType] = useState(""); 
+  const [selectedType, setSelectedType] = useState("");
   const theme = useTheme();
 
 
@@ -86,7 +86,7 @@ const OrdersContainer = ({ refresh, searchWord }) => {
   } = useGetOrdersQuery({ page, refresh, searchWord: debouncedType },
     { refetchOnMountOrArgChange: true });
 
-  
+
   const handleTypeChange = async (event) => {
     const type = event.target.value;
     setSelectedType2(type);
@@ -129,16 +129,16 @@ const OrdersContainer = ({ refresh, searchWord }) => {
   console.log(selectedType)
   return (
     <div>
-  <SelectOptionOrders selectedType={selectedType} setSelectedType={setSelectedType} handleTypeChange={handleTypeChange} />
+      <SelectOptionOrders selectedType={selectedType} setSelectedType={setSelectedType} handleTypeChange={handleTypeChange} />
       <DynamicTable
         columns={getColumnsOrdersContainer}
         data={orders?.data || []}
-        actions={actionsOrdersContainer(handleShowEdit , handleShowConfirmed)}
+        actions={actionsOrdersContainer(handleShowEdit, handleShowConfirmed)}
         loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />
-    
+
       <ToastContainer />
       <ModalEditOrder show={showEdit} handleClose={handleCloseEdit} />
       <ModalConfirmed
