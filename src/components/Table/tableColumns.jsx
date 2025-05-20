@@ -171,131 +171,138 @@ export const getColumnsReservationsContainer = [
 
 
 export const getColumnsRoadSignContainer = [
-    { key: 'coding.model', label: 'نموذج', align: 'center' },
-    { key: 'signs_number', label: 'عدد اللوحات', align: 'center' },
-    { key: 'number_of_faces', label: 'عدد الأوجه', align: 'center' },
-    { key: 'meters_number', label: 'عدد الأمتار', align: 'center' },
-    { key: 'meters_number_printing', label: 'عدد أمتار الطباعة', align: 'center' },
-    { 
-      key: 'coding.size', 
-      label: 'القياس', 
-      align: 'center',
-      render: (row) => `${row.coding.size} / ${row.coding.type}`
-    },
-    { key: 'region', label: 'المنطقة', align: 'center' },
-    { key: 'place', label: 'مكان التموضع', align: 'center' },
-    { key: 'direction', label: 'الاتجاه', align: 'center' },
-    {
-      key: 'status',
-      label: 'الحالة',
-      align: 'center',
-      render: (row) => (
-        <td 
-          className="badge badge-primary p-2 text-white"
-          style={{ backgroundColor: row.color }}
-        >
-          {row.color === "gold"
-            ? row.status
-            : row.reservations.length > 0
-              ? `محجوز/${row.total_faces_in_reservations}`
-              : "متاح"}
-        </td>
-      )
-    }
-  ];
+  { key: 'coding.model', label: 'نموذج', align: 'center' },
+  { key: 'signs_number', label: 'عدد اللوحات', align: 'center' },
+  { key: 'number_of_faces', label: 'عدد الأوجه', align: 'center' },
+  { key: 'meters_number', label: 'عدد الأمتار', align: 'center' },
+  { key: 'meters_number_printing', label: 'عدد أمتار الطباعة', align: 'center' },
+  {
+    key: 'coding.size',
+    label: 'القياس',
+    align: 'center',
+    render: (row) => `${row.coding.size} / ${row.coding.type}`
+  },
+  { key: 'region', label: 'المنطقة', align: 'center' },
+  { key: 'place', label: 'مكان التموضع', align: 'center' },
+  { key: 'direction', label: 'الاتجاه', align: 'center' },
+  {
+    key: 'status',
+    label: 'الحالة',
+    align: 'center',
+    render: (row) => (
+      <td
+        className="badge badge-primary p-2 text-white"
+        style={{ backgroundColor: row.color }}
+      >
+        {row.color === "gold"
+          ? row.status
+          : row.reservations.length > 0
+            ? `محجوز/${row.total_faces_in_reservations}`
+            : "متاح"}
+      </td>
+    )
+  }
+];
 
-export  const getColumnsUsersContainer = ( handleShowContract , handleShowOffer , downloadContract , navigate  ) =>( [
-    {
-      key: 'name',
-      label: 'الاسم',
-      align: 'center',
-      render: (row) => row.name || '....'
-    },
-    {
-      key: 'email',
-      label: 'الايميل',
-      align: 'center',
-      render: (row) => row.email || '....'
-    },
-    {
-      key: 'company_name',
-      label: 'اسم الشركة',
-      align: 'center',
-      render: (row) => row.company_name || '....'
-    },
-    {
-      key: 'phone',
-      label: 'رقم الهاتف',
-      align: 'center',
-      render: (row) => row.phone || '....'
-    },
-    {
-      key: 'code',
-      label: 'الكود',
-      align: 'center',
-      render: (row) => row.code || '....'
-    },
-    {
-      key: 'contracts',
-      label: 'العقود',
-      align: 'center',
-      render: (row) => (
-        <>
-          <Tooltip placement='top-start' title="إنشاء عقد">
-            <IconButton
-              sx={{ color: "#FC9A08" }}
-              onClick={() => handleShowContract(row)}
-            >
-              <TbContract />
-            </IconButton>
-          </Tooltip>
-          <Tooltip placement='top-start' title="عرض مالي">
-            <IconButton
-              sx={{ color: "#F35A5B" }}
-              onClick={() => handleShowOffer(row)}
-            >
-              <LiaFileContractSolid />
-            </IconButton>
-          </Tooltip>
-          <Tooltip placement='top-start' title="نموذج تموضع اللوحات">
-            <IconButton
-              sx={{ color: "blue" }}
-              onClick={() => downloadContract(row)}
-            >
-              <MdEditLocationAlt />
-            </IconButton>
-          </Tooltip>
-          <Tooltip placement='top-start' title="كافة العقود">
-            <IconButton
-              sx={{ color: "#47B149" }}
-              onClick={() => navigate(`/super_admin/users/${row.id}`)}
-            >
-              <RiContractLine />
-            </IconButton>
-          </Tooltip>
-        </>
-      )
-    }
-  ]);
+export const getColumnsUsersContainer = (handleShowContract, handleShowOffer, downloadContract, navigate) => ([
+  {
+    key: 'name',
+    label: 'الاسم',
+    align: 'center',
+    render: (row) => row.name || '....'
+  },
+  {
+    key: 'email',
+    label: 'الايميل',
+    align: 'center',
+    render: (row) => row.email || '....'
+  },
+  {
+    key: 'company_name',
+    label: 'اسم الشركة',
+    align: 'center',
+    render: (row) => row.company_name || '....'
+  },
+  {
+    key: 'phone',
+    label: 'رقم الهاتف',
+    align: 'center',
+    render: (row) => row.phone || '....'
+  },
+  {
+    key: 'code',
+    label: 'الكود',
+    align: 'center',
+    render: (row) => row.code || '....'
+  },
+  {
+    key: 'contracts',
+    label: 'العقود',
+    align: 'center',
+    render: (row) => (
+      <>
+        <Tooltip placement='top-start' title="إنشاء عقد">
+          <IconButton
+            sx={{ color: "#FC9A08" }}
+            onClick={() => handleShowContract(row)}
+          >
+            <TbContract />
+          </IconButton>
+        </Tooltip>
+        <Tooltip placement='top-start' title="عرض مالي">
+          <IconButton
+            sx={{ color: "#F35A5B" }}
+            onClick={() => handleShowOffer(row)}
+          >
+            <LiaFileContractSolid />
+          </IconButton>
+        </Tooltip>
+        <Tooltip placement='top-start' title="نموذج تموضع اللوحات">
+          <IconButton
+            sx={{ color: "blue" }}
+            onClick={() => downloadContract(row)}
+          >
+            <MdEditLocationAlt />
+          </IconButton>
+        </Tooltip>
+        <Tooltip placement='top-start' title="كافة العقود">
+          <IconButton
+            sx={{ color: "#47B149" }}
+            onClick={() => navigate(`/super_admin/users/${row.id}`)}
+          >
+            <RiContractLine />
+          </IconButton>
+        </Tooltip>
+      </>
+    )
+  }
+]);
 
 
-  export  const getColumnsBoxContainer = [
-    {
-      key: 'amount_received',
-      label: 'المبلغ المقبوض',
-      align: 'center',
-      render: (row) => row.amount_received || '....'
-    },
-    {
-      key: 'remaining_amount',
-      label: 'المبلغ المتبقي',
-      align: 'center',
-      render: (row) => row.remaining_amount || '....'
-    },
-    {
-      key: 'total',
-      label: 'المجموع',
-      align: 'center',
-      render: (row) => row.total || '....'
-    }
-  ];
+export const getColumnsBoxContainer = [
+  {
+    key: 'amount_received',
+    label: 'المبلغ المقبوض',
+    align: 'center',
+    render: (row) => row.amount_received || '....'
+  },
+  {
+    key: 'remaining_amount',
+    label: 'المبلغ المتبقي',
+    align: 'center',
+    render: (row) => row.remaining_amount || '....'
+  },
+  {
+    key: 'total',
+    label: 'المجموع',
+    align: 'center',
+    render: (row) => row.total || '....'
+  }
+];
+
+
+export const getColumnsUserContractsContainer = [
+  { key: 'number', label: 'رقم العقد', align: 'center' },
+  { key: 'type', label: 'نوع العقد', align: 'center' },
+  { key: 'date', label: 'تاريخ العقد', align: 'center' },
+];

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Box,
   Button,
@@ -17,7 +17,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Modal, Spinner } from "react-bootstrap";
 import { useFormik } from "formik";
 import notify from "../../useNotification";
-// import notify from "../../utils/useNotification";
 
 const DynamicEditModal = ({
   show,
@@ -259,13 +258,15 @@ const DynamicEditModal = ({
           z-index: 2000000001 !important;
         }
       `}</style>
+      
       <Modal
         show={show}
         onHide={handleClose}
         centered
         backdrop="static"
         keyboard={false}
-        style={{ zIndex: 2000000001 }}
+        style={{ zIndex: 2000000001 , direction:"rtl" }}
+        
       >
         <div
           style={{

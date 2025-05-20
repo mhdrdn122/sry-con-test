@@ -1,4 +1,4 @@
-import { Box, Button, TextField, FormControl, useMediaQuery } from "@mui/material";
+import { Box, Button, TextField, FormControl, useMediaQuery, useTheme } from "@mui/material";
 import { Modal, Spinner } from "react-bootstrap";
 import { useFormik } from "formik";
 import { useEffect } from "react";
@@ -10,6 +10,7 @@ import React from 'react'
 const ModalShowOffer = ({show,handleClose}) => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
+    const theme = useTheme()
     const formik = useFormik({
         initialValues: {
           id: show?.id || "",
@@ -54,12 +55,12 @@ const ModalShowOffer = ({show,handleClose}) => {
         },
       });
   return (
- <Modal show={show} onHide={handleClose} centered>
+ <Modal show={show} onHide={handleClose}  centered>
       <form onSubmit={formik.handleSubmit} autoComplete="off">
-        <Modal.Header className="d-flex justify-content-center">
+        <Modal.Header style={{backgroundColor:theme.palette.background.default}} className="d-flex justify-content-center">
           <Modal.Title>تصدير عقد</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{backgroundColor:theme.palette.background.default}}>
           <Box
             m="40px 0 0 0"
             display="grid"
@@ -88,14 +89,15 @@ const ModalShowOffer = ({show,handleClose}) => {
             />
           </Box>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer style={{backgroundColor:theme.palette.background.default}}>
           <Button
             variant="contained"
-            className="mx-2 primary"
+            className="mx-2 "
             onClick={() => {
               handleClose();
               formik.resetForm();
             }}
+            
           >
             تجاهل </Button>
 

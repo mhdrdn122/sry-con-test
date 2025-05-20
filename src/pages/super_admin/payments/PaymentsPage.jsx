@@ -4,6 +4,7 @@ import Header from "../../../utils/Header";
 import PaymentsContainer from '../../../components/super_admin/payments/PaymentsContainer';
 import SearchInput from '../../../utils/super_admin/SearchInput';
 import { breadcrumbsPayments } from '../../../utils/Breadcrumbs/breadcrumbs';
+import { ModalAddCashPayment } from '../../../utils/Modals/AddModal/DynamicAddModal';
 
 
 const PaymentsPage = () => {
@@ -38,6 +39,8 @@ const PaymentsPage = () => {
         setSearchWord={setSearchWord}
         refresh={refresh}
       />
+      <ModalAddCashPayment show={showAddPayment} handleClose={handleCloseAddPayment} />
+      
     </div>
   )
 }

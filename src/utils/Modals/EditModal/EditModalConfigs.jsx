@@ -30,329 +30,354 @@ import {
 import { useGetUsersQuery } from "../../../redux/slice/super_admin/users/usersApi";
 import { useGetRoadCodingsQuery } from "../../../redux/slice/super_admin/codings/codingsApi";
 import { useDispatch } from "react-redux";
+import { discountFields } from "./ModalEditConfiguration/DiscountModalEditConfiguration/discountFields";
+import { discountValidationSchema } from "./ModalEditConfiguration/DiscountModalEditConfiguration/discountValidationSchema";
+import { discountInitialValues } from "./ModalEditConfiguration/DiscountModalEditConfiguration/discountInitialValues";
+import { orderFields } from "./ModalEditConfiguration/OrderModalEditConfiguration/orderFields";
+import { orderValidationSchema } from "./ModalEditConfiguration/OrderModalEditConfiguration/orderValidationSchema";
+import { orderInitialValues } from "./ModalEditConfiguration/OrderModalEditConfiguration/orderInitialValues";
+import { superAdminFields } from "./ModalEditConfiguration/SuperAdminInfoModalEditConfiguration/superAdminFields";
+import { superAdminValidationSchema } from "./ModalEditConfiguration/SuperAdminInfoModalEditConfiguration/superAdminValidationSchema";
+import { superAdminInitialValues } from "./ModalEditConfiguration/SuperAdminInfoModalEditConfiguration/superAdminInitialValues";
+import { useUpdateSuperAdminInfoMutation } from "../../../hooks/superAdmin/useUpdateSuperAdminInfoMutation";
+import { adminFields } from "./ModalEditConfiguration/AdminModalEditConfiguration/adminFields";
+import { adminValidationSchema } from "./ModalEditConfiguration/AdminModalEditConfiguration/adminValidationSchema";
+import { adminInitialValues } from "./ModalEditConfiguration/AdminModalEditConfiguration/adminInitialValues";
+import { codingFields } from "./ModalEditConfiguration/CodingModalEditConfiguration/codingFields";
+import { codingValidationSchema } from "./ModalEditConfiguration/CodingModalEditConfiguration/codingValidationSchema";
+import { codingInitialValues } from "./ModalEditConfiguration/CodingModalEditConfiguration/codingInitialValues";
+import { userFields } from "./ModalEditConfiguration/UserModalEditConfiguration/userFields";
+import { userValidationSchema } from "./ModalEditConfiguration/UserModalEditConfiguration/userValidationSchema";
+import { userInitialValues } from "./ModalEditConfiguration/UserModalEditConfiguration/userInitialValues";
+import { reservationFields } from "./ModalEditConfiguration/ReservationModalEditConfiguration/reservationFields";
+import { reservationValidationSchema } from "./ModalEditConfiguration/ReservationModalEditConfiguration/reservationValidationSchema";
+import { reservationInitialValues } from "./ModalEditConfiguration/ReservationModalEditConfiguration/reservationInitialValues";
+import { roadSignFields } from "./ModalEditConfiguration/RoadSignModalEditConfiguration/roadSignFields";
+import { roadSignValidationSchema } from "./ModalEditConfiguration/RoadSignModalEditConfiguration/roadSignValidationSchema";
+import { roadSignInitialValues } from "./ModalEditConfiguration/RoadSignModalEditConfiguration/roadSignInitialValues";
 
 // Discount Modal Configuration
-const discountFields = [
-  { name: "id", label: "ID", type: "hidden" },
-  { name: "discount", label: "الخصم", type: "number", dir: "rtl" },
-];
+// const discountFields = [
+//   { name: "id", label: "ID", type: "hidden" },
+//   { name: "discount", label: "الخصم", type: "number", dir: "rtl" },
+// ];
 
-const discountValidationSchema = Yup.object({
-  discount: Yup.number().required("Required"),
-});
+// const discountValidationSchema = Yup.object({
+//   discount: Yup.number().required("Required"),
+// });
 
-const discountInitialValues = {
-  id: "",
-  discount: "",
-};
+// const discountInitialValues = {
+//   id: "",
+//   discount: "",
+// };
 
 // Order Modal Configuration
-const orderFields = [
-  { name: "id", label: "ID", type: "hidden" },
-  { name: "note", label: "ملاحظة", type: "text", dir: "rtl" },
-  {
-    name: "date",
-    label: "تاريخ البدء",
-    type: "date",
-    minDate: new Date().toISOString().split("T")[0],
-  },
-  {
-    name: "road_sign_id",
-    label: "عنوان اللوحة",
-    type: "select",
-    dataKey: "roadSigns",
-    valueKey: "id",
-    displayKey: "region",
-    secondaryDisplayKey: "place",
-  },
-];
+// const orderFields = [
+//   { name: "id", label: "ID", type: "hidden" },
+//   { name: "note", label: "ملاحظة", type: "text", dir: "rtl" },
+//   {
+//     name: "date",
+//     label: "تاريخ البدء",
+//     type: "date",
+//     minDate: new Date().toISOString().split("T")[0],
+//   },
+//   {
+//     name: "road_sign_id",
+//     label: "عنوان اللوحة",
+//     type: "select",
+//     dataKey: "roadSigns",
+//     valueKey: "id",
+//     displayKey: "region",
+//     secondaryDisplayKey: "place",
+//   },
+// ];
 
-const orderValidationSchema = Yup.object({
-  note: Yup.string(),
-  date: Yup.string(),
-  road_sign_id: Yup.string(),
-});
+// const orderValidationSchema = Yup.object({
+//   note: Yup.string(),
+//   date: Yup.string(),
+//   road_sign_id: Yup.string(),
+// });
 
-const orderInitialValues = {
-  id: "",
-  note: "",
-  date: "",
-  road_sign_id: "",
-};
+// const orderInitialValues = {
+//   id: "",
+//   note: "",
+//   date: "",
+//   road_sign_id: "",
+// };
 
 // SuperAdminInfo Modal Configuration
-const superAdminFields = [
-  { name: "username", label: "اسم المستخدم", dir: "rtl" },
-  { name: "password", label: "كلمة السر", type: "password", dir: "rtl" },
-];
+// const superAdminFields = [
+//   { name: "username", label: "اسم المستخدم", dir: "rtl" },
+//   { name: "password", label: "كلمة السر", type: "password", dir: "rtl" },
+// ];
 
-const superAdminValidationSchema = Yup.object({
-  username: Yup.string()
-    .min(2, "يجب أن يكون الاسم 2 أحرف أو أكثر")
-    .required("هذا الحقل مطلوب"),
-  password: Yup.string()
-    .min(8, "يجب أن تكون كلمة السر 8 أحرف أو أكثر")
-    .required("هذا الحقل مطلوب"),
-});
+// const superAdminValidationSchema = Yup.object({
+//   username: Yup.string()
+//     .min(2, "يجب أن يكون الاسم 2 أحرف أو أكثر")
+//     .required("هذا الحقل مطلوب"),
+//   password: Yup.string()
+//     .min(8, "يجب أن تكون كلمة السر 8 أحرف أو أكثر")
+//     .required("هذا الحقل مطلوب"),
+// });
 
-const superAdminInitialValues = {
-  username: "",
-  password: "",
-};
+// const superAdminInitialValues = {
+//   username: "",
+//   password: "",
+// };
 
 // Admin Modal Configuration
-const adminFields = [
-  { name: "id", label: "ID", type: "hidden" },
-  { name: "name", label: "الاسم", type: "text", dir: "rtl" },
-  { name: "username", label: "اسم المستخدم", type: "text", dir: "rtl" },
-  { name: "password", label: "كلمة السر", type: "password", dir: "rtl" },
-  { name: "phone", label: "الرقم", type: "text", dir: "rtl" },
-  { name: "address", label: "العنوان", type: "text", dir: "rtl" },
-];
+// const adminFields = [
+//   { name: "id", label: "ID", type: "hidden" },
+//   { name: "name", label: "الاسم", type: "text", dir: "rtl" },
+//   { name: "username", label: "اسم المستخدم", type: "text", dir: "rtl" },
+//   { name: "password", label: "كلمة السر", type: "password", dir: "rtl" },
+//   { name: "phone", label: "الرقم", type: "text", dir: "rtl" },
+//   { name: "address", label: "العنوان", type: "text", dir: "rtl" },
+// ];
 
-const adminValidationSchema = Yup.object({
-  name: Yup.string(),
-  username: Yup.string(),
-  password: Yup.string(),
-  phone: Yup.string(),
-  address: Yup.string(),
-});
+// const adminValidationSchema = Yup.object({
+//   name: Yup.string(),
+//   username: Yup.string(),
+//   password: Yup.string(),
+//   phone: Yup.string(),
+//   address: Yup.string(),
+// });
 
-const adminInitialValues = {
-  id: "",
-  name: "",
-  username: "",
-  password: "",
-  phone: "",
-  address: "",
-};
+// const adminInitialValues = {
+//   id: "",
+//   name: "",
+//   username: "",
+//   password: "",
+//   phone: "",
+//   address: "",
+// };
 
 // Coding Modal Configuration
-const codingFields = [
-  { name: "id", label: "ID", type: "hidden" },
-  { name: "type", label: "النوع", type: "text", dir: "rtl" },
-  { name: "model", label: "النموذج", type: "text", dir: "rtl" },
-  { name: "size", label: "الحجم", type: "text", dir: "rtl" },
-  { name: "price", label: "السعر", type: "text", dir: "rtl" },
-  { name: "format", label: "نوع النموذج", type: "text", dir: "rtl" },
-];
+// const codingFields = [
+//   { name: "id", label: "ID", type: "hidden" },
+//   { name: "type", label: "النوع", type: "text", dir: "rtl" },
+//   { name: "model", label: "النموذج", type: "text", dir: "rtl" },
+//   { name: "size", label: "الحجم", type: "text", dir: "rtl" },
+//   { name: "price", label: "السعر", type: "text", dir: "rtl" },
+//   { name: "format", label: "نوع النموذج", type: "text", dir: "rtl" },
+// ];
 
-const codingValidationSchema = Yup.object({
-  type: Yup.string(),
-  model: Yup.string(),
-  size: Yup.string(),
-  price: Yup.string(),
-  format: Yup.string(),
-});
+// const codingValidationSchema = Yup.object({
+//   type: Yup.string(),
+//   model: Yup.string(),
+//   size: Yup.string(),
+//   price: Yup.string(),
+//   format: Yup.string(),
+// });
 
-const codingInitialValues = {
-  id: "",
-  type: "",
-  model: "",
-  size: "",
-  price: "",
-  format: "",
-};
+// const codingInitialValues = {
+//   id: "",
+//   type: "",
+//   model: "",
+//   size: "",
+//   price: "",
+//   format: "",
+// };
 
 // User Modal Configuration
-const userFields = [
-  { name: "id", label: "ID", type: "hidden" },
-  { name: "name", label: "الاسم", type: "text", dir: "rtl" },
-  { name: "email", label: "الايميل", type: "text", dir: "rtl" },
-  { name: "company_name", label: "اسم الشركة", type: "text", dir: "rtl" },
-  { name: "phone", label: "رقم الهاتف", type: "text", dir: "rtl" },
-  { name: "address", label: "العنوان", type: "text", dir: "rtl" },
-  {
-    name: "registration_number",
-    label: "رقم السجل التجاري",
-    type: "text",
-    dir: "rtl",
-  },
-  {
-    name: "format",
-    label: "نوع النموذج",
-    type: "select",
-    options: [
-      { value: "أجنبي", label: "أجنبي" },
-      { value: "أجنبي سوري", label: "أجنبي سوري" },
-      { value: "وطني سوري", label: "وطني سوري" },
-    ],
-  },
-];
+// const userFields = [
+//   { name: "id", label: "ID", type: "hidden" },
+//   { name: "name", label: "الاسم", type: "text", dir: "rtl" },
+//   { name: "email", label: "الايميل", type: "text", dir: "rtl" },
+//   { name: "company_name", label: "اسم الشركة", type: "text", dir: "rtl" },
+//   { name: "phone", label: "رقم الهاتف", type: "text", dir: "rtl" },
+//   { name: "address", label: "العنوان", type: "text", dir: "rtl" },
+//   {
+//     name: "registration_number",
+//     label: "رقم السجل التجاري",
+//     type: "text",
+//     dir: "rtl",
+//   },
+//   {
+//     name: "format",
+//     label: "نوع النموذج",
+//     type: "select",
+//     options: [
+//       { value: "أجنبي", label: "أجنبي" },
+//       { value: "أجنبي سوري", label: "أجنبي سوري" },
+//       { value: "وطني سوري", label: "وطني سوري" },
+//     ],
+//   },
+// ];
 
-const userValidationSchema = Yup.object({
-  format: Yup.string().required("Required"),
-});
+// const userValidationSchema = Yup.object({
+//   format: Yup.string().required("Required"),
+// });
 
-const userInitialValues = {
-  id: "",
-  name: "",
-  email: "",
-  company_name: "",
-  phone: "",
-  address: "",
-  registration_number: "",
-  format: "",
-};
+// const userInitialValues = {
+//   id: "",
+//   name: "",
+//   email: "",
+//   company_name: "",
+//   phone: "",
+//   address: "",
+//   registration_number: "",
+//   format: "",
+// };
 
 // Reservation Modal Configuration
-const reservationFields = [
-  { name: "id", label: "ID", type: "hidden" },
-  {
-    name: "road_sign_id",
-    label: "عنوان اللوحة",
-    type: "select",
-    dataKey: "roadSigns",
-    valueKey: "id",
-    displayKey: "region",
-    secondaryDisplayKey: "place",
-  },
-  {
-    name: "type",
-    label: "مؤقت أو دائم",
-    type: "select",
-    options: [
-      { value: "temporary", label: "مؤقت" },
-      { value: "permanent", label: "دائم" },
-    ],
-  },
-  {
-    name: "start_date",
-    label: "تاريخ البدء",
-    type: "date",
-    minDate: new Date().toISOString().split("T")[0],
-  },
-  {
-    name: "end_date",
-    label: "تاريخ النهاية",
-    type: "date",
-    minDate: new Date().toISOString().split("T")[0],
-  },
-  {
-    name: "with_print",
-    label: "مع طباعة",
-    type: "select",
-    options: [
-      { value: 0, label: "لا" },
-      { value: 1, label: "نعم" },
-    ],
-  },
-  {
-    name: "user_id",
-    label: "المستخدم",
-    type: "select",
-    dataKey: "users",
-    valueKey: "id",
-    displayKey: "name",
-  },
-  { name: "number_of_faces", label: "عدد الوجوه", type: "text", dir: "rtl" },
-  { name: "signs_number", label: "عدد اللوحات", type: "text", dir: "rtl" },
-];
+// const reservationFields = [
+//   { name: "id", label: "ID", type: "hidden" },
+//   {
+//     name: "road_sign_id",
+//     label: "عنوان اللوحة",
+//     type: "select",
+//     dataKey: "roadSigns",
+//     valueKey: "id",
+//     displayKey: "region",
+//     secondaryDisplayKey: "place",
+//   },
+//   {
+//     name: "type",
+//     label: "مؤقت أو دائم",
+//     type: "select",
+//     options: [
+//       { value: "temporary", label: "مؤقت" },
+//       { value: "permanent", label: "دائم" },
+//     ],
+//   },
+//   {
+//     name: "start_date",
+//     label: "تاريخ البدء",
+//     type: "date",
+//     minDate: new Date().toISOString().split("T")[0],
+//   },
+//   {
+//     name: "end_date",
+//     label: "تاريخ النهاية",
+//     type: "date",
+//     minDate: new Date().toISOString().split("T")[0],
+//   },
+//   {
+//     name: "with_print",
+//     label: "مع طباعة",
+//     type: "select",
+//     options: [
+//       { value: 0, label: "لا" },
+//       { value: 1, label: "نعم" },
+//     ],
+//   },
+//   {
+//     name: "user_id",
+//     label: "المستخدم",
+//     type: "select",
+//     dataKey: "users",
+//     valueKey: "id",
+//     displayKey: "name",
+//   },
+//   { name: "number_of_faces", label: "عدد الوجوه", type: "text", dir: "rtl" },
+//   { name: "signs_number", label: "عدد اللوحات", type: "text", dir: "rtl" },
+// ];
 
-const reservationValidationSchema = Yup.object({
-  road_sign_id: Yup.string(),
-  type: Yup.string(),
-  start_date: Yup.string(),
-  end_date: Yup.string(),
-  with_print: Yup.number(),
-  user_id: Yup.string(),
-  number_of_faces: Yup.string(),
-  signs_number: Yup.string(),
-});
+// const reservationValidationSchema = Yup.object({
+//   road_sign_id: Yup.string(),
+//   type: Yup.string(),
+//   start_date: Yup.string(),
+//   end_date: Yup.string(),
+//   with_print: Yup.number(),
+//   user_id: Yup.string(),
+//   number_of_faces: Yup.string(),
+//   signs_number: Yup.string(),
+// });
 
-const reservationInitialValues = {
-  id: "",
-  road_sign_id: "",
-  type: "",
-  start_date: "",
-  end_date: "",
-  with_print: "",
-  user_id: "",
-  number_of_faces: "",
-  signs_number: "",
-};
+// const reservationInitialValues = {
+//   id: "",
+//   road_sign_id: "",
+//   type: "",
+//   start_date: "",
+//   end_date: "",
+//   with_print: "",
+//   user_id: "",
+//   number_of_faces: "",
+//   signs_number: "",
+// };
 
 // RoadSign Modal Configuration
-const roadSignFields = [
-  { name: "id", label: "ID", type: "hidden" },
-  { name: "region", label: "المنطقة", type: "text", dir: "rtl" },
-  { name: "city", label: "المدينة", type: "text", dir: "rtl" },
-  { name: "place", label: "مكان التموضع", type: "text", dir: "rtl" },
-  { name: "direction", label: "الاتجاه", type: "text", dir: "rtl" },
-  { name: "printing_price", label: "سعر الطباعة", type: "text", dir: "rtl" },
-  { name: "signs_number", label: "عدد اللوحات", type: "text", dir: "rtl" },
-  { name: "number_of_faces", label: "عدد الوجوه", type: "text", dir: "rtl" },
-  { name: "meters_number", label: "عدد الأمتار", type: "text", dir: "rtl" },
-  {
-    name: "meters_number_printing",
-    label: "عدد أمتار الطباعة",
-    type: "text",
-    dir: "rtl",
-  },
-  {
-    name: "coding_id",
-    label: "النموذج",
-    type: "select",
-    dataKey: "codings",
-    valueKey: "id",
-    displayKey: "model",
-    secondaryDisplayKey: "type",
-  },
-  {
-    name: "status",
-    label: "الحالة",
-    type: "select",
-    options: [
-      { value: "قيد الإنشاء", label: "قيد الإنشاء" },
-      { value: "متاح", label: "متاح" },
-    ],
-  },
-];
+// const roadSignFields = [
+//   { name: "id", label: "ID", type: "hidden" },
+//   { name: "region", label: "المنطقة", type: "text", dir: "rtl" },
+//   { name: "city", label: "المدينة", type: "text", dir: "rtl" },
+//   { name: "place", label: "مكان التموضع", type: "text", dir: "rtl" },
+//   { name: "direction", label: "الاتجاه", type: "text", dir: "rtl" },
+//   { name: "printing_price", label: "سعر الطباعة", type: "text", dir: "rtl" },
+//   { name: "signs_number", label: "عدد اللوحات", type: "text", dir: "rtl" },
+//   { name: "number_of_faces", label: "عدد الوجوه", type: "text", dir: "rtl" },
+//   { name: "meters_number", label: "عدد الأمتار", type: "text", dir: "rtl" },
+//   {
+//     name: "meters_number_printing",
+//     label: "عدد أمتار الطباعة",
+//     type: "text",
+//     dir: "rtl",
+//   },
+//   {
+//     name: "coding_id",
+//     label: "النموذج",
+//     type: "select",
+//     dataKey: "codings",
+//     valueKey: "id",
+//     displayKey: "model",
+//     secondaryDisplayKey: "type",
+//   },
+//   {
+//     name: "status",
+//     label: "الحالة",
+//     type: "select",
+//     options: [
+//       { value: "قيد الإنشاء", label: "قيد الإنشاء" },
+//       { value: "متاح", label: "متاح" },
+//     ],
+//   },
+// ];
 
-const roadSignValidationSchema = Yup.object({
-  region: Yup.string(),
-  city: Yup.string(),
-  place: Yup.string(),
-  direction: Yup.string(),
-  printing_price: Yup.string(),
-  signs_number: Yup.string(),
-  number_of_faces: Yup.string(),
-  meters_number: Yup.string(),
-  meters_number_printing: Yup.string(),
-  coding_id: Yup.string(),
-  status: Yup.string(),
-});
+// const roadSignValidationSchema = Yup.object({
+//   region: Yup.string(),
+//   city: Yup.string(),
+//   place: Yup.string(),
+//   direction: Yup.string(),
+//   printing_price: Yup.string(),
+//   signs_number: Yup.string(),
+//   number_of_faces: Yup.string(),
+//   meters_number: Yup.string(),
+//   meters_number_printing: Yup.string(),
+//   coding_id: Yup.string(),
+//   status: Yup.string(),
+// });
 
-const roadSignInitialValues = {
-  id: "",
-  region: "",
-  city: "",
-  place: "",
-  direction: "",
-  printing_price: "",
-  signs_number: "",
-  number_of_faces: "",
-  meters_number: "",
-  meters_number_printing: "",
-  coding_id: "",
-  status: "",
-};
+// const roadSignInitialValues = {
+//   id: "",
+//   region: "",
+//   city: "",
+//   place: "",
+//   direction: "",
+//   printing_price: "",
+//   signs_number: "",
+//   number_of_faces: "",
+//   meters_number: "",
+//   meters_number_printing: "",
+//   coding_id: "",
+//   status: "",
+// };
 
-// Custom mutation hook for SuperAdminInfo
-const useUpdateSuperAdminInfoMutation = () => {
-  const dispatch = useDispatch();
-  return [
-    async (values) => {
-      try {
-        await dispatch(updateSuperAdminInfo(values)).unwrap();
-        return { status: true, message: "تم تحديث المعلومات بنجاح" };
-      } catch (err) {
-        throw err;
-      }
-    },
-    { isLoading: false, isSuccess: false, isError: false, error: null },
-  ];
-};
+// // Custom mutation hook for SuperAdminInfo
+// const useUpdateSuperAdminInfoMutation = () => {
+//   const dispatch = useDispatch();
+//   return [
+//     async (values) => {
+//       try {
+//         await dispatch(updateSuperAdminInfo(values)).unwrap();
+//         return { status: true, message: "تم تحديث المعلومات بنجاح" };
+//       } catch (err) {
+//         throw err;
+//       }
+//     },
+//     { isLoading: false, isSuccess: false, isError: false, error: null },
+//   ];
+// };
 
 // Discount Modal Component
 export const ModalEditDiscount = ({ show, handleClose }) => {

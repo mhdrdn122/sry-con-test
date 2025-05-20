@@ -4,18 +4,7 @@ import { useTheme } from "@mui/material/styles";
 const ModalDelete = ({ show, handleClose, loading, error, handleDelete }) => {
   const theme = useTheme();
 
-  // CSS مخصّص للـ backdrop ليظهر فوق كل شيء مع blur
-  // const backdropStyle = `
-  //   .modal-backdrop.show {
-  //     z-index: ${theme.zIndex.modal + 1000} !important;
-  //     background-color: ${
-  //       theme.palette.mode === "dark"
-  //         ? "rgba(18, 18, 18, 0.4)"
-  //         : "rgba(255, 255, 255, 0.4)"
-  //     };
-  //     backdrop-filter: blur(6px);
-  //   }
-  // `;
+
 
   const contentStyle = {
     backgroundColor: theme.palette.background.paper,
@@ -26,13 +15,12 @@ const ModalDelete = ({ show, handleClose, loading, error, handleDelete }) => {
       theme.palette.mode === "dark"
         ? "0 0 20px rgba(255,255,255,0.1)"
         : "0 0 20px rgba(0,0,0,0.1)",
-    zIndex: theme.zIndex.modal + 1001, // أعلى من backdrop
+    zIndex: theme.zIndex.modal + 1001, 
     position: "relative",
   };
 
   return (
     <>
-      {/* <style>{backdropStyle}</style> */}
 
       <Modal
         show={show}
@@ -40,7 +28,6 @@ const ModalDelete = ({ show, handleClose, loading, error, handleDelete }) => {
         centered
         backdrop="static"
         keyboard={false}
-        // style={{ zIndex: theme.zIndex.modal + 1001 }}
       >
         <div style={{ ...contentStyle, direction: "rtl" }}>
           <h5 style={{ marginBottom: 16, textAlign: "center" }}>

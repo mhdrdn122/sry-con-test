@@ -10,7 +10,6 @@ import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalSto
 import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsPaymentsContainer } from '../../Table/tableColumns';
 import { actionsPaymentsContainer } from '../../Table/tableActions';
-import { ModalAddCashPayment } from '../../../utils/Modals/AddModal/DynamicAddModal';
 
 const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
   const [page, setPage] = useState(1); 

@@ -38,7 +38,7 @@ export const actionsAdminsContainer = (handleShowAdmin, handleShowEdit, handleSh
     }
   ]
 )
-
+ 
 
 export const actionsCodingContainer = (handleShowEdit, handleShowDelete, superAdminInfo) => ([
   {
@@ -189,3 +189,12 @@ export const actionsUsersContainer = (handleShowUser, handleShowEdit, handleShow
       }
     ] : [])
   ]);
+
+export const actionsUsersContracts = (handleDownload , isFetching , isLoading ) => ([
+  {
+    label: 'تحميل',
+    icon: <FaDownload />,
+    onClick: handleDownload,
+    disabled: isFetching || isLoading,
+  }
+]);

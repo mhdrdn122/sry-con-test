@@ -1,0 +1,35 @@
+export const roadSignFields = [
+  { name: "id", label: "ID", type: "hidden" },
+  { name: "region", label: "المنطقة", type: "text", dir: "rtl" },
+  { name: "city", label: "المدينة", type: "text", dir: "rtl" },
+  { name: "place", label: "مكان التموضع", type: "text", dir: "rtl" },
+  { name: "direction", label: "الاتجاه", type: "text", dir: "rtl" },
+  { name: "printing_price", label: "سعر الطباعة", type: "text", dir: "rtl" },
+  { name: "signs_number", label: "عدد اللوحات", type: "text", dir: "rtl" },
+  { name: "number_of_faces", label: "عدد الوجوه", type: "text", dir: "rtl" },
+  { name: "meters_number", label: "عدد الأمتار", type: "text", dir: "rtl" },
+  {
+    name: "meters_number_printing",
+    label: "عدد أمتار الطباعة",
+    type: "text",
+    dir: "rtl",
+  },
+  { 
+    name: "coding_id",
+    label: "النموذج",
+    type: "select",
+    dataKey: "codings",
+    valueKey: "id",
+    displayKey: "model",
+    secondaryDisplayKey: "type",
+  },
+  {
+    name: "status",
+    label: "الحالة",
+    type: "select",
+    options: [
+      { value: "قيد الإنشاء", label: "قيد الإنشاء" },
+      { value: "متاح", label: "متاح" },
+    ],
+  },
+];

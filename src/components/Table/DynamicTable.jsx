@@ -14,7 +14,7 @@ import {
   Typography,
   Box,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 
 const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
   maxWidth: '100%',
@@ -92,6 +92,7 @@ const LoadingContainer = styled(Box)(({ theme }) => ({
 const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'ltr', footer = null }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const theme = useTheme()
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
