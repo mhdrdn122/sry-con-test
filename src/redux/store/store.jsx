@@ -32,7 +32,7 @@ const store = configureStore({
     [contractsApi.reducerPath]:contractsApi.reducer,
     [reportApi.reducerPath]:reportApi.reducer,
     [employeesActivitiesApi.reducerPath]:employeesActivitiesApi.reducer,
-    // selected Signs 
+    // selected Signs  
     selectedSigns: selectedSignsReducer,
     },
     middleware: (getDefaultMiddleware) =>

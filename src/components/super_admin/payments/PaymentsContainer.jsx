@@ -4,7 +4,6 @@ import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import ModalDelete from '../../../utils/Modals/DeleteModal/ModalDelete';
 import { useGetPaymentsQuery, useDeletePaymentMutation } from '../../../redux/slice/super_admin/payments/paymentsApi';
-import ModalShowPayment from './ModalShowPayment';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsPaymentsContainer } from '../../Table/tableColumns';

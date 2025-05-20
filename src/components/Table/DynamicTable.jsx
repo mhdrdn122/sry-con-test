@@ -69,17 +69,17 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'rtl'
             paginatedData.map((row, index) => (
               <StyledTableRow key={index}>
                 {columns.map((column) => (
-
-                  <TableCell key={column.key} align={column.align || 'center'}>
+                  
+                  <TableCell  style={{display: column.label === "العقود" ? "flex" : "table-cell"}}  key={column.key} align={column.align || 'center'}>
                     {column.render ? column.render(row) : column.key === 'coding.model' ? row['coding'].model : row[column.key] || 0}
                   </TableCell>
                 ))}
                 {actions.length > 0 && (
-                  <TableCell align="center">
+                  <TableCell display="flex" align="center">
                     <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
                       {actions.map((action, idx) => (
                         (!action.condition || action.condition(row)) && (
-                          <Tooltip key={idx} title={action.label} placement="top">
+                          <Tooltip display="flex" key={idx} title={action.label} placement="top">
                             <span>
                               <IconButton
                                 sx={{ color: action.color || theme.palette.text.primary }}
