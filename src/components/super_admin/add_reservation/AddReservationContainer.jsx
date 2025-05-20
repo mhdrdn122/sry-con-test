@@ -22,7 +22,8 @@ import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalSto
 import DynamicTable from '../../Table/DynamicTable'; 
 import { getColumnsAddReservationContainer } from '../../Table/tableColumns';
 import { actionsAddReservationContainer } from '../../Table/tableActions';
-import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
+import ModalShow from '../../../utils/Modals/ModalShow/ModalShow';
+// import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 
 const AddReservationContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate,
   showAddReserve, handleCloseAddReserve, city, status
@@ -272,9 +273,11 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
         error={error?.data?.message}
         dir="rtl"
       />
-
-      <ModalShow show={showSignRoad} handleClose={handleCloseShowRoadSign} fromPage="addReservations" />
+      
+     <ModalShow show={showSignRoad} handleClose={handleCloseShowRoadSign} fromPage="addReservations" />
      
+ 
+ 
       <ModalCart
         inputFields={formik.values}
         show={showAddReserve}

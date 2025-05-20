@@ -4,10 +4,10 @@ import { ToastContainer } from "react-toastify";
 import {  useGetReservationsQuery } from '../../../redux/slice/super_admin/reservations/reservationsApi';
 import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 
-import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsReservationsContainer } from '../../Table/tableColumns';
 import { actionsReservationsContainer } from '../../Table/tableActions';
+import ModalShow from '../../../utils/Modals/ModalShow/ModalShow';
 
 const ReservationsContainer = ({  refresh, searchWord }) => {
   const [page, setPage] = useState(1);
@@ -58,6 +58,7 @@ const ReservationsContainer = ({  refresh, searchWord }) => {
       />
       <ToastContainer />
       <ModalShow show={showReservation} handleClose={handleCloseShowReservation} fromPage={"reservations"} />
+
 
     </div>
   );

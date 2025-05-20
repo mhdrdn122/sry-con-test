@@ -5,8 +5,7 @@ import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalSto
 import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsEmployeesActivitiesContainer } from '../../Table/tableColumns';
 import { actionsEmployeesActivitiesContainer } from '../../Table/tableActions';
-import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
-// import ModalShow from '../../../utils/ModalShow';
+import ModalShow from '../../../utils/Modals/ModalShow/ModalShow';
 
 const EmployeesActivitiesContainer = ({ refresh }) => {
   const [page, setPage] = useState(1);
@@ -46,7 +45,8 @@ const EmployeesActivitiesContainer = ({ refresh }) => {
         error={error?.data?.message}
         dir="rtl"
       />
-      <ModalShow
+
+       <ModalShow
         show={selectedActivity}
         handleClose={handleCloseShowActivities}
         fromPage="activities"

@@ -6,12 +6,12 @@ import { useDeleteAdminMutation, useGetAdminsQuery } from "../../../redux/slice/
 import ModalDelete from "../../../utils/Modals/DeleteModal/ModalDelete";
 // import ModalEditAdmin from "./ModalEditAdmin";
 import useCacheInLocalStorage from "../../../hooks/superAdmin/useCacheInLocalStorage";
-import ModalShow from "../../../utils/Modals/ShowModal/GenericModal";
 import DynamicTable from "../../Table/DynamicTable";
 import { getColumnsAdminsContainer } from "../../Table/tableColumns";
 import { actionsAdminsContainer } from "../../Table/tableActions";
 import { ModalAddAdmin } from "../../../utils/Modals/AddModal/DynamicAddModal";
 import { ModalEditAdmin } from "../../../utils/Modals/EditModal/EditModalConfigs";
+import ModalShow from "../../../utils/Modals/ModalShow/ModalShow";
 
 const AdminsContainer = ({ show, handleClose, refresh }) => {
     const [page, setPage] = useState(1);
@@ -102,6 +102,7 @@ const AdminsContainer = ({ show, handleClose, refresh }) => {
                 handleDelete={handleDelete}
             />
             <ModalShow show ={showAdmin} handleClose={handleCloseShowAdmin} fromPage={"admins"} />
+
            
             <ToastContainer />
         </div>
