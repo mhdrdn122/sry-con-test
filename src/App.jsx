@@ -18,6 +18,7 @@ import ReportPage from "./pages/super_admin/report/ReportPage"
 import EmployeesActivitiesPage from './pages/super_admin/employees_activities/EmployeesActivitiesPage'
 import { useContext } from "react"
 import UserContracts from "./pages/super_admin/user_contracts/UserContracts"
+import SingIn from "./pages/super_admin/auth/SignInPage"
 function App({toggleMode}) { 
  
 
@@ -25,8 +26,9 @@ function App({toggleMode}) {
   return (
     <div>
       <Routes>
-      {/* <Route path="/" element={<Login />} /> */}
-      <Route path="/super_admin/login" element={<Login />} />
+      {/* <Route path="/super_admin/login" element={<Login />} /> */}
+      <Route path="/super_admin/login" element={<SingIn />} />
+
         <Route path="/super_admin" element={<LayoutSuperAdmin toggleMode={toggleMode} />}>
 
         <Route index element={<ProfilePage />} /> 
@@ -34,12 +36,9 @@ function App({toggleMode}) {
         <Route
               path="admins"
               element={
-                // <ProtectedRoute
-                //   permission={SuperPermissionsEnum.SUPER_ADMIN_INDEX}
-                // >
+           
                   <AllAdminsPage
                    />
-                // </ProtectedRoute>
               }
             />
              <Route

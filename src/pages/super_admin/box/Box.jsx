@@ -17,15 +17,14 @@ const Box = () => {
 
   
 
-  // Convert boxCache.data (single object) to an array for DynamicTable
-  const data = boxCache?.data ? [boxCache.data] : [];
+  const data = box?.data ? [box.data] : [];
 
   return (
     <div>
       <Header heading={"الصندوق"} />
       <DynamicTable
         columns={getColumnsBoxContainer}
-        data={box}
+        data={data}
         actions={[]}
         loading={loading}
         error={error?.data?.message}

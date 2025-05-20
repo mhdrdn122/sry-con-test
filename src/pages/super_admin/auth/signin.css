@@ -1,0 +1,174 @@
+/* src/components/auth/signin.css */
+
+/* Theme variables */
+.light-theme {
+  --bg-form: #ffffff; /* من MUI: background.paper */
+  --bg-panel: #f5f5f5; /* من MUI: background.default */
+  --gradient-start: #1976d2; /* من MUI: primary.main */
+  --gradient-end: #9c27b0; /* من MUI: secondary.main */
+  --text-color: #212121; /* من MUI: text.primary */
+  --text-secondary: #757575; /* من MUI: text.secondary */
+  --button-bg: #1976d2; /* من MUI: primary.main */
+  --button-text: #ffffff; /* لضمان تباين جيد */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* ظل ناعم للوضع الفاتح */
+}
+
+.dark-theme {
+  --bg-form: #1e1e1e; /* من MUI: background.paper */
+  --bg-panel: #121212; /* من MUI: background.default */
+  --gradient-start: #90caf9; /* من MUI: primary.main */
+  --gradient-end: #ce93d8; /* من MUI: secondary.main */
+  --text-color: #ffffff; /* من MUI: text.primary */
+  --text-secondary: #b0b0b0; /* من MUI: text.secondary */
+  --button-bg: #90caf9; /* من MUI: primary.main */
+  --button-text: #121212; /* تباين داكن للنص على الأزرار */
+  --shadow-color: rgba(255, 255, 255, 0.1); /* ظل ناعم للوضع الغامق */
+}
+
+/* Container backgrounds */
+.light-theme .form-panel {
+  background-color: var(--bg-form);
+  color: var(--text-color);
+}
+.dark-theme .form-panel {
+  background-color: var(--bg-form);
+  color: var(--text-color);
+}
+
+/* Backlight container */
+.backlight-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-panel);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Animated gradient overlay */
+.backlight-overlay {
+  position: absolute;
+  top: 5vw;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  transform: scale(0.75);
+  filter: blur(5vw);
+  background: linear-gradient(270deg, var(--gradient-start), var(--gradient-end));
+  background-size: 200% 200%;
+  animation: animateGlow 12s ease infinite;
+  z-index: 0;
+  opacity: 0.7; /* تخفيف التدرج لمظهر أكثر نعومة */
+}
+
+@keyframes animateGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Logo inside backlight */
+.backlight-image {
+  position: relative;
+  z-index: 1;
+  max-width: 60%;
+  width: 600px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  filter: drop-shadow(0 0 0.5rem var(--shadow-color));
+  transition: transform 0.3s ease; /* إضافة انتقال ناعم عند التفاعل */
+}
+
+/* Tilt card */
+.tilt-card {
+  cursor: grab;
+}
+
+/* Form panel */
+.form-panel {
+  padding: 2rem 1rem;
+  box-shadow: 0 4px 12px var(--shadow-color); /* ظل ناعم لتحسين العمق */
+  border-radius: 12px; /* زوايا مستديرة لمظهر حديث */
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  background-color: var(--bg-form);
+  color: var(--text-secondary);
+  border-color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--gradient-start);
+  color: var(--button-text);
+  border-color: var(--gradient-start);
+}
+
+/* Form elements */
+.form-control {
+  background-color: var(--bg-form);
+  color: var(--text-color);
+  border-color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--gradient-start);
+  box-shadow: 0 0 8px var(--shadow-color);
+  background-color: var(--bg-form);
+  color: var(--text-color);
+}
+
+.form-label {
+  color: var(--text-secondary);
+}
+
+/* Submit button */
+.btn-primary {
+  background-color: var(--button-bg);
+  border-color: var(--button-bg);
+  color: var(--button-text);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--gradient-end);
+  border-color: var(--gradient-end);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.btn-primary:disabled {
+  background-color: var(--text-secondary);
+  border-color: var(--text-secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .backlight-container {
+    display: none;
+  }
+  .form-panel {
+    border-radius: 0; /* إزالة الزوايا المستديرة على الشاشات الصغيرة */
+  }
+}
+
+/* Toast container adjustments */
+.toast-container .Toastify__toast {
+  background-color: var(--bg-form);
+  color: var(--text-color);
+}

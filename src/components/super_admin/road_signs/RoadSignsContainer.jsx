@@ -89,6 +89,7 @@ const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate,
     }
   };
 
+  console.log(roadSigns)
 
   return (
     <div>

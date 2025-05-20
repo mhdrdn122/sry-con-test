@@ -103,7 +103,7 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'ltr'
     setPage(0);
   };
 
-  const paginatedData = data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  const paginatedData = data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
     <StyledTableContainer component={Paper} style={{ margin: 0, padding: 0 }}>
@@ -138,6 +138,7 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'ltr'
             paginatedData.map((row, index) => (
               <StyledTableRow key={index}>
                 {columns.map((column) => (
+
                   <TableCell key={column.key} align={column.align || 'center'}>
                     {column.render ? column.render(row) : column.key === 'coding.model' ? row['coding'].model : row[column.key] || 0}
                   </TableCell>
@@ -178,7 +179,7 @@ const DynamicTable = ({ columns, data, actions = [], loading, error, dir = 'ltr'
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 50]}
         component="div"
-        count={data.length}
+        count={data?.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
