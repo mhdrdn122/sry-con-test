@@ -5,10 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import { Box, Button, IconButton, Tooltip } from '@mui/material';
 import { FaDownload } from 'react-icons/fa';
 import notify from '../../../utils/useNotification';
-import { useMediaQuery } from '@uidotdev/usehooks';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
 import SearchInput from '../../../utils/super_admin/SearchInput';
-import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable';
 import ModalTable from '../../Table/ModalTable';
 import { getColumnsReportContainer } from '../../Table/tableColumns';
@@ -18,8 +16,6 @@ const ReportContainer = () => {
   const [selectedReportType, setSelectedReportType] = useState('all_data');
   const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
   const [searchWord, setSearchWord] = useState("");
-  const [reportCache, setReportCache] = useState([]);
-  const [loadingData, setLoadingData] = useState(false);
 
   const {
     data: report,
@@ -29,10 +25,9 @@ const ReportContainer = () => {
     isFetching
   } = useGetReportQuery({ page, searchWord }, { refetchOnMountOrArgChange: true });
 
-  useCacheInLocalStorage(report, "report", setReportCache, setLoadingData);
 
 
-  const selectedData = reportCache?.data?.[selectedReportType] || [];
+  const selectedData = report?.data?.[selectedReportType] || [];
 
 
   const handleDownload = async () => {
@@ -93,7 +88,7 @@ const ReportContainer = () => {
         borderRadius: "5px",
         padding: "10px"
       }}>
-        {reportCache?.data?.total_number_of_meters_for_this_week ?? 0}
+        {report?.data?.total_number_of_meters_for_this_week ?? 0}
       </td>
     </tr>
   ) : null;
@@ -158,7 +153,7 @@ const ReportContainer = () => {
         ))}
       </Box>
 
-      <ModalTable data={reportCache.data?.coding} />
+      <ModalTable data={report?.data?.coding} />
 
       <div className='w-100'>
         <SearchInput
@@ -171,7 +166,7 @@ const ReportContainer = () => {
         columns={getColumnsReportContainer(selectedReportType)}
         data={selectedData}
         actions={[]}
-        loading={loadingData}
+        loading={isLoading}
         error={error?.data?.message}
         dir="rtl"
         footer={footer}

@@ -5,7 +5,6 @@ import notify from "../../../utils/useNotification";
 import ModalDelete from "../../../utils/Modals/DeleteModal/ModalDelete";
 import { useDeleteUserMutation, useGetUsersQuery } from '../../../redux/slice/super_admin/users/usersApi';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
-import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsUsersContainer } from '../../Table/tableColumns';
 import { actionsUsersContainer } from '../../Table/tableActions';
@@ -24,8 +23,6 @@ const UsersContainer = ({ show, handleClose, refresh }) => {
   const [showDelete, setShowDelete] = useState(false);
   const [showContract, setShowContract] = useState(false);
   const [showOffer, setShowOffer] = useState(false);
-  const [usersCache, setUsersCache] = useState([]);
-  const [loadingData, setLoadingData] = useState(false);
 
   const {
     data: users,
@@ -35,7 +32,6 @@ const UsersContainer = ({ show, handleClose, refresh }) => {
     isFetching
   } = useGetUsersQuery({ page, refresh }, { refetchOnMountOrArgChange: true });
 
-  useCacheInLocalStorage(users, "users", setUsersCache, setLoadingData);
 
   const [
     deleteUser,
@@ -131,9 +127,9 @@ const UsersContainer = ({ show, handleClose, refresh }) => {
     <div>
       <DynamicTable
         columns={getColumnsUsersContainer(handleShowContract, handleShowOffer, downloadContract , navigate )}
-        data={usersCache?.data || []}
+        data={users?.data || []}
         actions={actionsUsersContainer( handleShowUser, handleShowEdit, handleShowDelete, superAdminInfo )}
-        loading={loadingData}
+        loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />

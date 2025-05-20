@@ -4,15 +4,13 @@ import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import ModalDelete from '../../../utils/Modals/DeleteModal/ModalDelete';
 import { useDeleteRoadSignMutation, useGetRoadSignsQuery } from '../../../redux/slice/super_admin/road_signs/roadSignsApi';
-// import ModalEditRoadSign from './ModalEditRoadSign';
-import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
-import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 import DynamicTable from '../../Table/DynamicTable';
 import ModalTable from '../../Table/ModalTable';
 import { getColumnsRoadSignContainer } from '../../Table/tableColumns';
 import { actionsRoadSignsContainer } from '../../Table/tableActions';
 import { ModalAddRoadSign } from '../../../utils/Modals/AddModal/DynamicAddModal';
 import { ModalEditRoadSign } from '../../../utils/Modals/EditModal/EditModalConfigs';
+import ModalShow from '../../../utils/Modals/ModalShow/ModalShow';
 
 const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate, city, status
 }) => {
@@ -21,8 +19,6 @@ const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate,
   const [showEdit, setShowEidt] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [roadSignsCache, setRoadSignsCache] = useState([]);
-  const [loadingData, setLoadingData] = useState(false);
 
   const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
   const isSuperAdmin = superAdminInfo?.role === "super";
@@ -48,7 +44,6 @@ const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate,
   } = useGetRoadSignsQuery({ refresh, searchWord, startDate, endDate, city, status },
     { refetchOnMountOrArgChange: true });
 
-  useCacheInLocalStorage(roadSigns, "roadSignsCache", setRoadSignsCache, setLoadingData);
 
   const [
     deleteRoadSign,
@@ -105,9 +100,9 @@ const RoadSignsContainer = ({ show, handleClose, refresh, searchWord, startDate,
 
       <DynamicTable
         columns={getColumnsRoadSignContainer}
-        data={roadSignsCache?.data || []}
+        data={roadSigns?.data || []}
         actions={actionsRoadSignsContainer(handleShowRoadSign, handleShowEdit, handleShowDelete, isSuperAdmin)}
-        loading={isFetching}
+        loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />

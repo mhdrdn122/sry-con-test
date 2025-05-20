@@ -18,20 +18,16 @@ import ModalCart from "./ModalCart";
 import { useGetUsersQuery } from '../../../redux/slice/super_admin/users/usersApi';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'; 
 import { getColumnsAddReservationContainer } from '../../Table/tableColumns';
 import { actionsAddReservationContainer } from '../../Table/tableActions';
 import ModalShow from '../../../utils/Modals/ModalShow/ModalShow';
-// import ModalShow from '../../../utils/Modals/ShowModal/GenericModal';
 
 const AddReservationContainer = ({ show, handleClose, refresh, searchWord, startDate, endDate,
   showAddReserve, handleCloseAddReserve, city, status
 }) => {
   const [showSignRoad, setShowSignRoad] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [roadSignsCache, setRoadSignsCache] = useState([]);
-  const [loadingData, setLoadingData] = useState(false);
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const dispatch = useDispatch();
@@ -77,7 +73,6 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
   } = useGetRoadSignsQuery({ refresh, searchWord, startDate, endDate, city, status },
     { refetchOnMountOrArgChange: true });
 
-  useCacheInLocalStorage(roadSigns, "roadSigns", setRoadSignsCache, setLoadingData);
 
   const handleShowRoadSign = (data) => {
     setShowSignRoad(data);
@@ -267,9 +262,9 @@ const AddReservationContainer = ({ show, handleClose, refresh, searchWord, start
 
       <DynamicTable
         columns={getColumnsAddReservationContainer(selectedSigns, handleStatusClick)}
-        data={roadSignsCache?.data || []}
+        data={roadSigns?.data || []}
         actions={actionsAddReservationContainer(handleShowRoadSign)}
-        loading={loadingData}
+        loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />

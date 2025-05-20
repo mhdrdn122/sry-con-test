@@ -6,7 +6,6 @@ import ModalDelete from '../../../utils/Modals/DeleteModal/ModalDelete';
 import { useGetPaymentsQuery, useDeletePaymentMutation } from '../../../redux/slice/super_admin/payments/paymentsApi';
 import ModalShowPayment from './ModalShowPayment';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
-import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsPaymentsContainer } from '../../Table/tableColumns';
 import { actionsPaymentsContainer } from '../../Table/tableActions';
@@ -18,8 +17,6 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
   const [showEdit, setShowEidt] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [paymentsCache, setPaymentsCache] = useState([]);
-  const [loadingData, setLoadingData] = useState(false);
 
   const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
 
@@ -31,8 +28,6 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
     isFetching
   } = useGetPaymentsQuery({ page, refresh, searchWord },
     { refetchOnMountOrArgChange: true });
-
-  useCacheInLocalStorage(payments, "payments", setPaymentsCache, setLoadingData);
 
   const [
     deletePayment,
@@ -113,9 +108,6 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
       notify(error.message || "Error downloading the file", "error");
     }
   };
-  const onPress = async (page) => {
-    setPage(page);
-  };
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -134,9 +126,9 @@ const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
     <div>
       <DynamicTable
         columns={getColumnsPaymentsContainer}
-        data={paymentsCache?.data || []}
+        data={payments?.data || []}
         actions={actionsPaymentsContainer(handleShowPayment , handleDownload , isFetching , loading)}
-        loading={loadingData}
+        loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />

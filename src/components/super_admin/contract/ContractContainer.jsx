@@ -4,7 +4,6 @@ import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import { useDeleteContractMutation, useGetContractsQuery } from '../../../redux/slice/super_admin/contracts/contractsApi';
 import ModalRenewalContract from './ModalRenewalContract';
-import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsContractContainer } from '../../Table/tableColumns';
 import { actionsContractContainer } from '../../Table/tableActions';
@@ -14,8 +13,6 @@ const ContractContainer = ({ refresh }) => {
   const [page, setPage] = useState(1);
   const [contractRenewal, setContractRenewal] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
-  const [contractsCache, setContractsCache] = useState([]);
-  const [loadingData, setLoadingData] = useState(false);
   const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
 
   const {
@@ -26,7 +23,6 @@ const ContractContainer = ({ refresh }) => {
     isFetching
   } = useGetContractsQuery({ page, refresh }, { refetchOnMountOrArgChange: true });
 
-  useCacheInLocalStorage(contracts, "contracts", setContractsCache, setLoadingData);
 
   const [delteContract, { isError: deleteErorr, isLoading, isFetching: deleteFetching }] = useDeleteContractMutation();
 
@@ -78,9 +74,9 @@ const ContractContainer = ({ refresh }) => {
     <div>
       <DynamicTable
         columns={getColumnsContractContainer}
-        data={contractsCache?.data || []}
+        data={contracts?.data || []}
         actions={actionsContractContainer(handleDownload , handleRenewalContract , handleEdit , handleDelete , isFetching , loading , superAdminInfo)}
-        loading={loadingData}
+        loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />

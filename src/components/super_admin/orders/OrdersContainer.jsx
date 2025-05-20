@@ -13,7 +13,6 @@ import ModalEditOrder from './ModalEditOrder';
 import ModalConfirmed from './ModalConfirmed';
 import { useConfirmOneOrderMutation, useGetOrdersQuery } from '../../../redux/slice/super_admin/orders/ordersApi';
 import { baseURLLocal } from '../../../Api/baseURLLocal';
-import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsOrdersContainer } from '../../Table/tableColumns';
 import { actionsOrdersContainer } from '../../Table/tableActions';
@@ -25,8 +24,6 @@ const OrdersContainer = ({ refresh, searchWord }) => {
   const [showConfirmed, setShowConfirmed] = useState(false);
   const [selectedType2, setSelectedType2] = useState("");
   const [loadingExport, setLoadingExport] = useState(false);
-  const [ordersCache, setOrders] = useState([]);
-  const [loadingData, setLoadingData] = useState(false);
   const [selectedType, setSelectedType] = useState(""); 
   const theme = useTheme();
 
@@ -89,12 +86,7 @@ const OrdersContainer = ({ refresh, searchWord }) => {
   } = useGetOrdersQuery({ page, refresh, searchWord: debouncedType },
     { refetchOnMountOrArgChange: true });
 
-  useCacheInLocalStorage(orders, "orders", setOrders, setLoadingData);
-
-  const onPress = async (page) => {
-    setPage(page);
-  };
-
+  
   const handleTypeChange = async (event) => {
     const type = event.target.value;
     setSelectedType2(type);
@@ -140,9 +132,9 @@ const OrdersContainer = ({ refresh, searchWord }) => {
   <SelectOptionOrders selectedType={selectedType} setSelectedType={setSelectedType} handleTypeChange={handleTypeChange} />
       <DynamicTable
         columns={getColumnsOrdersContainer}
-        data={ordersCache?.data || []}
+        data={orders?.data || []}
         actions={actionsOrdersContainer(handleShowEdit , handleShowConfirmed)}
-        loading={loadingData}
+        loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />

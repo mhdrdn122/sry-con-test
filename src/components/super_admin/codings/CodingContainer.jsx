@@ -4,8 +4,6 @@ import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import { useDeleteCodingMutation, useGetCodingsQuery } from '../../../redux/slice/super_admin/codings/codingsApi';
 import ModalDelete from '../../../utils/Modals/DeleteModal/ModalDelete';
-// import ModalEditCoding from './ModalEditCoding';
-import useCacheInLocalStorage from '../../../hooks/superAdmin/useCacheInLocalStorage';
 import DynamicTable from '../../Table/DynamicTable';
 import { getColumnsCodingContainer } from '../../Table/tableColumns';
 import { actionsCodingContainer } from '../../Table/tableActions';
@@ -15,8 +13,6 @@ const CodingContainer = ({ show, handleClose, refresh }) => {
   const [page, setPage] = useState(1);
   const [showEdit, setShowEidt] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
-  const [codingsCache, setCodingsCache] = useState([]);
-  const [loadingData, setLoadingData] = useState(false);
   const superAdminInfo = JSON.parse(localStorage.getItem("superAdminInfo"));
 
   const {
@@ -27,7 +23,6 @@ const CodingContainer = ({ show, handleClose, refresh }) => {
     isFetching
   } = useGetCodingsQuery({ page, refresh }, { refetchOnMountOrArgChange: true });
 
-  useCacheInLocalStorage(codings, "codingsCache", setCodingsCache, setLoadingData);
 
   const [
     deleteCoding,
@@ -75,16 +70,15 @@ const CodingContainer = ({ show, handleClose, refresh }) => {
     <div>
       <DynamicTable
         columns={getColumnsCodingContainer}
-        data={codingsCache?.data || []}
+        data={codings?.data || []}
         actions={actionsCodingContainer(handleShowEdit , handleShowDelete , superAdminInfo) }
-        loading={loadingData}
+        loading={loading}
         error={error?.data?.message}
         dir="rtl"
       />
       
       <ModalAddCoding show={show} handleClose={handleClose} />
 
-      {/* <ModalEditCoding show={showEdit} handleClose={handleCloseEdit} /> */}
       <ModalEditCoding show={showEdit} handleClose={handleCloseEdit} />
       <ModalDelete
         show={showDelete}
