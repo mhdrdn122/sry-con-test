@@ -8,6 +8,8 @@ import { baseURLLocal } from '../../../Api/baseURLLocal';
 import DynamicTable from '../../Table/DynamicTable'
 import { getColumnsPaymentsContainer } from '../../Table/tableColumns';
 import { actionsPaymentsContainer } from '../../Table/tableActions';
+import ModalShowPayment from './ModalShowPayment/ModalShowPayment';
+
 
 const PaymentsContainer = ({ show, handleClose, refresh, searchWord }) => {
   const [page, setPage] = useState(1);

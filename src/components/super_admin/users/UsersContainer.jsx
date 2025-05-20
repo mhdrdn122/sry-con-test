@@ -15,6 +15,7 @@ import { ModalEditUser } from "../../../utils/Modals/EditModal/EditModalConfigs"
 import ModalShow from "../../../utils/Modals/ModalShow/ModalShow";
 import { CoPresentOutlined } from "@mui/icons-material";
 import ModalShowPayment from "../payments/ModalShowPayment/ModalShowPayment";
+import ModalShowContract from "./ModalShowContract";
 // import ModalShowContract from "./ModalShowContract";
 
 const UsersContainer = ({ show, handleClose, refresh }) => {
@@ -151,8 +152,8 @@ const UsersContainer = ({ show, handleClose, refresh }) => {
 
       <ModalEditUser   show={showEdit} handleClose={handleCloseEdit} />
       <ModalShowOffer show={showOffer} handleClose={handleCloseShowOffer} />
-      <ModalShowPayment show={showContract} handleClose={handleCloseShowContract} />
-      {/* <ModalShowContract show={showContract} handleClose={handleCloseShowContract } /> */}
+      {/* <ModalShowPayment show={showContract} handleClose={handleCloseShowContract} /> */}
+      <ModalShowContract show={showContract} handleClose={handleCloseShowContract } />
      
       <ToastContainer />
     </div>
